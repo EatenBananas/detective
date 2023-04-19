@@ -12,6 +12,7 @@ public class ListsManager : MonoBehaviour
     {
         HideLists();
         _lists[listId].SetActive(true);
+        isReading = true;
     }
     
     public void HideLists()
@@ -20,6 +21,7 @@ public class ListsManager : MonoBehaviour
         {
             list.SetActive(false);
         }
+        isReading = false;
     }
 
 }
