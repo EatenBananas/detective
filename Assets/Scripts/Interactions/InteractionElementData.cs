@@ -11,7 +11,7 @@ namespace Interactions
         [field:SerializeField] public int Number1 { get; set; }
         [field:SerializeField] public string Text1 { get; set; }
         [field:SerializeField] public string Text2 { get; set; }
-        [field:SerializeField] public StateMachine StateMachine { get; set; }
+        [field:SerializeField] public State StateMachine { get; set; }
         [field:SerializeField] public Interaction Interaction { get; set; }
     }
 }
