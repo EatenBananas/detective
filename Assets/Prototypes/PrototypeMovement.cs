@@ -24,5 +24,15 @@ namespace Prototypes
                 _agent.destination = hit.point;
             }
         }
+
+        public void Lock()
+        {
+            _agent.enabled = false;
+        }
+
+        public void Unlock()
+        {
+            _agent.enabled = true;
+        }
     }
 }

@@ -142,6 +142,20 @@ namespace EditorUtilities
 
                     break;
                 }
+                case InteractionElementType.TELEPORT:
+                {
+                    //temp find
+                    var om = FindObjectOfType<ObjectManager>();
+                    
+                    element.Number1 = editorUtilities.IntPopupField(
+                        element.Number1,
+                        "Location",
+                        om.GetObjectNames(),
+                        om.GetObjectIndexes());
+                    
+                    break;
+                }
+                
                 default:
                     throw new ArgumentOutOfRangeException();
             }

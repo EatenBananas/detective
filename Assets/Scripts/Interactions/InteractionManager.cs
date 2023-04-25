@@ -46,6 +46,8 @@ namespace Interactions
             }
             else if (_listenForKey && Input.GetKeyDown(_keyCode))
             {
+                
+
                 UIManager.Instance.HideDialogue();
                 CompleteElement();
             }
