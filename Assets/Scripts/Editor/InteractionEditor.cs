@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Interactions;
+using Interactions.Elements;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -27,33 +28,11 @@ namespace EditorUtilities
             _reorderableList = new ReorderableList(_interaction.Elements, typeof(Interaction))
             {
                 drawHeaderCallback = rect => { EditorGUI.LabelField(rect, HEADER_LABEL); },
-                // drawFooterCallback = null,
                 drawElementCallback = DrawListItem,
-                // drawElementBackgroundCallback = null,
-                // drawNoneElementCallback = null,
-                elementHeightCallback = delegate { return EditorGUIUtility.singleLineHeight * 5; },
-                // onReorderCallbackWithDetails = null,
-                // onReorderCallback = null,
-                // onSelectCallback = null,
-                // onAddCallback = null,
-                // onAddDropdownCallback = null,
-                // onRemoveCallback = null,
-                // onMouseDragCallback = null,
-                // onMouseUpCallback = null,
-                // onCanRemoveCallback = null,
-                // onCanAddCallback = null,
-                // onChangedCallback = null,
-                // displayAdd = true,
-                // displayRemove = true,
-                // elementHeight = 0,
-                // headerHeight = 0,
-                // footerHeight = 0,
-                // showDefaultBackground = false,
-                //serializedProperty = null,
-                // list = null,
-                // index = 0,
-                // multiSelect = false,
-                // draggable = false
+
+                // todo: Manage this
+                elementHeightCallback = delegate { return EditorGUIUtility.singleLineHeight * 15; },
+                
             };
         }
 
@@ -76,11 +55,11 @@ namespace EditorUtilities
         {
             var element = _reorderableList.list[index] as InteractionElementData;
             Debug.Assert(element != null, "element != null");
-            var editorUtilities = new Utilities(rect.x, rect.y);
+            var utils = new Utilities(rect.x, rect.y);
 
-            editorUtilities.TopMargin();
+            utils.TopMargin();
 
-            element.Type = (InteractionElementType) editorUtilities.EnumField(element.Type, "Type");
+            element.Type = (InteractionElementType) utils.EnumField(element.Type, "Type");
 
             // temp
             switch (element.Type)
@@ -93,7 +72,7 @@ namespace EditorUtilities
                     var cm = FindObjectOfType<CameraManager>();
 
                     //element.Number1 = editorUtilities.IntField(element.Number1, "Camera ID");
-                    element.Number1 = editorUtilities.IntPopupField(element.Number1, "Camera",
+                    element.Number1 = utils.IntPopupField(element.Number1, "Camera",
                         //new[] {"Main", "Mailbox", "Receptionist"}, new[] {0, 1, 2});
                         cm.GetCameraNames(),
                         cm.GetCameraIndexes());
@@ -101,39 +80,39 @@ namespace EditorUtilities
                 }
                 case InteractionElementType.GET_KEY:
                 {
-                    element.KeyCode = (KeyCode) editorUtilities.EnumField(element.KeyCode, "Key");
+                    element.KeyCode = (KeyCode) utils.EnumField(element.KeyCode, "Key");
                     break;
                 }
                 case InteractionElementType.DIALOGUE:
                 {
-                    element.DialogueNpc = editorUtilities.ScriptableObjectField(element.DialogueNpc, "NPC");
-                    element.Text2 = editorUtilities.TextField(element.Text2, "Dialogue", 3);
+                    element.DialogueNpc = utils.ScriptableObjectField(element.DialogueNpc, "NPC");
+                    element.Text2 = utils.TextField(element.Text2, "Dialogue", 3);
                     break;
                 }
                 case InteractionElementType.CONDITION:
                 {
-                    element.StateMachine = editorUtilities.ScriptableObjectField(element.StateMachine, "State Machine");
+                    element.StateMachine = utils.ScriptableObjectField(element.StateMachine, "State Machine");
 
                     if (element.StateMachine != null)
                     {
-                        element.Number1 = editorUtilities.IntPopupField(
+                        element.Number1 = utils.IntPopupField(
                             element.Number1,
                             "Equal to",
                             element.StateMachine.States.ToArray(),
                             Enumerable.Range(0, element.StateMachine.States.Count + 1).ToArray());
 
-                        element.Interaction = editorUtilities.ScriptableObjectField(element.Interaction, "Go to");
+                        element.Interaction = utils.ScriptableObjectField(element.Interaction, "Go to");
                     }
 
                     break;
                 }
                 case InteractionElementType.SET_STATE:
                 {
-                    element.StateMachine = editorUtilities.ScriptableObjectField(element.StateMachine, "State Machine");
+                    element.StateMachine = utils.ScriptableObjectField(element.StateMachine, "State Machine");
 
                     if (element.StateMachine != null)
                     {
-                        element.Number1 = editorUtilities.IntPopupField(
+                        element.Number1 = utils.IntPopupField(
                             element.Number1,
                             "Set to",
                             element.StateMachine.States.ToArray(),
@@ -147,7 +126,7 @@ namespace EditorUtilities
                     //temp find
                     var om = FindObjectOfType<ObjectManager>();
                     
-                    element.Number1 = editorUtilities.IntPopupField(
+                    element.Number1 = utils.IntPopupField(
                         element.Number1,
                         "Location",
                         om.GetObjectNames(),
@@ -155,7 +134,30 @@ namespace EditorUtilities
                     
                     break;
                 }
-                
+
+                case InteractionElementType.CHOICE:
+                {
+                    var options = element.Options;
+                    var desiredCount = Math.Max(utils.IntField(options.Count, "Count"), 0);
+
+                    while (desiredCount > options.Count)
+                    {
+                        element.Options.Add(new Option());
+                    }
+
+                    while (desiredCount < options.Count && options.Count > 0)
+                    {
+                        element.Options.RemoveAt(element.Options.Count-1);
+                    }
+                    
+                    foreach (var option in element.Options)
+                    {
+                        utils.Label("Option");
+                        option.Text = utils.TextField(option.Text, "Name");
+                        option.Outcome = utils.ScriptableObjectField(option.Outcome, "Outcome");
+                    }
+                    break;
+                }
                 default:
                     throw new ArgumentOutOfRangeException();
             }

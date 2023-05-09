@@ -161,7 +161,7 @@ namespace EditorUtilities
             NewLine();
             return value;
         }
-
+        
         private void NewLine(int lines = 1)
         {
             _y += (LINE_HEIGHT) * lines;

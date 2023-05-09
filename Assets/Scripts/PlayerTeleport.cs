@@ -17,8 +17,14 @@ public class PlayerTeleport : MonoBehaviour
     {
         gameObject.transform.position = position;
         
-        //temp
+        // temp
         
         GetComponent<PrototypeMovement>().Lock();
+    }
+
+    public void Exit()
+    {
+        // temp
+        GetComponent<PrototypeMovement>().Unlock();
     }
 }
