@@ -34,10 +34,10 @@ public class UIManager : MonoBehaviour
         _interactableText.text = string.Empty;
     }
 
-    public void ShowDialogue(string npcName, string dialogueText)
+    public void ShowDialogue(DialogueNpc dialogueNpc, string dialogueText)
     {
         _dialoguePanel.SetActive(true);
-        _dialogueNpcName.text = npcName;
+        _dialogueNpcName.text = dialogueNpc.NpcName;
         _dialogueText.text = dialogueText;
     }
 

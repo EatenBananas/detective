@@ -106,7 +106,7 @@ namespace EditorUtilities
                 }
                 case InteractionElementType.DIALOGUE:
                 {
-                    element.Text1 = editorUtilities.TextField(element.Text1, "NPC Name");
+                    element.DialogueNpc = editorUtilities.ScriptableObjectField(element.DialogueNpc, "NPC");
                     element.Text2 = editorUtilities.TextField(element.Text2, "Dialogue", 3);
                     break;
                 }

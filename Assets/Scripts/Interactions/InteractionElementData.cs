@@ -13,5 +13,7 @@ namespace Interactions
         [field:SerializeField] public string Text2 { get; set; }
         [field:SerializeField] public State StateMachine { get; set; }
         [field:SerializeField] public Interaction Interaction { get; set; }
+        
+        [field:SerializeField] public DialogueNpc DialogueNpc { get; set; }
     }
 }
