@@ -25,6 +25,12 @@ namespace Player.Movement
             _playerInput = new PlayerInputActions();
 
             _playerInput.Player.LeftClick.canceled += OnLeftClick;
+            _playerInput.Player.Sneaking.performed += OnSneaking;
+        }
+
+        private void OnSneaking(InputAction.CallbackContext obj)
+        {
+            _playerMovement.PlayerMovingState = PlayerMovingState.Sneaking;
         }
 
         private void OnLeftClick(InputAction.CallbackContext obj)

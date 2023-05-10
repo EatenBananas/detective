@@ -2,7 +2,7 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace CameraSystem
+namespace CameraSystem.CameraLookingOnRoom
 {
     public class CameraPositioning : MonoBehaviour
     {

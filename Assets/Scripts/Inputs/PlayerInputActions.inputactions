@@ -1,5 +1,5 @@
 {
-    "name": "PlayerInput",
+    "name": "PlayerInputActions",
     "maps": [
         {
             "name": "Player",
@@ -54,6 +54,15 @@
                     "name": "DebugBar",
                     "type": "Button",
                     "id": "166d346a-9341-4da2-80ca-b6d0b66bf5f8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Sneaking",
+                    "type": "Button",
+                    "id": "258b4ed7-d15d-4916-a4ac-49d9bdd8cb37",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -124,6 +133,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "DebugBar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d0d68878-8e46-4458-b41d-9e0f95adf7a7",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sneaking",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

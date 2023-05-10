@@ -80,6 +80,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sneaking"",
+                    ""type"": ""Button"",
+                    ""id"": ""258b4ed7-d15d-4916-a4ac-49d9bdd8cb37"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -148,6 +157,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""DebugBar"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d0d68878-8e46-4458-b41d-9e0f95adf7a7"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sneaking"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -162,6 +182,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
         m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
         m_Player_DebugBar = m_Player.FindAction("DebugBar", throwIfNotFound: true);
+        m_Player_Sneaking = m_Player.FindAction("Sneaking", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +248,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Scroll;
     private readonly InputAction m_Player_MousePosition;
     private readonly InputAction m_Player_DebugBar;
+    private readonly InputAction m_Player_Sneaking;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -237,6 +259,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Scroll => m_Wrapper.m_Player_Scroll;
         public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
         public InputAction @DebugBar => m_Wrapper.m_Player_DebugBar;
+        public InputAction @Sneaking => m_Wrapper.m_Player_Sneaking;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -264,6 +287,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @DebugBar.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebugBar;
                 @DebugBar.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebugBar;
                 @DebugBar.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebugBar;
+                @Sneaking.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSneaking;
+                @Sneaking.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSneaking;
+                @Sneaking.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSneaking;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -286,6 +312,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @DebugBar.started += instance.OnDebugBar;
                 @DebugBar.performed += instance.OnDebugBar;
                 @DebugBar.canceled += instance.OnDebugBar;
+                @Sneaking.started += instance.OnSneaking;
+                @Sneaking.performed += instance.OnSneaking;
+                @Sneaking.canceled += instance.OnSneaking;
             }
         }
     }
@@ -298,5 +327,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnScroll(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
         void OnDebugBar(InputAction.CallbackContext context);
+        void OnSneaking(InputAction.CallbackContext context);
     }
 }
