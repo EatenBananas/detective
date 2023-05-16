@@ -1,3 +1,4 @@
+using CameraSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,7 +31,7 @@ namespace Player.Movement
 
         private void OnSneaking(InputAction.CallbackContext obj)
         {
-            _playerMovement.PlayerMovingState = PlayerMovingState.Sneaking;
+            _playerMovement.SetPlayerSpeed(PlayerMovingState.Sneaking);
         }
 
         private void OnLeftClick(InputAction.CallbackContext obj)
@@ -38,9 +39,9 @@ namespace Player.Movement
             // Get mouse pos
             var mousePosition = _playerInput.Player.MousePosition.ReadValue<Vector2>();
             
-            if (Camera.main != null)
+            if (CameraGetter.MainCamera != null)
             {
-                var ray = Camera.main.ScreenPointToRay(mousePosition);
+                var ray = CameraGetter.MainCamera.ScreenPointToRay(mousePosition);
                 if (!Physics.Raycast(ray, out var hit)) return;
                 
                 // Move Player to hit point from mouse ray
