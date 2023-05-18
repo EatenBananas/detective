@@ -30,7 +30,7 @@ public class VolumeManager : MonoBehaviour
     [SerializeField] private Slider _sfxSlider;
     [SerializeField] private Slider _dialogSlider;
 
-    public enum _volumeType
+    public enum VolumeType
     {
         MASTER,
         MUSIC,
@@ -38,7 +38,7 @@ public class VolumeManager : MonoBehaviour
         DIALOG
     }
 
-    [Header("Type")] [SerializeField] public _volumeType volumeType;
+    [Header("Type")] [SerializeField] public VolumeType volumeType;
 
 
     private void Awake()
@@ -49,30 +49,61 @@ public class VolumeManager : MonoBehaviour
         _dialogBus = RuntimeManager.GetBus("bus:/Dialog");
     }
 
-    void Update()
+    public void OnSliderValueChanged(int volumeType)
+    {
+        switch ((VolumeType)volumeType)
+        {
+            case VolumeType.MASTER:
+                masterVolume = _masterSlider.value;
+                break;
+            case VolumeType.MUSIC:
+                musicVolume = _musicSlider.value;
+                break;
+            case VolumeType.SFX:
+                sfxVolume = _sfxSlider.value;
+                break;
+            case VolumeType.DIALOG:
+                dialogVolume = _dialogSlider.value;
+                break;
+        }
+        ChangeVolumes();
+    }
+    private void ChangeVolumes()
     {
         _masterBus.setVolume(masterVolume);
         _musicBas.setVolume(musicVolume);
         _sfxBus.setVolume(sfxVolume);
         _dialogBus.setVolume(dialogVolume);
     }
-
-    public void OnSliderValueChanged(_volumeType volumeType)
+    public void SetVolume(int enumNr)
     {
-        switch (volumeType)
+        switch ((VolumeType)enumNr)
         {
-            case _volumeType.MASTER:
-                masterVolume = _masterSlider.value;
+            case VolumeType.MASTER:
+                MuteBus(_masterBus);
                 break;
-            case _volumeType.MUSIC:
-                musicVolume = _musicSlider.value;
+            case VolumeType.MUSIC:
+                MuteBus(_musicBas);
                 break;
-            case _volumeType.SFX:
-                sfxVolume = _sfxSlider.value;
+            case VolumeType.SFX:
+                MuteBus(_sfxBus);
                 break;
-            case _volumeType.DIALOG:
-                dialogVolume = _dialogSlider.value;
+            case VolumeType.DIALOG:
+                MuteBus(_dialogBus);
                 break;
+        }  
+    }
+    private void MuteBus(Bus bus)
+    {
+        bus.getVolume(out float volB);
+        if (volB == 0)
+        {
+            bus.setVolume(1);
+
+        }
+        else
+        {
+            bus.setVolume(0);
         }
     }
     
