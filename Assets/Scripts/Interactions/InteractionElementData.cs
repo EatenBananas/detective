@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Equipment;
 using Interactions.Elements;
 using UnityEngine;
 
@@ -18,5 +19,7 @@ namespace Interactions
         [field:SerializeField] public Interaction Interaction { get; set; }
         [field:SerializeField] public DialogueNpc DialogueNpc { get; set; }
         [field: SerializeField] public List<Option> Options { get; set; } = new List<Option>();
+        
+        [field: SerializeField] public Item Item { get; set; }
     }
 }

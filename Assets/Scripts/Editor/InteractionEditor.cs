@@ -158,6 +158,11 @@ namespace EditorUtilities
                     }
                     break;
                 }
+                case InteractionElementType.EQUIP:
+                {
+                    element.Item = utils.ScriptableObjectField(element.Item, "Item");
+                    break;
+                }
                 default:
                     throw new ArgumentOutOfRangeException();
             }
