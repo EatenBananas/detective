@@ -60,12 +60,30 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sneaking",
+                    "name": "Sneak",
                     "type": "Button",
                     "id": "258b4ed7-d15d-4916-a4ac-49d9bdd8cb37",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Walk",
+                    "type": "Button",
+                    "id": "5635f94b-f9ea-4cf0-8bf5-0c5815da10bb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "ee37c0a1-3200-476c-bcc0-4d4bccb13ebd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "MultiTap",
                     "initialStateCheck": false
                 }
             ],
@@ -138,12 +156,34 @@
                 },
                 {
                     "name": "",
+                    "id": "b4bf3fee-9be7-4b52-b61f-f5136a5857ca",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ceacff4e-4220-4495-a2fb-bff248da0429",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d0d68878-8e46-4458-b41d-9e0f95adf7a7",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Sneaking",
+                    "action": "Sneak",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

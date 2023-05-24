@@ -6,47 +6,58 @@ namespace Player.Movement
 {
     public class InputsController : MonoBehaviour
     {
-        private PlayerInputActions _playerInput;
+        public static PlayerInputActions PlayerInput;
+        
         private PlayerMovement _playerMovement;
 
-        private void OnEnable()
-        {
-            _playerInput.Enable();
-        }
-
-        private void OnDisable()
-        {
-            _playerInput.Disable();
-        }
+        private void OnEnable() => PlayerInput.Enable();
+        private void OnDisable() => PlayerInput.Disable();
 
         private void Awake()
         {
             _playerMovement = GetComponent<PlayerMovement>();
-            
-            _playerInput = new PlayerInputActions();
+            PlayerInput = new PlayerInputActions();
 
-            _playerInput.Player.LeftClick.canceled += OnLeftClick;
-            _playerInput.Player.Sneaking.performed += OnSneaking;
+            PlayerInput.Player.Sneak.started += OnStartedSneak;
+            PlayerInput.Player.Sneak.canceled += OnCanceledSneak;
+            PlayerInput.Player.Walk.performed += OnWalk;
+            PlayerInput.Player.Sprint.performed += OnSprint;
         }
 
-        private void OnSneaking(InputAction.CallbackContext obj)
+        private void OnCanceledSneak(InputAction.CallbackContext obj)
         {
-            _playerMovement.SetPlayerSpeed(PlayerMovingState.Sneaking);
+            Debug.Log($"OnCanceledSneak");
+            _playerMovement.SetPlayerMovingState(PlayerMovingState.Walking);
         }
 
-        private void OnLeftClick(InputAction.CallbackContext obj)
+        private void OnStartedSneak(InputAction.CallbackContext obj)
         {
-            // Get mouse pos
-            var mousePosition = _playerInput.Player.MousePosition.ReadValue<Vector2>();
+            Debug.Log($"OnStartedSneak");
+            _playerMovement.SetPlayerMovingState(PlayerMovingState.Sneaking);
+        }
+
+        private void OnWalk(InputAction.CallbackContext obj)
+        {
+            if (PlayerMovement.PlayerMovingState != PlayerMovingState.Sneaking)
+                _playerMovement.SetPlayerMovingState(PlayerMovingState.Walking);
             
-            if (CameraGetter.MainCamera != null)
-            {
-                var ray = CameraGetter.MainCamera.ScreenPointToRay(mousePosition);
-                if (!Physics.Raycast(ray, out var hit)) return;
-                
-                // Move Player to hit point from mouse ray
-                _playerMovement.SetPlayerTargetPosition(hit.point);
-            }
+            _playerMovement.SetPlayerTargetPosition(GetMouseToWorldPosition());
+        }
+
+        private void OnSprint(InputAction.CallbackContext obj)
+        {
+            if (PlayerMovement.PlayerMovingState != PlayerMovingState.Sneaking)
+                _playerMovement.SetPlayerMovingState(PlayerMovingState.Sprinting);
+            
+            _playerMovement.SetPlayerTargetPosition(GetMouseToWorldPosition());
+        }
+
+        private static Vector3 GetMouseToWorldPosition()
+        {
+            var mousePosition = PlayerInput.Player.MousePosition.ReadValue<Vector2>();
+            var ray = CameraGetter.MainCamera.ScreenPointToRay(mousePosition);
+            Physics.Raycast(ray, out var hit);
+            return hit.point;
         }
     }
 }
