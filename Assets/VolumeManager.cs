@@ -9,9 +9,9 @@ using UnityEngine.UI;
 
 public class VolumeManager : MonoBehaviour
 {
-    [Header("Volume")]
+    [Header("Volume monitoring")]
     [Range(0, 1)] 
-    public float masterVolume = 1;
+    public float masterVolume = 0;
     [Range(0, 1)] 
     public float musicVolume = 1;
     [Range(0, 1)] 
@@ -24,7 +24,7 @@ public class VolumeManager : MonoBehaviour
     private Bus _musicBas;
     private Bus _sfxBus;
     private Bus _dialogBus;
-
+    
     [SerializeField] private Slider _masterSlider;
     [SerializeField] private Slider _musicSlider;
     [SerializeField] private Slider _sfxSlider;
@@ -47,6 +47,8 @@ public class VolumeManager : MonoBehaviour
         _musicBas = RuntimeManager.GetBus("bus:/Music");
         _sfxBus = RuntimeManager.GetBus("bus:/SFX");
         _dialogBus = RuntimeManager.GetBus("bus:/Dialog");
+        ChangeVolumes();
+        SetSlidersCorrect();
     }
 
     public void OnSliderValueChanged(int volumeType)
@@ -80,31 +82,56 @@ public class VolumeManager : MonoBehaviour
         switch ((VolumeType)enumNr)
         {
             case VolumeType.MASTER:
-                MuteBus(_masterBus);
+                MuteBus(enumNr);
                 break;
             case VolumeType.MUSIC:
-                MuteBus(_musicBas);
+                MuteBus(enumNr);
                 break;
             case VolumeType.SFX:
-                MuteBus(_sfxBus);
+                MuteBus(enumNr);
                 break;
             case VolumeType.DIALOG:
-                MuteBus(_dialogBus);
+                MuteBus(enumNr);
                 break;
-        }  
+        }
     }
-    private void MuteBus(Bus bus)
+    private void MuteBus(int muteNr)
     {
-        bus.getVolume(out float volB);
-        if (volB == 0)
+        float tempVolume = 0;
+        
+        switch ((VolumeType)muteNr)
         {
-            bus.setVolume(1);
-
+            case VolumeType.MASTER:
+                tempVolume = isVolumeMuted(masterVolume);
+                masterVolume = tempVolume;
+                break;
+            case VolumeType.MUSIC:
+                tempVolume = isVolumeMuted(musicVolume);
+                musicVolume = tempVolume;
+                break;
+            case VolumeType.SFX:
+                tempVolume = isVolumeMuted(sfxVolume);
+                sfxVolume = tempVolume;
+                break;
+            case VolumeType.DIALOG:
+                tempVolume = isVolumeMuted(dialogVolume);
+                dialogVolume = tempVolume;
+                break;
         }
-        else
-        {
-            bus.setVolume(0);
-        }
+        SetSlidersCorrect();
     }
-    
+
+    private void SetSlidersCorrect()
+    {
+        _masterSlider.value = masterVolume;
+        _musicSlider.value = musicVolume;
+        _sfxSlider.value = sfxVolume;
+        _dialogSlider.value = dialogVolume;
+    }
+    private float isVolumeMuted(float volume)
+    {
+        if (volume == 0)
+            return 1;
+        return 0;
+    }
 }
