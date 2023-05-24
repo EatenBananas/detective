@@ -9,19 +9,19 @@ namespace Player.Movement
         Standing,
         Sneaking,
         Walking,
-        Running
+        Sprinting
     }
     
     public class PlayerMovement : MonoBehaviour
     {
-        public PlayerMovingState PlayerMovingState { get; private set; }
-        public Vector3 PlayerTargetPosition { get; private set; }
+        public static PlayerMovingState PlayerMovingState { get; private set; }
+        public static Vector3 LastPlayerTargetPosition => _agent.destination;
         
         [SerializeField] private float _walkSpeed;
         [SerializeField] private float _runSpeed;
         [SerializeField] private float _sneakSpeed;
         
-        private NavMeshAgent _agent;
+        private static NavMeshAgent _agent;
 
         private void Awake()
         {
@@ -31,14 +31,11 @@ namespace Player.Movement
         public void SetPlayerTargetPosition(Vector3 newTargetPosition)
         {
             // Move agent to position
-            if (_agent.isOnNavMesh)
-            {
+            if (_agent.isOnNavMesh) 
                 _agent.destination = newTargetPosition;
-                PlayerTargetPosition = newTargetPosition;
-            }
         }
 
-        public void SetPlayerSpeed(PlayerMovingState playerMovingState)
+        public void SetPlayerMovingState(PlayerMovingState playerMovingState)
         {
             switch (playerMovingState)
             {
@@ -50,7 +47,7 @@ namespace Player.Movement
                 case PlayerMovingState.Walking:
                     _agent.speed = _walkSpeed;
                     break;
-                case PlayerMovingState.Running:
+                case PlayerMovingState.Sprinting:
                     _agent.speed = _runSpeed;
                     break;
                 default:

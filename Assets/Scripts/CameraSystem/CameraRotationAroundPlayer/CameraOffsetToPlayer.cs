@@ -1,19 +1,18 @@
 using Cinemachine;
-using Player;
 using UnityEngine;
 
 namespace CameraSystem.CameraRotationAroundPlayer
 {
     public class CameraOffsetToPlayer : MonoBehaviour
     {
-        [SerializeField] private Vector3 _offset;
-        [SerializeField] private CinemachineVirtualCamera _virtualCam;
-        [SerializeField] private Transform CameraRoot;
-        
-        [Range(0, 10)] [SerializeField] private float _mouseSensitivity = 1f;
-        [Range(0, 1)] [SerializeField] private float _smoothness = 0.1f;
-        [Range(0, 180)] [SerializeField] private float _cameraCeiling = 85f;
-        [Range(0, 180)] [SerializeField] private float _cameraFlour = 25;
+        // [SerializeField] private Vector3 _offset;
+        // [SerializeField] private CinemachineVirtualCamera _virtualCam;
+        // [SerializeField] private Transform CameraRoot;
+        //
+        // [Range(0, 10)] [SerializeField] private float _mouseSensitivity = 1f;
+        // [Range(0, 1)] [SerializeField] private float _smoothness = 0.1f;
+        // [Range(0, 180)] [SerializeField] private float _cameraCeiling = 85f;
+        // [Range(0, 180)] [SerializeField] private float _cameraFlour = 25;
         
         private PlayerInputActions _playerInputActions;
         private Vector2 _rotation;
