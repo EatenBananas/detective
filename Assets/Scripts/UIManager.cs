@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Equipment;
 using Interactions.Elements;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -15,11 +17,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _dialoguePanel;
     [SerializeField] private TextMeshProUGUI _dialogueNpcName;
     [SerializeField] private TextMeshProUGUI _dialogueText;
-    [Header("Options")] 
+    [Header("Choices")] 
     [SerializeField] private GameObject _optionsPanel;
     [SerializeField] private TextMeshProUGUI _optionsText;
-    
-    private void Start()
+    [Header("Equipment")]
+    [SerializeField] private GameObject _equipmentPanel;
+
+    [SerializeField] private TextMeshProUGUI [] _itemButtonTexts;
+
+    private void Awake()
     {
         Instance = this;
         Debug.Assert(_interactableText != null, "_interactableText != null");
@@ -28,7 +34,10 @@ public class UIManager : MonoBehaviour
         Debug.Assert(_dialogueText != null, "_dialogueText != null");
         Debug.Assert(_optionsPanel != null, "_optionsPanel != null");
         Debug.Assert(_optionsText != null, "_optionsText != null");
-        
+    }
+
+    private void Start()
+    {
         HideDialogue();
         HideOptions();
     }
@@ -63,6 +72,21 @@ public class UIManager : MonoBehaviour
         }
 
         _optionsText.text = text;
+        
+    }
+
+    public void ReloadEquipment(List<Item> items)
+    {
+        foreach (var buttonText in _itemButtonTexts)
+        {
+            buttonText.text = string.Empty;
+        }
+        
+        for (int i = 0; i < items.Count && i < _itemButtonTexts.Length; i++)
+        {
+            _itemButtonTexts[i].text = items[i].ItemName;
+        }
+
     }
 
     public void HideOptions() => _optionsPanel.SetActive(false);
