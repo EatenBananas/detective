@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{b9dff518-136a-433f-a2dd-0fe5d25ee5c5}">
+		<property name="name">
+			<value>Menu Ambient State</value>
+		</property>
+		<relationship name="folder">
+			<destination>{2f9b76f7-01c0-4d83-8fb6-6feef8c71252}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{475276f0-c68d-4766-806b-cc663b606bfc}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{475276f0-c68d-4766-806b-cc663b606bfc}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>In Menu</value>
+			<value>Exit Menu</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
