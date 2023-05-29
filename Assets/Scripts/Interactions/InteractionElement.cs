@@ -17,6 +17,8 @@ namespace Interactions
                 InteractionElementType.DIALOGUE => new Dialogue(data),
                 InteractionElementType.CONDITION => new Condition(data),
                 InteractionElementType.SET_STATE => new SetState(data),
+                InteractionElementType.TELEPORT => new Teleport(data),
+                InteractionElementType.CHOICE => new Choice(data),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

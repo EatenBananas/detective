@@ -5,19 +5,20 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "New State Machine")]
 [Serializable]
-public class StateMachine : ScriptableObject
+public class State : ScriptableObject
 {
     [field:SerializeField] 
     public List<string> States { get; private set; } = new() {"No", "Yes"};
     
     // todo: nice list
     [field:SerializeField]
-    public int InitialState { get; private set; } = 0;
+    [field:HideInInspector]
+    public int InitialState { get; set; } = 0;
 
-    public int State { get; set; }
+    public int CurrentState { get; set; }
 
     private void OnEnable()
     {
-        State = InitialState;
+        CurrentState = InitialState;
     }
 }

@@ -4,8 +4,7 @@ namespace Interactions.Elements
 {
     public class Dialogue : InteractionElement
     {
-        // todo: this should be moved to separate SO
-        private readonly string _npcName;
+        private readonly DialogueNpc _dialogueNpc;
         private readonly string _dialogueText;
 
         // todo: this should be moved
@@ -13,12 +12,12 @@ namespace Interactions.Elements
         
         public Dialogue(InteractionElementData data)
         {
-            _npcName = data.Text1;
+            _dialogueNpc = data.DialogueNpc;
             _dialogueText = data.Text2;
         }
         public override void Execute()
         {
-            UIManager.Instance.ShowDialogue(_npcName, _dialogueText);
+            UIManager.Instance.ShowDialogue(_dialogueNpc, _dialogueText);
             InteractionManager.Instance.ListenForKey(DIALOGUE_ESCAPE_KEY);
         }
     }

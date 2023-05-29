@@ -2,7 +2,7 @@ namespace Interactions.Elements
 {
     public class Condition : InteractionElement
     {
-        private StateMachine _stateMachine;
+        private State _stateMachine;
         private int _equalTo;
         private Interaction _goTo;
 
@@ -15,7 +15,7 @@ namespace Interactions.Elements
         
         public override void Execute()
         {
-            if (_stateMachine.State == _equalTo)
+            if (_stateMachine.CurrentState == _equalTo)
             {
                 InteractionManager.Instance.StartInteraction(_goTo);
             }

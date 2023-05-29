@@ -2,6 +2,6 @@
 {
     public enum InteractionElementType
     {
-        CHANGE_CAMERA, GET_KEY, DIALOGUE, CONDITION, SET_STATE
+        CHANGE_CAMERA, GET_KEY, DIALOGUE, CONDITION, SET_STATE, TELEPORT, CHOICE
     }
 }

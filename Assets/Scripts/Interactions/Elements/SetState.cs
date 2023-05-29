@@ -2,7 +2,7 @@ namespace Interactions.Elements
 {
     public class SetState : InteractionElement
     {
-        private StateMachine _stateMachine;
+        private State _stateMachine;
         private int _state;
 
         public SetState(InteractionElementData data)
@@ -13,7 +13,7 @@ namespace Interactions.Elements
         
         public override void Execute()
         {
-            _stateMachine.State = _state;
+            _stateMachine.CurrentState = _state;
             InteractionManager.Instance.CompleteElement();
         }
     }

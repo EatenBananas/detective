@@ -10,18 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d7993e100484a799b014e92b5b98ca9, type: 3}
-  m_Name: Receptionist3
+  m_Name: ChoiceTest
   m_EditorClassIdentifier: 
   <Elements>k__BackingField:
-  - <Type>k__BackingField: 2
-    <KeyCode>k__BackingField: 0
-    <Number1>k__BackingField: 0
-    <Text1>k__BackingField: Receptionist
-    <Text2>k__BackingField: Cute isn't it?
-    <StateMachine>k__BackingField: {fileID: 0}
-    <Interaction>k__BackingField: {fileID: 0}
-    <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
-  - <Type>k__BackingField: 0
+  - <Type>k__BackingField: 6
     <KeyCode>k__BackingField: 0
     <Number1>k__BackingField: 0
     <Text1>k__BackingField: 
@@ -29,3 +21,10 @@ MonoBehaviour:
     <StateMachine>k__BackingField: {fileID: 0}
     <Interaction>k__BackingField: {fileID: 0}
     <DialogueNpc>k__BackingField: {fileID: 0}
+    <Options>k__BackingField:
+    - <Text>k__BackingField: Choice1
+      <Outcome>k__BackingField: {fileID: 11400000, guid: beeaa7da8dc666347847513e4db6346d, type: 2}
+    - <Text>k__BackingField: Choice2
+      <Outcome>k__BackingField: {fileID: 11400000, guid: 5cfc3cc91df6b224a8e7d93b60c9e8c9, type: 2}
+    - <Text>k__BackingField: Choice3
+      <Outcome>k__BackingField: {fileID: 11400000, guid: 1de33f4c7ce090f4c89f9ae3a2d0ddf0, type: 2}
