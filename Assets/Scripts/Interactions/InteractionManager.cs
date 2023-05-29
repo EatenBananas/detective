@@ -55,8 +55,7 @@ namespace Interactions
                 // temp here
                 UIManager.Instance.HideDialogue();
                 UIManager.Instance.HideOptions();
-                PlayerTeleport.Instance.Exit();
-                
+
                 CompleteElement();
             }
             else if (_listenForOptions)
@@ -115,6 +114,7 @@ namespace Interactions
             else
             {
                 Debug.Log("Interaction completed");
+                CameraManager.Instance.ResetCamera();
                 _interaction = null;
             }
         }
