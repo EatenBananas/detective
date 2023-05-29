@@ -6,7 +6,6 @@ using UnityEngine;
 public class ListsManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _lists;
-    [SerializeField] private bool isReading = false;
 
     public void ShowList(int listId)
     {
