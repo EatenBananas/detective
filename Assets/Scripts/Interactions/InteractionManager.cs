@@ -83,7 +83,8 @@ namespace Interactions
                 UIManager.Instance.HideOptions();
                 return;
             }
-            Debug.LogError("Invalid option!");
+            Debug.Log("Option skip");
+            CompleteElement();
         }
 
         public void StartInteraction(Interaction interaction)
@@ -91,6 +92,7 @@ namespace Interactions
             _interaction = interaction;
             Debug.Log($"Starting {_interaction.name}");
             UIManager.Instance.HideInteractableText();
+            UIManager.Instance.HideEquipment();
             _currentElementIndex = 0;
             StartElement();
         }
