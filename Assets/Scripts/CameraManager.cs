@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-[ExecuteInEditMode]
 public class CameraManager : MonoBehaviour
 {
     public static CameraManager Instance { get; private set; }

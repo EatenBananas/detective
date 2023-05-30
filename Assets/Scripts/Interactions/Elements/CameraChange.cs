@@ -1,5 +1,4 @@
-﻿using Prototypes;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Interactions.Elements
 {
@@ -16,6 +15,7 @@ namespace Interactions.Elements
         {
             CameraManager.Instance.ChangeCamera(_cameraId);
             InteractionManager.Instance.CompleteElement();
+            UIManager.Instance.HideEquipment();
         }
     }
 }

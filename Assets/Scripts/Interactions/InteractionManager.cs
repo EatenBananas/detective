@@ -115,7 +115,13 @@ namespace Interactions
             {
                 Debug.Log("Interaction completed");
                 CameraManager.Instance.ResetCamera();
+                UIManager.Instance.ShowEquipment();
                 _interaction = null;
+
+                if (_interactable != null)
+                {
+                    UIManager.Instance.ShowInteractableText(_interactable.Text);
+                }
             }
         }
 

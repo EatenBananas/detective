@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Equipment;
+using Interactions;
 using Interactions.Elements;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -24,7 +26,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _equipmentPanel;
 
     [SerializeField] private TextMeshProUGUI [] _itemButtonTexts;
+    [SerializeField] private Color _selectedColor = Color.red;
+    [SerializeField] private RectTransform _cursorIcon;
+    [SerializeField] private Image _cursorSprite;
 
+    private bool _isCursorIconActive;
+    
     private void Awake()
     {
         Instance = this;
@@ -40,6 +47,16 @@ public class UIManager : MonoBehaviour
     {
         HideDialogue();
         HideOptions();
+        
+        _cursorIcon.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (_isCursorIconActive)
+        {
+            UpdateCursor();
+        }
     }
 
     public void ShowInteractableText(string text)
@@ -75,7 +92,7 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void ReloadEquipment(List<Item> items)
+    public void ReloadEquipment(List<Item> items, int activeSlot)
     {
         foreach (var buttonText in _itemButtonTexts)
         {
@@ -85,9 +102,45 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < items.Count && i < _itemButtonTexts.Length; i++)
         {
             _itemButtonTexts[i].text = items[i].ItemName;
+            _itemButtonTexts[i].color = i == activeSlot ? _selectedColor : Color.black;
+        }
+
+        _isCursorIconActive = activeSlot >= 0;
+        _cursorIcon.gameObject.SetActive(_isCursorIconActive);
+        if (_isCursorIconActive)
+        {
+            _cursorSprite.sprite = items[activeSlot].Icon;
         }
 
     }
 
+    public void HideEquipment() => _equipmentPanel.SetActive(false);
+
+    public void ShowEquipment() => _equipmentPanel.SetActive(true);
+
     public void HideOptions() => _optionsPanel.SetActive(false);
+
+    private void UpdateCursor()
+    {
+        _cursorIcon.position = Input.mousePosition;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out var hit))
+            {
+                var obj = hit.transform.gameObject;
+                Debug.Log($"HIT {obj.name}");
+
+                var interaction = obj.GetComponent<ItemInteraction>();
+                if (interaction != null)
+                {
+                    EquipmentManager.Instance.Use(interaction);
+                }
+                
+                // temp
+                EquipmentManager.Instance.Select(-1);
+            }
+        }
+    }
 }

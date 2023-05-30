@@ -7,6 +7,7 @@ namespace Equipment
     {
         // avoiding name conflict with object.name
         [field:SerializeField] public string ItemName { get; set; }
+        [field:SerializeField] public Sprite Icon { get; set; }
         
     }
 }
