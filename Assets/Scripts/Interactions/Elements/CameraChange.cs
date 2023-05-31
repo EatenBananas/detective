@@ -1,5 +1,4 @@
-﻿using Prototypes;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Interactions.Elements
 {

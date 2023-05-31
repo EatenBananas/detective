@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-[ExecuteInEditMode]
 public class CameraManager : MonoBehaviour
 {
     public static CameraManager Instance { get; private set; }
@@ -16,7 +15,7 @@ public class CameraManager : MonoBehaviour
         Debug.Log("Start");
         Instance = this;
 
-        _activeCamera = _cameras[0];
+        //_activeCamera = _cameras[0];
             
         foreach (var camera1 in _cameras)
         {
@@ -31,10 +30,19 @@ public class CameraManager : MonoBehaviour
             Debug.LogError("Camera id not found");
             return;
         }
-            
-        _activeCamera.gameObject.SetActive(false);
+
+        ResetCamera();
+        
         _activeCamera = _cameras[index];
         _activeCamera.gameObject.SetActive(true);
+    }
+
+    public void ResetCamera()
+    {
+        if (_activeCamera == null) return;
+        
+        _activeCamera.gameObject.SetActive(false);
+        _activeCamera = null;
     }
 
     public List<(string, int)> GetCameras()

@@ -20,7 +20,7 @@ namespace Interactions.Elements
             }
 
             Vector3 destination = ObjectManager.Instance.Objects[_teleportId].transform.position;
-            PlayerTeleport.Instance.Teleport(destination);
+            //PlayerTeleport.Instance.Teleport(destination);
             InteractionManager.Instance.ListenForKey(KeyCode.Escape);
         }
     }
