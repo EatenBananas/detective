@@ -25,7 +25,15 @@ namespace Player.Movement
 
         private void Awake()
         {
-            _agent = GetComponent<NavMeshAgent>();
+            _agent = GetComponent<NavMeshAgent>(); 
+            _agent.updateRotation = false;          // Fix agent slow rotation
+        }
+
+        private void LateUpdate()
+        {
+            // Fix slow agent rotation
+            if (_agent.velocity.sqrMagnitude > Mathf.Epsilon)
+                transform.rotation = Quaternion.LookRotation(_agent.velocity.normalized);
         }
 
         public void SetPlayerTargetPosition(Vector3 newTargetPosition)

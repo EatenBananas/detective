@@ -1,7 +1,13 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Enemy
 {
@@ -13,53 +19,86 @@ namespace Enemy
     
     public class EnemyMovement : MonoBehaviour
     {
-        public List<Transform> WalkToPoints => _walkToPoints;
-        public ScrollRect.MovementType MovementType
-        {
-            get => _movementType;
-            set => _movementType = value;
-        }
+        public UnityEvent OnWalkInTarget;
+        public MovementType MovementType => _movementType;
+        public Transform AgentWalkTarget { get; private set; }
+        public List<Transform> WalkTargets => _walkTargets;
 
-        public Transform LastAgentPoint
-        {
-            get
-            {
-                if (_lastAgentPoint == null)
-                {
-                    var closestPoint = WalkToPoints[0];
-                    var lesDistance = Vector3.Distance(transform.position, closestPoint.position);
-                    foreach (var point in WalkToPoints)
-                    {
-                        var distance = Vector3.Distance(transform.position, point.position);
-                        if (distance < lesDistance)
-                        {
-                            closestPoint = point;
-                            lesDistance = distance;
-                        }
-                    }
+        [SerializeField] private MovementType _movementType;
+        [SerializeField] private List<Transform> _walkTargets;
 
-                    return closestPoint;
-                }
-
-                return _lastAgentPoint;
-            }
-            set => _lastAgentPoint = value;
-        }
-
-        [SerializeField] private List<Transform> _walkToPoints;
-        [SerializeField] private ScrollRect.MovementType _movementType;
-        
         private NavMeshAgent _agent;
-        private Transform _lastAgentPoint;
-        
+        private int _agentWalkTargetIndex;
+
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
+            _agent.updateRotation = false;              // Fix agent slow rotation
+            
+            OnWalkInTarget.AddListener(UpdateTarget);
+            
+            UpdateTarget();
+        }
+
+        private void LateUpdate()
+        {
+            // Fix agent slow rotation
+            if (_agent.velocity.sqrMagnitude > Mathf.Epsilon) 
+                transform.rotation = Quaternion.LookRotation(_agent.velocity.normalized);
+        }
+
+        private void UpdateTarget()
+        {
+            if (_agentWalkTargetIndex >= WalkTargets.Count-1) _agentWalkTargetIndex = 0;
+            else _agentWalkTargetIndex++;
+
+            AgentWalkTarget = WalkTargets[_agentWalkTargetIndex];
+
+            switch (MovementType)
+            {
+                case MovementType.Path:
+                    MoveByPath();
+                    break;
+                case MovementType.Random:
+                    MoveByRandom();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void MoveByPath()
         {
-            // _agent.destination = _walkToPoints[_lastAgentPoint].position;
+            _agent.destination = AgentWalkTarget.position;
+        }
+
+        private void MoveByRandom()
+        {
+            
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.transform == AgentWalkTarget)
+            {
+                OnWalkInTarget.Invoke();
+            }
+        }
+
+        private Transform GetClosestPoint()
+        {
+            var closestPoint = WalkTargets[0];
+            var lesDistance = Vector3.Distance(transform.position, closestPoint.position);
+            foreach (var point in WalkTargets)
+            {
+                var distance = Vector3.Distance(transform.position, point.position);
+                if (!(distance < lesDistance)) continue;
+                    
+                closestPoint = point;
+                lesDistance = distance;
+            }
+                
+            return closestPoint;
         }
     }
 }
