@@ -29,10 +29,7 @@ namespace EditorUtilities
             {
                 drawHeaderCallback = rect => { EditorGUI.LabelField(rect, HEADER_LABEL); },
                 drawElementCallback = DrawListItem,
-
-                // todo: Manage this
-                elementHeightCallback = delegate { return EditorGUIUtility.singleLineHeight * 15; },
-                
+                elementHeightCallback = ElementHeight
             };
         }
 
@@ -168,5 +165,9 @@ namespace EditorUtilities
             }
         }
 
+        private float ElementHeight(int index)
+        {
+            return _interaction.Elements[index].EditorHeight();
+        }
     }
 }
