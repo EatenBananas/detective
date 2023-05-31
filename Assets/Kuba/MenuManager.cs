@@ -6,6 +6,7 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject _mainMenuCanvas;
     [SerializeField] private GameObject _settingsCanvas;
+    [SerializeField] private GameObject _creatingGameCanvas;
 
     private void Start()
     {
@@ -14,7 +15,8 @@ public class MenuManager : MonoBehaviour
     public void StartGameButton()
     {
         //load new scene
-        Debug.Log("StartNewGame");
+        Debug.Log("What Game?");
+        CreateGameBtn();
     }
 
     public void QuitGameButton()
@@ -27,10 +29,18 @@ public class MenuManager : MonoBehaviour
     {
         _settingsCanvas.SetActive(true);
         _mainMenuCanvas.SetActive(false);
+        _creatingGameCanvas.SetActive(false);
     }
     public void BackToMainMenuButton()
     {
         _settingsCanvas.SetActive(false);
         _mainMenuCanvas.SetActive(true);
+        _creatingGameCanvas.SetActive(false);
+    }
+    public void CreateGameBtn()
+    {
+        _settingsCanvas.SetActive(false);
+        _mainMenuCanvas.SetActive(true);
+        _creatingGameCanvas.SetActive(true);
     }
 }

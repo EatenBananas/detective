@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using Interactions.Elements;
 using TMPro;
 using UnityEngine;
 
@@ -15,6 +18,9 @@ namespace Interactions
 
         private KeyCode _keyCode;
         private bool _listenForKey = false;
+
+        private List<Option> _activeOptions;
+        private bool _listenForOptions = false;
         
         private void Start()
         {
@@ -46,9 +52,39 @@ namespace Interactions
             }
             else if (_listenForKey && Input.GetKeyDown(_keyCode))
             {
+                // temp here
                 UIManager.Instance.HideDialogue();
+                UIManager.Instance.HideOptions();
+
                 CompleteElement();
             }
+            else if (_listenForOptions)
+            {
+                if (Input.GetKey(KeyCode.Alpha1))
+                    ChooseOption(0);
+                else if (Input.GetKey(KeyCode.Alpha2))
+                    ChooseOption(1);
+                else if (Input.GetKey(KeyCode.Alpha3))
+                    ChooseOption(2);
+                else if (Input.GetKey(KeyCode.Alpha4))
+                    ChooseOption(3);
+            }
+            
+        }
+
+        private void ChooseOption(int selection)
+        {
+            if (selection < _activeOptions.Count && _activeOptions[selection].Outcome != null)
+            {
+                _listenForOptions = false;
+                StartInteraction(_activeOptions[selection].Outcome);
+                
+                // temp here
+                UIManager.Instance.HideOptions();
+                return;
+            }
+            Debug.Log("Option skip");
+            CompleteElement();
         }
 
         public void StartInteraction(Interaction interaction)
@@ -56,6 +92,7 @@ namespace Interactions
             _interaction = interaction;
             Debug.Log($"Starting {_interaction.name}");
             UIManager.Instance.HideInteractableText();
+            UIManager.Instance.HideEquipment();
             _currentElementIndex = 0;
             StartElement();
         }
@@ -79,15 +116,28 @@ namespace Interactions
             else
             {
                 Debug.Log("Interaction completed");
+                CameraManager.Instance.ResetCamera();
+                UIManager.Instance.ShowEquipment();
                 _interaction = null;
+
+                if (_interactable != null)
+                {
+                    UIManager.Instance.ShowInteractableText(_interactable.Text);
+                }
             }
         }
 
         // todo: move
-        public void ListenForKey(KeyCode keyCode)
+        public void ListenForKey(KeyCode keyCode = KeyCode.Escape)
         {
             _listenForKey = true;
             _keyCode = keyCode;
+        }
+
+        public void ListenForOptions(List<Option> options)
+        {
+            _listenForOptions = true;
+            _activeOptions = options;
         }
     }
 }
