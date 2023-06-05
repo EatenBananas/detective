@@ -7,6 +7,7 @@ namespace UI
     public class PieMenu : MonoBehaviour
     {
         [SerializeField] private float _spacing = 0.05f;
+        [SerializeField] private float _radius = 100f;
         [SerializeField] private List<string> _options = new List<string>();
 
         [ContextMenu("Reload")]
@@ -25,7 +26,7 @@ namespace UI
             {
                 if (i < _options.Count)
                 {
-                    buttons[i].Reload(fill, 360f / _options.Count * i, _options[i]);
+                    buttons[i].Reload(fill, 360f / _options.Count * i, _options[i], _radius, _options.Count);
                     buttons[i].gameObject.SetActive(true);
                 }
                 else
@@ -34,6 +35,11 @@ namespace UI
                 }
             }
             
+        }
+
+        private void OnValidate()
+        {
+            Reload();
         }
     }
 }

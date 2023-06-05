@@ -24,10 +24,10 @@ namespace UI
             alphaHitTestMinimumThreshold = 0.5f;
         }
 
-        public void Reload(float fill, float angle, string text)
+        public void Reload(float fill, float angle, string text, float radius, int buttons)
         {
             fillAmount = fill;
-            rectTransform.eulerAngles = new Vector3(0f, 0f, angle);
+            rectTransform.eulerAngles = new Vector3(0f, 0f, -angle);
 
             var _textField = GetComponentInChildren<TextMeshProUGUI>();
             if (_textField == null)
@@ -37,6 +37,18 @@ namespace UI
             }
 
             _textField.text = text;
+            _textField.rectTransform.eulerAngles = Vector3.zero;
+
+            // Konwertuj kąt na radiany
+            float angleInRadians = Mathf.PI / buttons * (buttons - 1); //- Mathf.PI / buttons;
+
+            // Oblicz współrzędne x i y na obwodzie koła
+            float x = radius * Mathf.Cos(angleInRadians);
+            float y = radius * Mathf.Sin(angleInRadians);
+
+            // Ustaw pozycję obiektu na podstawie obliczonych współrzędnych
+            _textField.rectTransform.localPosition = new Vector3(x, y, 0f);
+            
         }
     }
 }
