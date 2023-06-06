@@ -1,25 +1,22 @@
+using System;
 using UnityEngine;
 
 namespace Interactions.Elements
 {
+    [Serializable]
     public class Teleport : InteractionElement
     {
-        private int _teleportId;
-        
-        public Teleport(InteractionElementData data)
-        {
-            _teleportId = data.Number1;
-        }
+        [field:SerializeField] public int TeleportId { get; set; }
 
         public override void Execute()
         {
-            if (_teleportId > ObjectManager.Instance.Objects.Count)
+            if (TeleportId > ObjectManager.Instance.Objects.Count)
             {
                 Debug.LogError("Invalid teleport ID");
                 return;
             }
 
-            Vector3 destination = ObjectManager.Instance.Objects[_teleportId].transform.position;
+            Vector3 destination = ObjectManager.Instance.Objects[TeleportId].transform.position;
             //PlayerTeleport.Instance.Teleport(destination);
             InteractionManager.Instance.ListenForKey(KeyCode.Escape);
         }

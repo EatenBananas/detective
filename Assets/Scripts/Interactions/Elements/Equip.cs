@@ -1,19 +1,17 @@
-﻿using Equipment;
+﻿using UnityEngine;
+using System;
+using Equipment;
 
 namespace Interactions.Elements
 {
+    [Serializable]
     public class Equip : InteractionElement
     {
-        private Item _item;
+        [field:SerializeField] public Item Item { get; set; }
         public override void Execute()
         {
-            EquipmentManager.Instance.Equip(_item);
+            EquipmentManager.Instance.Equip(Item);
             InteractionManager.Instance.CompleteElement();
-        }
-
-        public Equip(InteractionElementData data)
-        {
-            _item = data.Item;
         }
     }
 }
