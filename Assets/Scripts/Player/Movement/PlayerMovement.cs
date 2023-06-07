@@ -4,19 +4,12 @@ using UnityEngine.AI;
 
 namespace Player.Movement
 {
-    public enum PlayerMovingState
-    {
-        Standing,
-        Sneaking,
-        Walking,
-        Sprinting
-    }
-    
     public class PlayerMovement : MonoBehaviour
     {
-        public static PlayerMovingState PlayerMovingState { get; private set; }
-        public static Vector3 LastPlayerTargetPosition => _agent.destination;
-        
+        public PlayerMovingState PlayerMovingState { get; private set; }
+        public Vector3 LastPlayerTargetPosition => _agent.destination;
+
+        [SerializeField] private string _walkableArea = "Walkable";
         [SerializeField] private float _walkSpeed;
         [SerializeField] private float _runSpeed;
         [SerializeField] private float _sneakSpeed;
