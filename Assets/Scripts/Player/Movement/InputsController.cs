@@ -70,26 +70,26 @@ namespace Player.Movement
 
             if (_isMouseOverUI)
             {
-                Debug.Log("Mouse hover UI");
                 position = default;
                 return false;
             }
             
             if (NavMesh.SamplePosition(hit.point, out var navMeshHit, 1f,
                     NavMesh.AllAreas))
-            {
+            { 
+                Debug.Log($"nav: {NavMesh.GetAreaFromName("Walkable")}");
                 position = navMeshHit.position;
                 return true;
             }
             
-            Debug.Log("Default return");
             position = default;
             return false;
         }
 
         private void IsMouseOverUI()
         {
-            _isMouseOverUI = EventSystem.current.IsPointerOverGameObject();
+            if (EventSystem.current != null) 
+                _isMouseOverUI = EventSystem.current.IsPointerOverGameObject();
         }
     }
 }
