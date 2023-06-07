@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 262.3369, g: 325.0498, b: 430.21924, a: 1}
+  m_IndirectSpecularColor: {r: 262.1853, g: 324.85815, b: 429.9668, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -216,7 +216,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &705507996
 MonoBehaviour:
@@ -430,7 +430,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attenuationObject: {fileID: 0}
-  ListenerNumber: -1
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,7 +460,6 @@ MonoBehaviour:
   taaMotionVectorRejection: 0
   taaAntiHistoryRinging: 0
   taaBaseBlendFactor: 0.875
-  taaJitterScale: 1
   physicalParameters:
     m_Iso: 200
     m_ShutterSpeed: 0.005
@@ -556,3 +554,168 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!1001 &1472344041
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5330365585027627215, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Dresser
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585032555466, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Dresser3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585082115707, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Bath
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585124238930, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: ToiletBck
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585155613806, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Cabinet
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585228362513, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: SmallLocker
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585344973674, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: SmallLocker2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585412038405, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: KitchenCabinet2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585495427945, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Dresser2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585497865108, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Cooker
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585648339828, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Blockout
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585648339835, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585648339835, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.2269373
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585648339835, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585648339835, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.1821814
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585648339835, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585648339835, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585648339835, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585648339835, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585648339835, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585648339835, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585648339835, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585655765143, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: CoffeDesk
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585714109542, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Armchair
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585828545338, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Desk
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365585855715447, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Bed
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365586071059467, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: DeskChair
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365586078220604, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: MedicalCabinet
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365586141392813, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: KitchenTop
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365586233524364, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: KitchenCabinet
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365586262525571, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Chair
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365586394121543, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Chair2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365586412439856, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Sink
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365586474635548, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Sofa
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365586477615900, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Cabinet
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365586477743648, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Chair3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365586534869679, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Wardrobe
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365586597128665, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Table
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330365586660529036, guid: d83ad273550fda940819af25020b155e, type: 3}
+      propertyPath: m_Name
+      value: Toilet
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d83ad273550fda940819af25020b155e, type: 3}
