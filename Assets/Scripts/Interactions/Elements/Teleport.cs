@@ -20,5 +20,9 @@ namespace Interactions.Elements
             //PlayerTeleport.Instance.Teleport(destination);
             InteractionManager.Instance.ListenForKey(KeyCode.Escape);
         }
+        
+#if UNITY_EDITOR
+        public override int Height() => 3;
+#endif
     }
 }

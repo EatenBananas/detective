@@ -13,5 +13,9 @@ namespace Interactions.Elements
             EquipmentManager.Instance.Equip(Item);
             InteractionManager.Instance.CompleteElement();
         }
+        
+#if UNITY_EDITOR
+        public override int Height() => 3;
+#endif
     }
 }

@@ -14,5 +14,9 @@ namespace Interactions.Elements
             StateMachine.CurrentState = State;
             InteractionManager.Instance.CompleteElement();
         }
+        
+#if UNITY_EDITOR
+        public override int Height() => 4;
+#endif
     }
 }

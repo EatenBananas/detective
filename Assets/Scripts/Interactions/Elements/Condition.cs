@@ -21,5 +21,9 @@ namespace Interactions.Elements
                 InteractionManager.Instance.CompleteElement();
             }
         }
+        
+#if UNITY_EDITOR
+        public override int Height() => 6;
+#endif
     }
 }

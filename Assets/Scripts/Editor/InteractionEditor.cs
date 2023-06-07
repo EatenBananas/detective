@@ -20,7 +20,7 @@ namespace EditorUtilities
         private ReorderableList _reorderableList;
 
         private const string HEADER_LABEL = "Interaction elements";
-
+        
         private void OnEnable()
         {
             _interaction = target as Interaction;
@@ -42,12 +42,15 @@ namespace EditorUtilities
             serializedObject.Update();
         
             DrawInteractionGUI();
-
-            if (GUILayout.Button("Add Dialogue"))
+            
+            foreach (var subType in InteractionElement.SubTypes)
             {
-                _interaction.Elements.Add(new Dialogue());
+                if (GUILayout.Button($"Add {subType.Name}"))
+                {
+                    _interaction.Elements.Add((InteractionElement)Activator.CreateInstance(subType));
+                }
             }
-
+            
             EditorUtility.SetDirty(_interaction);
             serializedObject.ApplyModifiedProperties();
         }
@@ -176,8 +179,8 @@ namespace EditorUtilities
         
         private float ElementHeight(int index)
         {
-            return EditorGUIUtility.singleLineHeight * 5f;
-            //return _interaction.Elements[index].EditorHeight();
+            int height = _interaction.Elements[index].Height();
+            return height * EditorGUIUtility.singleLineHeight;
         }
     }
 }

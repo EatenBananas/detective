@@ -12,5 +12,9 @@ namespace Interactions.Elements
         {
             InteractionManager.Instance.ListenForKey(Key);
         }
+        
+#if UNITY_EDITOR
+        public override int Height() => 3;
+#endif
     }
 }

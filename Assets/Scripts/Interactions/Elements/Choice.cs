@@ -8,7 +8,7 @@ namespace Interactions.Elements
     [Serializable]
     public class Choice : InteractionElement
     {
-        [field:SerializeField] public List<Option> Options { get; set; }
+        [field: SerializeField] public List<Option> Options { get; set; } = new();
         
         public override void Execute()
         {
@@ -17,5 +17,9 @@ namespace Interactions.Elements
 
             InteractionManager.Instance.ListenForOptions(Options);
         }
+        
+#if UNITY_EDITOR
+        public override int Height() => 3 + Options.Count * 4;
+#endif
     }
 }

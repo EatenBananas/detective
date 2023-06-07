@@ -17,5 +17,9 @@ namespace Interactions.Elements
             UIManager.Instance.ShowDialogue(DialogueNpc, DialogueText);
             InteractionManager.Instance.ListenForKey(DIALOGUE_ESCAPE_KEY);
         }
+        
+#if UNITY_EDITOR
+        public override int Height() => 6;
+#endif
     }
 }
