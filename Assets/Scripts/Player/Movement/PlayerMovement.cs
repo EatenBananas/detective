@@ -4,20 +4,10 @@ using UnityEngine.AI;
 
 namespace Player.Movement
 {
-    public enum PlayerMovingState
-    {
-        Standing,
-        Sneaking,
-        Walking,
-        Sprinting
-    }
-    
     public class PlayerMovement : MonoBehaviour
     {
         public PlayerMovingState PlayerMovingState { get; private set; }
         public Vector3 LastPlayerTargetPosition => _agent.destination;
-
-        public static string WalkableArea;
 
         [SerializeField] private string _walkableArea = "Walkable";
         [SerializeField] private float _walkSpeed;
@@ -28,8 +18,6 @@ namespace Player.Movement
 
         private void Awake()
         {
-            WalkableArea = _walkableArea;
-            
             _agent = GetComponent<NavMeshAgent>(); 
             _agent.updateRotation = false;          // Fix agent slow rotation
         }

@@ -1,28 +1,35 @@
+using System;
 using CameraSystem;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace Player.Movement
 {
     public class InputsController : MonoBehaviour
     {
-        public static PlayerInputActions PlayerInput;
-        
+        private PlayerInputActions _playerInputActions;
         private PlayerMovement _playerMovement;
+        private bool _isMouseOverUI;
 
-        private void OnEnable() => PlayerInput.Enable();
-        private void OnDisable() => PlayerInput.Disable();
+        private void OnEnable() => _playerInputActions.Enable();
+        private void OnDisable() => _playerInputActions.Disable();
 
         private void Awake()
         {
             _playerMovement = GetComponent<PlayerMovement>();
-            PlayerInput = new PlayerInputActions();
+            
+            _playerInputActions = new PlayerInputActions();
+            _playerInputActions.Player.Sneak.started += OnStartedSneak;
+            _playerInputActions.Player.Sneak.canceled += OnCanceledSneak;
+            _playerInputActions.Player.Walk.performed += OnWalk;
+            _playerInputActions.Player.Sprint.performed += OnSprint;
+        }
 
-            PlayerInput.Player.Sneak.started += OnStartedSneak;
-            PlayerInput.Player.Sneak.canceled += OnCanceledSneak;
-            PlayerInput.Player.Walk.performed += OnWalk;
-            PlayerInput.Player.Sprint.performed += OnSprint;
+        private void Update()
+        {
+            IsMouseOverUI();
         }
 
         private void OnCanceledSneak(InputAction.CallbackContext obj)
@@ -55,21 +62,34 @@ namespace Player.Movement
                 _playerMovement.SetPlayerTargetPosition(position);
         }
 
-        private static bool GetMouseToWorldPosition(out Vector3 position)
+        private bool GetMouseToWorldPosition(out Vector3 position)
         {
-            var mousePosition = PlayerInput.Player.MousePosition.ReadValue<Vector2>();
+            var mousePosition = _playerInputActions.Player.MousePosition.ReadValue<Vector2>();
             var ray = CameraGetter.MainCamera.ScreenPointToRay(mousePosition);
             Physics.Raycast(ray, out var hit);
 
-            if (NavMesh.SamplePosition(hit.point, out var navMeshHit, 0.1f,
-                    NavMesh.GetAreaFromName(PlayerMovement.WalkableArea)))
+            if (_isMouseOverUI)
+            {
+                Debug.Log("Mouse hover UI");
+                position = default;
+                return false;
+            }
+            
+            if (NavMesh.SamplePosition(hit.point, out var navMeshHit, 1f,
+                    NavMesh.AllAreas))
             {
                 position = navMeshHit.position;
                 return true;
             }
             
+            Debug.Log("Default return");
             position = default;
             return false;
+        }
+
+        private void IsMouseOverUI()
+        {
+            _isMouseOverUI = EventSystem.current.IsPointerOverGameObject();
         }
     }
 }
