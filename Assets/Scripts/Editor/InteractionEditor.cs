@@ -32,7 +32,7 @@ namespace EditorUtilities
                 elementHeightCallback = ElementHeight,
                 
                 displayAdd = true,
-                onAddCallback = list => _interaction.Elements.Add(new Dialogue()),
+                onAddCallback = list =>  ShowAddElementDropdown(),
                 displayRemove = true
             };
         }
@@ -40,21 +40,22 @@ namespace EditorUtilities
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
-        
             DrawInteractionGUI();
-            
-            foreach (var subType in InteractionElement.SubTypes)
-            {
-                if (GUILayout.Button($"Add {subType.Name}"))
-                {
-                    _interaction.Elements.Add((InteractionElement)Activator.CreateInstance(subType));
-                }
-            }
-            
             EditorUtility.SetDirty(_interaction);
             serializedObject.ApplyModifiedProperties();
         }
 
+        private void ShowAddElementDropdown()
+        {
+            GenericMenu genericMenu = new();
+            foreach (var subType in InteractionElement.SubTypes)
+            {
+                genericMenu.AddItem(new GUIContent(subType.Name), false,
+                    () => _interaction.Elements.Add((InteractionElement) Activator.CreateInstance(subType)));
+            }
+            genericMenu.ShowAsContext();
+        }
+        
         private void DrawInteractionGUI()
         {
             _reorderableList.DoLayoutList();
@@ -66,10 +67,17 @@ namespace EditorUtilities
             Debug.Assert(element != null, "element != null");
             var utils = new Utilities(rect.x, rect.y);
         
-            utils.TopMargin();
+            //utils.TopMargin();
 
             //element.Type = (InteractionElementType) utils.EnumField(element.Type, "Type");
-        
+            //utils.Label(element.GetType().Name);
+            element.Folded = utils.FoldoutField(element.Folded, element.GetType().Name);
+
+            if (element.Folded)
+            {
+                return;
+            }
+            
             // temp
             switch (element)
             {
@@ -179,7 +187,14 @@ namespace EditorUtilities
         
         private float ElementHeight(int index)
         {
-            int height = _interaction.Elements[index].Height();
+            var element = _interaction.Elements[index];
+
+            if (element.Folded)
+            {
+                return EditorGUIUtility.singleLineHeight;
+            }
+            
+            int height = element.Height();
             return height * EditorGUIUtility.singleLineHeight;
         }
     }

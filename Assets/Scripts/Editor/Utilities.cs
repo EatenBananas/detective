@@ -25,6 +25,7 @@ namespace EditorUtilities
         private const float TOP_MARGIN = 5f;
         private static readonly Color LINE_SEPARATOR_COLOR = new Color(1f, 1f, 1f, 0.2f);
         private const float LINE_SEPARATOR_THICKNESS = 1.5f;
+        private const float FOLDOUT_MARGIN = 10f;
 
         private static readonly float LINE_HEIGHT = EditorGUIUtility.singleLineHeight;
 
@@ -158,6 +159,19 @@ namespace EditorUtilities
                 values
             );
 
+            NewLine();
+            return value;
+        }
+
+        public bool FoldoutField(bool value, string label)
+        {
+            value = EditorGUI.Foldout(
+                new Rect(_x + FOLDOUT_MARGIN, _y, FIELD_WIDTH, LINE_HEIGHT),
+                value,
+                label,
+                true,
+                EditorStyles.foldout);
+            
             NewLine();
             return value;
         }
