@@ -14,9 +14,12 @@ namespace Player.Movement
     
     public class PlayerMovement : MonoBehaviour
     {
-        public static PlayerMovingState PlayerMovingState { get; private set; }
-        public static Vector3 LastPlayerTargetPosition => _agent.destination;
-        
+        public PlayerMovingState PlayerMovingState { get; private set; }
+        public Vector3 LastPlayerTargetPosition => _agent.destination;
+
+        public static string WalkableArea;
+
+        [SerializeField] private string _walkableArea = "Walkable";
         [SerializeField] private float _walkSpeed;
         [SerializeField] private float _runSpeed;
         [SerializeField] private float _sneakSpeed;
@@ -25,6 +28,8 @@ namespace Player.Movement
 
         private void Awake()
         {
+            WalkableArea = _walkableArea;
+            
             _agent = GetComponent<NavMeshAgent>(); 
             _agent.updateRotation = false;          // Fix agent slow rotation
         }

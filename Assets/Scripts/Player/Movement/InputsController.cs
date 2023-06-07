@@ -1,5 +1,6 @@
 using CameraSystem;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 namespace Player.Movement
@@ -38,26 +39,37 @@ namespace Player.Movement
 
         private void OnWalk(InputAction.CallbackContext obj)
         {
-            if (PlayerMovement.PlayerMovingState != PlayerMovingState.Sneaking)
+            if (_playerMovement.PlayerMovingState != PlayerMovingState.Sneaking)
                 _playerMovement.SetPlayerMovingState(PlayerMovingState.Walking);
             
-            _playerMovement.SetPlayerTargetPosition(GetMouseToWorldPosition());
+            if (GetMouseToWorldPosition(out var position)) 
+                _playerMovement.SetPlayerTargetPosition(position);
         }
 
         private void OnSprint(InputAction.CallbackContext obj)
         {
-            if (PlayerMovement.PlayerMovingState != PlayerMovingState.Sneaking)
+            if (_playerMovement.PlayerMovingState != PlayerMovingState.Sneaking)
                 _playerMovement.SetPlayerMovingState(PlayerMovingState.Sprinting);
-            
-            _playerMovement.SetPlayerTargetPosition(GetMouseToWorldPosition());
+
+            if (GetMouseToWorldPosition(out var position)) 
+                _playerMovement.SetPlayerTargetPosition(position);
         }
 
-        private static Vector3 GetMouseToWorldPosition()
+        private static bool GetMouseToWorldPosition(out Vector3 position)
         {
             var mousePosition = PlayerInput.Player.MousePosition.ReadValue<Vector2>();
             var ray = CameraGetter.MainCamera.ScreenPointToRay(mousePosition);
             Physics.Raycast(ray, out var hit);
-            return hit.point;
+
+            if (NavMesh.SamplePosition(hit.point, out var navMeshHit, 0.1f,
+                    NavMesh.GetAreaFromName(PlayerMovement.WalkableArea)))
+            {
+                position = navMeshHit.position;
+                return true;
+            }
+            
+            position = default;
+            return false;
         }
     }
 }
