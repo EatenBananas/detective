@@ -9,6 +9,8 @@ namespace Interactions
     [CreateAssetMenu(fileName = "New Interaction")]
     public class Interaction : ScriptableObject
     {
-        [field:SerializeField] public List<InteractionElementData> Elements { get; private set; } = new();
+        [field:SerializeField]
+        [field:SerializeReference]
+        public List<InteractionElement> Elements { get; private set; } = new();
     }
 }

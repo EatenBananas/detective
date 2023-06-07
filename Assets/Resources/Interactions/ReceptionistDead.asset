@@ -13,23 +13,33 @@ MonoBehaviour:
   m_Name: ReceptionistDead
   m_EditorClassIdentifier: 
   <Elements>k__BackingField:
-  - <Type>k__BackingField: 0
-    <KeyCode>k__BackingField: 0
-    <Number1>k__BackingField: 2
-    <Text1>k__BackingField: 
-    <Text2>k__BackingField: 
-    <StateMachine>k__BackingField: {fileID: 0}
-    <Interaction>k__BackingField: {fileID: 0}
-    <DialogueNpc>k__BackingField: {fileID: 0}
-    <Options>k__BackingField: []
-    <Item>k__BackingField: {fileID: 0}
-  - <Type>k__BackingField: 2
-    <KeyCode>k__BackingField: 0
-    <Number1>k__BackingField: 0
-    <Text1>k__BackingField: 
-    <Text2>k__BackingField: I'm still dead
-    <StateMachine>k__BackingField: {fileID: 0}
-    <Interaction>k__BackingField: {fileID: 0}
-    <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
-    <Options>k__BackingField: []
-    <Item>k__BackingField: {fileID: 0}
+  - rid: 1810417531292221467
+  - rid: 1810417534711889921
+  - rid: 1810417534711889924
+  - rid: 1810417534711889929
+  references:
+    version: 2
+    RefIds:
+    - rid: 1810417531292221467
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 1
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: I'm dead
+    - rid: 1810417534711889921
+      type: {class: CameraChange, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 1
+        <CameraId>k__BackingField: 0
+    - rid: 1810417534711889924
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 0}
+        <DialogueText>k__BackingField: 
+    - rid: 1810417534711889929
+      type: {class: SetState, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <StateMachine>k__BackingField: {fileID: 0}
+        <State>k__BackingField: 0

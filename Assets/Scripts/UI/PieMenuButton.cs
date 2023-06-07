@@ -24,19 +24,10 @@ namespace UI
             alphaHitTestMinimumThreshold = 0.5f;
         }
 
-        public void Reload(float fill, float angle, string text)
+        public void Reload(float fill, float angle)
         {
             fillAmount = fill;
             rectTransform.eulerAngles = new Vector3(0f, 0f, angle);
-
-            var _textField = GetComponentInChildren<TextMeshProUGUI>();
-            if (_textField == null)
-            {
-                Debug.LogError("PieMenuButton: text field not found!");
-                return;
-            }
-
-            _textField.text = text;
         }
     }
 }

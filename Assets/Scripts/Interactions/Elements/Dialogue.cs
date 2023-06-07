@@ -1,24 +1,25 @@
+using System;
 using UnityEngine;
 
 namespace Interactions.Elements
 {
+    [Serializable]
     public class Dialogue : InteractionElement
     {
-        private readonly DialogueNpc _dialogueNpc;
-        private readonly string _dialogueText;
+        [field:SerializeField] public DialogueNpc DialogueNpc { get; set; }
+        [field:SerializeField] public  string DialogueText { get; set; }
 
         // todo: this should be moved
         private static KeyCode DIALOGUE_ESCAPE_KEY = KeyCode.Escape;
         
-        public Dialogue(InteractionElementData data)
-        {
-            _dialogueNpc = data.DialogueNpc;
-            _dialogueText = data.Text2;
-        }
         public override void Execute()
         {
-            UIManager.Instance.ShowDialogue(_dialogueNpc, _dialogueText);
+            UIManager.Instance.ShowDialogue(DialogueNpc, DialogueText);
             InteractionManager.Instance.ListenForKey(DIALOGUE_ESCAPE_KEY);
         }
+        
+#if UNITY_EDITOR
+        public override int Height() => 6;
+#endif
     }
 }

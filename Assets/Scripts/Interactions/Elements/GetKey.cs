@@ -1,19 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Interactions.Elements
 {
+    [Serializable]
     public class GetKey : InteractionElement
     {
-        private readonly KeyCode _key;
+        [field: SerializeField] public KeyCode Key { get; set; } 
 
-        public GetKey(InteractionElementData data)
-        {
-            _key = data.KeyCode;
-        }
-        
         public override void Execute()
         {
-            InteractionManager.Instance.ListenForKey(_key);
+            InteractionManager.Instance.ListenForKey(Key);
         }
+        
+#if UNITY_EDITOR
+        public override int Height() => 3;
+#endif
     }
 }

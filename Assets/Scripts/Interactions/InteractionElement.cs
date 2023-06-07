@@ -1,27 +1,33 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Interactions.Elements;
 using UnityEngine;
 
 namespace Interactions
 {
+    [Serializable]
     public abstract class InteractionElement
     {
         public abstract void Execute();
 
-        public static InteractionElement ToElement(InteractionElementData data)
-        {
-            return data.Type switch
-            {
-                InteractionElementType.CHANGE_CAMERA => new CameraChange(data),
-                InteractionElementType.GET_KEY => new GetKey(data),
-                InteractionElementType.DIALOGUE => new Dialogue(data),
-                InteractionElementType.CONDITION => new Condition(data),
-                InteractionElementType.SET_STATE => new SetState(data),
-                InteractionElementType.TELEPORT => new Teleport(data),
-                InteractionElementType.CHOICE => new Choice(data),
-                InteractionElementType.EQUIP => new Equip(data),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
+        [field: SerializeField]
+        [field: HideInInspector]
+        public bool Folded { get; set; } = false;
+        
+#region EDITOR LOGIC
+#if UNITY_EDITOR
+        
+        private static List<Type> _subTypes;
+        public static List<Type> SubTypes =>
+            _subTypes ??= (
+                from assembly in AppDomain.CurrentDomain.GetAssemblies()
+                from type in assembly.GetTypes()
+                where type.IsSubclassOf(typeof(InteractionElement))
+                select type).ToList();
+
+        public abstract int Height();
+#endif
+#endregion
     }
 }
