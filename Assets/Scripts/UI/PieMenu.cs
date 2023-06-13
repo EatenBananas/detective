@@ -64,13 +64,8 @@ namespace UI
             {
                 if (i < _options.Count)
                 {
-                    
-                    //_textField.rectTransform.eulerAngles = Vector3.zero;
-
-                    // Konwertuj kąt na radiany
-                    float angleInRadians = Mathf.PI * 2 / _options.Count * (i + 0.5f); //* (buttons - 1); //- Mathf.PI / buttons;
-                    //Debug.Log($"{index}: {angleInRadians}");
-            
+                    float angleInRadians = Mathf.PI * 2 / _options.Count * (i + 0.5f);
+ 
                     // Oblicz współrzędne x i y na obwodzie koła
                     float x = _radius * Mathf.Cos(angleInRadians);
                     float y = _radius * Mathf.Sin(angleInRadians);

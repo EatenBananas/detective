@@ -16,20 +16,19 @@ MonoBehaviour:
   - rid: 1810417531292221467
   - rid: 1810417534711889921
   - rid: 1810417534711889924
-  - rid: 1810417534711889929
   references:
     version: 2
     RefIds:
     - rid: 1810417531292221467
       type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
       data:
-        <Folded>k__BackingField: 1
+        <Folded>k__BackingField: 0
         <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
         <DialogueText>k__BackingField: I'm dead
     - rid: 1810417534711889921
       type: {class: CameraChange, ns: Interactions.Elements, asm: Assembly-CSharp}
       data:
-        <Folded>k__BackingField: 1
+        <Folded>k__BackingField: 0
         <CameraId>k__BackingField: 0
     - rid: 1810417534711889924
       type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
@@ -37,9 +36,3 @@ MonoBehaviour:
         <Folded>k__BackingField: 0
         <DialogueNpc>k__BackingField: {fileID: 0}
         <DialogueText>k__BackingField: 
-    - rid: 1810417534711889929
-      type: {class: SetState, ns: Interactions.Elements, asm: Assembly-CSharp}
-      data:
-        <Folded>k__BackingField: 0
-        <StateMachine>k__BackingField: {fileID: 0}
-        <State>k__BackingField: 0

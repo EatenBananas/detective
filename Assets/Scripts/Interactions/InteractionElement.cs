@@ -20,11 +20,10 @@ namespace Interactions
         
         private static List<Type> _subTypes;
         public static List<Type> SubTypes =>
-            _subTypes ??= (
-                from assembly in AppDomain.CurrentDomain.GetAssemblies()
-                from type in assembly.GetTypes()
-                where type.IsSubclassOf(typeof(InteractionElement))
-                select type).ToList();
+            _subTypes ??= (AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(assembly => assembly.GetTypes(), (assembly, type) => new {assembly, type})
+                .Where(@t => @t.type.IsSubclassOf(typeof(InteractionElement)))
+                .Select(@t => @t.type)).ToList();
 
         public abstract int Height();
 #endif

@@ -12,7 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d7993e100484a799b014e92b5b98ca9, type: 3}
   m_Name: New Interaction
   m_EditorClassIdentifier: 
-  <Elements>k__BackingField: []
+  <Elements>k__BackingField:
+  - rid: 1810417534711889930
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 1810417534711889930
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 1
+        <DialogueNpc>k__BackingField: {fileID: 0}
+        <DialogueText>k__BackingField: 
