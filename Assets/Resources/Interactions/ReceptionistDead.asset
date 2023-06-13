@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: ReceptionistDead
   m_EditorClassIdentifier: 
   <Elements>k__BackingField:
-  - rid: 1810417531292221467
   - rid: 1810417534711889921
-  - rid: 1810417534711889924
+  - rid: 1810417531292221467
   references:
     version: 2
     RefIds:
@@ -29,10 +28,4 @@ MonoBehaviour:
       type: {class: CameraChange, ns: Interactions.Elements, asm: Assembly-CSharp}
       data:
         <Folded>k__BackingField: 0
-        <CameraId>k__BackingField: 0
-    - rid: 1810417534711889924
-      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
-      data:
-        <Folded>k__BackingField: 0
-        <DialogueNpc>k__BackingField: {fileID: 0}
-        <DialogueText>k__BackingField: 
+        <Camera>k__BackingField: {fileID: 11400000, guid: 061d8fdf04ef3534fba46019bfbe6ad2, type: 2}

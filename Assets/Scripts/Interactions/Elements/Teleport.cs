@@ -1,23 +1,18 @@
 using System;
+using SceneObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Interactions.Elements
 {
     [Serializable]
     public class Teleport : InteractionElement
     {
-        [field:SerializeField] public int TeleportId { get; set; }
+        [field: SerializeField] public SceneReference Location { get; set; }
 
         public override void Execute()
         {
-            if (TeleportId > ObjectManager.Instance.Objects.Count)
-            {
-                Debug.LogError("Invalid teleport ID");
-                return;
-            }
-
-            Vector3 destination = ObjectManager.Instance.Objects[TeleportId].transform.position;
-            //PlayerTeleport.Instance.Teleport(destination);
+            
             InteractionManager.Instance.ListenForKey(KeyCode.Escape);
         }
         

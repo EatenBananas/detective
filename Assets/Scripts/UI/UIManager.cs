@@ -124,7 +124,7 @@ public class UIManager : MonoBehaviour
     {
         _cursorIcon.position = Input.mousePosition;
 
-        if (Input.GetMouseButtonDown(0))
+        if (!Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out var hit))

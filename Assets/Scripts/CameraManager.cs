@@ -1,55 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SceneObjects;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class CameraManager : MonoBehaviour
 {
     public static CameraManager Instance { get; private set; }
-    [SerializeField] private List<Camera> _cameras = new List<Camera>();
-    private Camera _activeCamera;
-        
-    private void Start()
-    {
-        Debug.Log("Start");
-        Instance = this;
+    private SceneReference _activeCamera;
+    private readonly Dictionary<SceneReference, Camera> _cameras = new();
 
-        //_activeCamera = _cameras[0];
-            
-        foreach (var camera1 in _cameras)
-        {
-            camera1.gameObject.SetActive(camera1 == _activeCamera);
-        }
+    private void Awake()
+    {
+        Instance = this;
     }
 
-    public void ChangeCamera(int index)
+    public void Register(SceneReference reference, GameObject sceneObject)
     {
-        if (index > _cameras.Count)
+        var cameraComponent = sceneObject.GetComponent<Camera>();
+        if (cameraComponent == null)
+        {
+            Debug.LogError("Camera Component not found");
+            return;
+        }
+
+        _cameras[reference] = cameraComponent;
+    }
+
+    private void Start()
+    {
+        RefreshCameras();
+    }
+
+    public void ChangeCamera(SceneReference sceneCamera)
+    {
+        if (!_cameras.ContainsKey(sceneCamera))
         {
             Debug.LogError("Camera id not found");
             return;
         }
-
-        ResetCamera();
         
-        _activeCamera = _cameras[index];
-        _activeCamera.gameObject.SetActive(true);
+        _activeCamera = sceneCamera;
+        RefreshCameras();
     }
 
+    private void RefreshCameras()
+    {
+        foreach (var camera1 in _cameras)
+        {
+            camera1.Value.enabled = (camera1.Key == _activeCamera);
+        }
+    }
+    
     public void ResetCamera()
     {
-        if (_activeCamera == null) return;
-        
-        _activeCamera.gameObject.SetActive(false);
         _activeCamera = null;
+        RefreshCameras();
     }
-
-    public List<(string, int)> GetCameras()
-    {
-        return _cameras.Select((cam, i) => (cam.name, i)).ToList();
-    }
-
-    public string[] GetCameraNames() => _cameras.Select(cam => cam.name).ToArray();
-    public int[] GetCameraIndexes() => _cameras.Select((cam, i) => i).ToArray();
+    
 }
