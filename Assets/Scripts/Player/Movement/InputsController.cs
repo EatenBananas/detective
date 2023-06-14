@@ -1,27 +1,35 @@
+using System;
 using CameraSystem;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace Player.Movement
 {
     public class InputsController : MonoBehaviour
     {
-        public static PlayerInputActions PlayerInput;
-        
+        private PlayerInputActions _playerInputActions;
         private PlayerMovement _playerMovement;
+        private bool _isMouseOverUI;
 
-        private void OnEnable() => PlayerInput.Enable();
-        private void OnDisable() => PlayerInput.Disable();
+        private void OnEnable() => _playerInputActions.Enable();
+        private void OnDisable() => _playerInputActions.Disable();
 
         private void Awake()
         {
             _playerMovement = GetComponent<PlayerMovement>();
-            PlayerInput = new PlayerInputActions();
+            
+            _playerInputActions = new PlayerInputActions();
+            _playerInputActions.Player.Sneak.started += OnStartedSneak;
+            _playerInputActions.Player.Sneak.canceled += OnCanceledSneak;
+            _playerInputActions.Player.Walk.performed += OnWalk;
+            _playerInputActions.Player.Sprint.performed += OnSprint;
+        }
 
-            PlayerInput.Player.Sneak.started += OnStartedSneak;
-            PlayerInput.Player.Sneak.canceled += OnCanceledSneak;
-            PlayerInput.Player.Walk.performed += OnWalk;
-            PlayerInput.Player.Sprint.performed += OnSprint;
+        private void Update()
+        {
+            IsMouseOverUI();
         }
 
         private void OnCanceledSneak(InputAction.CallbackContext obj)
@@ -38,26 +46,50 @@ namespace Player.Movement
 
         private void OnWalk(InputAction.CallbackContext obj)
         {
-            if (PlayerMovement.PlayerMovingState != PlayerMovingState.Sneaking)
+            if (_playerMovement.PlayerMovingState != PlayerMovingState.Sneaking)
                 _playerMovement.SetPlayerMovingState(PlayerMovingState.Walking);
             
-            _playerMovement.SetPlayerTargetPosition(GetMouseToWorldPosition());
+            if (GetMouseToWorldPosition(out var position)) 
+                _playerMovement.SetPlayerTargetPosition(position);
         }
 
         private void OnSprint(InputAction.CallbackContext obj)
         {
-            if (PlayerMovement.PlayerMovingState != PlayerMovingState.Sneaking)
+            if (_playerMovement.PlayerMovingState != PlayerMovingState.Sneaking)
                 _playerMovement.SetPlayerMovingState(PlayerMovingState.Sprinting);
-            
-            _playerMovement.SetPlayerTargetPosition(GetMouseToWorldPosition());
+
+            if (GetMouseToWorldPosition(out var position)) 
+                _playerMovement.SetPlayerTargetPosition(position);
         }
 
-        private static Vector3 GetMouseToWorldPosition()
+        private bool GetMouseToWorldPosition(out Vector3 position)
         {
-            var mousePosition = PlayerInput.Player.MousePosition.ReadValue<Vector2>();
+            var mousePosition = _playerInputActions.Player.MousePosition.ReadValue<Vector2>();
             var ray = CameraGetter.MainCamera.ScreenPointToRay(mousePosition);
             Physics.Raycast(ray, out var hit);
-            return hit.point;
+
+            if (_isMouseOverUI)
+            {
+                position = default;
+                return false;
+            }
+            
+            if (NavMesh.SamplePosition(hit.point, out var navMeshHit, 1f,
+                    NavMesh.AllAreas))
+            { 
+                Debug.Log($"nav: {NavMesh.GetAreaFromName("Walkable")}");
+                position = navMeshHit.position;
+                return true;
+            }
+            
+            position = default;
+            return false;
+        }
+
+        private void IsMouseOverUI()
+        {
+            if (EventSystem.current != null) 
+                _isMouseOverUI = EventSystem.current.IsPointerOverGameObject();
         }
     }
 }
