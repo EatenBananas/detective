@@ -1,15 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Interactions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SceneObjects
 {
     public class SceneObjectManager : MonoBehaviour
     {
         public static SceneObjectManager Instance { get; private set; }
-        public Dictionary<SceneReference, Transform> SceneLocations { get; private set; } = new();
+        public Dictionary<SceneReference, Vector3> SceneLocations { get; private set; } = new();
 
+        // temp shit
+        [field:SerializeField] private GameObject _player;
+        
         private void Awake()
         {
             Instance = this;
@@ -26,7 +31,7 @@ namespace SceneObjects
                 }
                 case SceneReferenceType.LOCATION:
                 {
-                    SceneLocations.Add(key, sceneObject.transform);
+                    SceneLocations.Add(key, sceneObject.transform.position);
                     break;
                 }
                 default:
@@ -35,6 +40,18 @@ namespace SceneObjects
                     break;
                 }
             }
+        }
+
+        // temp here
+        public void Teleport(SceneReference location)
+        {
+            if (!SceneLocations.ContainsKey(location))
+            {
+                Debug.LogError("Scene Location not found");
+                return;
+            }
+
+            _player.transform.position = SceneLocations[location];
         }
         
     }

@@ -12,8 +12,8 @@ namespace Interactions.Elements
 
         public override void Execute()
         {
-            
-            InteractionManager.Instance.ListenForKey(KeyCode.Escape);
+            SceneObjectManager.Instance.Teleport(Location);
+            InteractionManager.Instance.CompleteElement();
         }
         
 #if UNITY_EDITOR

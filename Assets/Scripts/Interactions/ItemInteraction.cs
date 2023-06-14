@@ -13,10 +13,6 @@ namespace Interactions
         {
             if (item == _requiredItem)
             {
-                if (_removeItem)
-                {
-                    EquipmentManager.Instance.RemoveActiveItem();
-                }
                 InteractionManager.Instance.StartInteraction(_interaction);
             }
         }

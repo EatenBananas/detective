@@ -163,6 +163,11 @@ namespace EditorUtilities
                     equip.Item = utils.ScriptableObjectField(equip.Item, "Item");
                     break;
                 }
+                case SceneChange sceneChange:
+                {
+                    sceneChange.SceneIndex = utils.IntField(sceneChange.SceneIndex, "Scene Index");
+                    break;
+                }
                 default:
                     throw new ArgumentOutOfRangeException();
             }

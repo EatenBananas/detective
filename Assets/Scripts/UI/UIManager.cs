@@ -25,13 +25,10 @@ public class UIManager : MonoBehaviour
     [Header("Equipment")]
     [SerializeField] private GameObject _equipmentPanel;
 
-    [SerializeField] private TextMeshProUGUI [] _itemButtonTexts;
+    [SerializeField] private Image[] _equipmentItems;
     [SerializeField] private Color _selectedColor = Color.red;
     [SerializeField] private RectTransform _cursorIcon;
-    [SerializeField] private Image _cursorSprite;
 
-    private bool _isCursorIconActive;
-    
     private void Awake()
     {
         Instance = this;
@@ -50,15 +47,7 @@ public class UIManager : MonoBehaviour
         
         _cursorIcon.gameObject.SetActive(false);
     }
-
-    private void Update()
-    {
-        if (_isCursorIconActive)
-        {
-            UpdateCursor();
-        }
-    }
-
+    
     public void ShowInteractableText(string text)
     {
         _interactableText.text = text;
@@ -92,26 +81,18 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void ReloadEquipment(List<Item> items, int activeSlot)
+    public void ReloadEquipment(List<Item> items)
     {
-        foreach (var buttonText in _itemButtonTexts)
+        foreach (var image in _equipmentItems)
         {
-            buttonText.text = string.Empty;
-        }
-        
-        for (int i = 0; i < items.Count && i < _itemButtonTexts.Length; i++)
-        {
-            _itemButtonTexts[i].text = items[i].ItemName;
-            _itemButtonTexts[i].color = i == activeSlot ? _selectedColor : Color.black;
+            image.enabled = false;
         }
 
-        _isCursorIconActive = activeSlot >= 0;
-        _cursorIcon.gameObject.SetActive(_isCursorIconActive);
-        if (_isCursorIconActive)
+        for (int i = 0; i < _equipmentItems.Length && i < items.Count; i++)
         {
-            _cursorSprite.sprite = items[activeSlot].Icon;
+            _equipmentItems[i].sprite = items[i].Icon;
+            _equipmentItems[i].enabled = true;
         }
-
     }
 
     public void HideEquipment() => _equipmentPanel.SetActive(false);
@@ -120,27 +101,20 @@ public class UIManager : MonoBehaviour
 
     public void HideOptions() => _optionsPanel.SetActive(false);
 
-    private void UpdateCursor()
+    public void EqItemDropped(int slot)
     {
-        _cursorIcon.position = Input.mousePosition;
-
-        if (!Input.GetMouseButtonDown(0))
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out var hit))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out var hit))
-            {
-                var obj = hit.transform.gameObject;
-                Debug.Log($"HIT {obj.name}");
+            var obj = hit.transform.gameObject;
+            Debug.Log($"HIT {obj.name}");
 
-                var interaction = obj.GetComponent<ItemInteraction>();
-                if (interaction != null)
-                {
-                    EquipmentManager.Instance.Use(interaction);
-                }
-                
-                // temp
-                EquipmentManager.Instance.Select(-1);
+            var interaction = obj.GetComponent<ItemInteraction>();
+            if (interaction != null)
+            {
+                EquipmentManager.Instance.Use(interaction, slot);
             }
         }
+        EquipmentManager.Instance.ReloadEquipment();
     }
 }
