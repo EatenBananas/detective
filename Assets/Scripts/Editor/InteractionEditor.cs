@@ -83,16 +83,7 @@ namespace EditorUtilities
             {
                 case CameraChange cameraChange:
                 {
-                    //Debug.Assert(CameraManager.Instance != null, "CameraManager.Instance != null");
-                    //temp find
-        
-                    var cm = FindObjectOfType<CameraManager>();
-        
-                    //element.Number1 = editorUtilities.IntField(element.Number1, "Camera ID");
-                    cameraChange.CameraId = utils.IntPopupField(cameraChange.CameraId, "Camera",
-                        //new[] {"Main", "Mailbox", "Receptionist"}, new[] {0, 1, 2});
-                        cm.GetCameraNames(),
-                        cm.GetCameraIndexes());
+                    cameraChange.Camera = utils.ScriptableObjectField(cameraChange.Camera, "Camera");
                     break;
                 }
                 case GetKey getKey:
@@ -138,19 +129,11 @@ namespace EditorUtilities
         
                     break;
                 }
-                // case InteractionElementType.TELEPORT:
-                // {
-                //     //temp find
-                //     var om = FindObjectOfType<ObjectManager>();
-                //     
-                //     element.Number1 = utils.IntPopupField(
-                //         element.Number1,
-                //         "Location",
-                //         om.GetObjectNames(),
-                //         om.GetObjectIndexes());
-                //     
-                //     break;
-                // }
+                case Teleport teleport:
+                {
+                    teleport.Location = utils.ScriptableObjectField(teleport.Location, "Location");
+                    break;
+                }
         
                 case Choice choice:
                 {
@@ -178,6 +161,11 @@ namespace EditorUtilities
                 case Equip equip:
                 {
                     equip.Item = utils.ScriptableObjectField(equip.Item, "Item");
+                    break;
+                }
+                case SceneChange sceneChange:
+                {
+                    sceneChange.SceneIndex = utils.IntField(sceneChange.SceneIndex, "Scene Index");
                     break;
                 }
                 default:
