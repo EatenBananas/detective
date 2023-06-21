@@ -232,6 +232,24 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FindPlayer"",
+                    ""type"": ""Button"",
+                    ""id"": ""42c56bb8-6775-4359-81ca-92ec64fd327f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BondToPlayer"",
+                    ""type"": ""Button"",
+                    ""id"": ""fd1d6391-da00-4c7f-8383-775fd17a0aa0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -300,6 +318,28 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""EnableRotation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c224f34-c39a-47ec-807f-fe3b870587e8"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FindPlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f99aae3-6eb3-4825-b80d-3cb78006c7f1"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""MultiTap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BondToPlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -321,6 +361,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Move = m_Camera.FindAction("Move", throwIfNotFound: true);
         m_Camera_EnableRotation = m_Camera.FindAction("EnableRotation", throwIfNotFound: true);
+        m_Camera_FindPlayer = m_Camera.FindAction("FindPlayer", throwIfNotFound: true);
+        m_Camera_BondToPlayer = m_Camera.FindAction("BondToPlayer", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -479,12 +521,16 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private ICameraActions m_CameraActionsCallbackInterface;
     private readonly InputAction m_Camera_Move;
     private readonly InputAction m_Camera_EnableRotation;
+    private readonly InputAction m_Camera_FindPlayer;
+    private readonly InputAction m_Camera_BondToPlayer;
     public struct CameraActions
     {
         private @PlayerInputActions m_Wrapper;
         public CameraActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Camera_Move;
         public InputAction @EnableRotation => m_Wrapper.m_Camera_EnableRotation;
+        public InputAction @FindPlayer => m_Wrapper.m_Camera_FindPlayer;
+        public InputAction @BondToPlayer => m_Wrapper.m_Camera_BondToPlayer;
         public InputActionMap Get() { return m_Wrapper.m_Camera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -500,6 +546,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @EnableRotation.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnEnableRotation;
                 @EnableRotation.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnEnableRotation;
                 @EnableRotation.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnEnableRotation;
+                @FindPlayer.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnFindPlayer;
+                @FindPlayer.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnFindPlayer;
+                @FindPlayer.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnFindPlayer;
+                @BondToPlayer.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnBondToPlayer;
+                @BondToPlayer.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnBondToPlayer;
+                @BondToPlayer.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnBondToPlayer;
             }
             m_Wrapper.m_CameraActionsCallbackInterface = instance;
             if (instance != null)
@@ -510,6 +562,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @EnableRotation.started += instance.OnEnableRotation;
                 @EnableRotation.performed += instance.OnEnableRotation;
                 @EnableRotation.canceled += instance.OnEnableRotation;
+                @FindPlayer.started += instance.OnFindPlayer;
+                @FindPlayer.performed += instance.OnFindPlayer;
+                @FindPlayer.canceled += instance.OnFindPlayer;
+                @BondToPlayer.started += instance.OnBondToPlayer;
+                @BondToPlayer.performed += instance.OnBondToPlayer;
+                @BondToPlayer.canceled += instance.OnBondToPlayer;
             }
         }
     }
@@ -530,5 +588,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnEnableRotation(InputAction.CallbackContext context);
+        void OnFindPlayer(InputAction.CallbackContext context);
+        void OnBondToPlayer(InputAction.CallbackContext context);
     }
 }
