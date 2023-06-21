@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d7993e100484a799b014e92b5b98ca9, type: 3}
+  m_Name: Finish 1
+  m_EditorClassIdentifier: 
+  <Elements>k__BackingField:
+  - rid: 1446170542253539358
+  - rid: 1446170542253539361
+  - rid: 1446170542253539367
+  references:
+    version: 2
+    RefIds:
+    - rid: 1446170542253539358
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: Grab that bottle over there. Water the plant,
+          and then I may talk to you later.
+    - rid: 1446170542253539361
+      type: {class: Equip, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <Item>k__BackingField: {fileID: 11400000, guid: a82406aa6bed72a4d863792452badac6, type: 2}
+    - rid: 1446170542253539367
+      type: {class: SetState, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <StateMachine>k__BackingField: {fileID: 11400000, guid: dbd343f0885de2a49bb1e8115d88b2c7, type: 2}
+        <State>k__BackingField: 1

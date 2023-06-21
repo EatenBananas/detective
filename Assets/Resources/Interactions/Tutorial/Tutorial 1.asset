@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d7993e100484a799b014e92b5b98ca9, type: 3}
+  m_Name: Tutorial 1
+  m_EditorClassIdentifier: 
+  <Elements>k__BackingField:
+  - rid: 1446170542253539337
+  - rid: 1446170542253539338
+  - rid: 1446170542253539339
+  - rid: 1446170542253539340
+  - rid: 1446170542253539341
+  - rid: 1446170542253539342
+  references:
+    version: 2
+    RefIds:
+    - rid: 1446170542253539337
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: You're sorry? YOU'RE SORRY?
+    - rid: 1446170542253539338
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: I'm literally a human trash.
+    - rid: 1446170542253539339
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: I don't need your apologize.
+    - rid: 1446170542253539340
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: Everyone can say they're "sorry".
+    - rid: 1446170542253539341
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: Show me if you really care about me.
+    - rid: 1446170542253539342
+      type: {class: Choice, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <Options>k__BackingField:
+        - <Text>k__BackingField: How can I do that?
+          <Outcome>k__BackingField: {fileID: 11400000, guid: bc1bfc806e52e3a45875000b11304c20, type: 2}
+        - <Text>k__BackingField: "I've changed my mind. You're pathetic. (Pomi\u0144
+            samouczek)"
+          <Outcome>k__BackingField: {fileID: 11400000, guid: e281a9a1d2fafca4bbab4a4b26732507, type: 2}

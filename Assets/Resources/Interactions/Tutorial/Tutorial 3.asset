@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d7993e100484a799b014e92b5b98ca9, type: 3}
+  m_Name: Tutorial 3
+  m_EditorClassIdentifier: 
+  <Elements>k__BackingField:
+  - rid: 1446170542253539348
+  - rid: 1446170542253539349
+  - rid: 1446170542253539350
+  - rid: 1446170542253539351
+  references:
+    version: 2
+    RefIds:
+    - rid: 1446170542253539348
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: Really? Will you do that for Joey?
+    - rid: 1446170542253539349
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: Thank you, thank you, thank you!
+    - rid: 1446170542253539350
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: Grab this bottle and water the plant behind
+          you please!
+    - rid: 1446170542253539351
+      type: {class: Choice, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <Options>k__BackingField:
+        - <Text>k__BackingField: You got this man.
+          <Outcome>k__BackingField: {fileID: 11400000, guid: 84839a320d02efd4bbb1495301ef6e7b, type: 2}
+        - <Text>k__BackingField: "How pathetic can You be? I've changed my mind.
+            (Pomi\u0144 samouczek)"
+          <Outcome>k__BackingField: {fileID: 11400000, guid: e281a9a1d2fafca4bbab4a4b26732507, type: 2}
