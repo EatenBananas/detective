@@ -65,7 +65,7 @@ namespace Player.Movement
         private bool GetMouseToWorldPosition(out Vector3 position)
         {
             var mousePosition = _playerInputActions.Player.MousePosition.ReadValue<Vector2>();
-            var ray = CameraGetter.MainCamera.ScreenPointToRay(mousePosition);
+            var ray = Getter.MainCamera.ScreenPointToRay(mousePosition);
             Physics.Raycast(ray, out var hit);
 
             if (_isMouseOverUI)
