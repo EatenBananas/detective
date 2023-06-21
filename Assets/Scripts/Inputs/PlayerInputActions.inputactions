@@ -201,6 +201,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "EnableRotation",
+                    "type": "Button",
+                    "id": "259e72f8-0ca7-44f2-b69b-b1fe1cdb8aa2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -258,6 +267,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "74614de6-9363-4d83-9962-ce20695ec7b1",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableRotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

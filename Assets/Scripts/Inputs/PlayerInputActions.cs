@@ -223,6 +223,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""EnableRotation"",
+                    ""type"": ""Button"",
+                    ""id"": ""259e72f8-0ca7-44f2-b69b-b1fe1cdb8aa2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -280,6 +289,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74614de6-9363-4d83-9962-ce20695ec7b1"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EnableRotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -300,6 +320,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Move = m_Camera.FindAction("Move", throwIfNotFound: true);
+        m_Camera_EnableRotation = m_Camera.FindAction("EnableRotation", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -457,11 +478,13 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Camera;
     private ICameraActions m_CameraActionsCallbackInterface;
     private readonly InputAction m_Camera_Move;
+    private readonly InputAction m_Camera_EnableRotation;
     public struct CameraActions
     {
         private @PlayerInputActions m_Wrapper;
         public CameraActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Camera_Move;
+        public InputAction @EnableRotation => m_Wrapper.m_Camera_EnableRotation;
         public InputActionMap Get() { return m_Wrapper.m_Camera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -474,6 +497,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Move.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnMove;
+                @EnableRotation.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnEnableRotation;
+                @EnableRotation.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnEnableRotation;
+                @EnableRotation.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnEnableRotation;
             }
             m_Wrapper.m_CameraActionsCallbackInterface = instance;
             if (instance != null)
@@ -481,6 +507,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @EnableRotation.started += instance.OnEnableRotation;
+                @EnableRotation.performed += instance.OnEnableRotation;
+                @EnableRotation.canceled += instance.OnEnableRotation;
             }
         }
     }
@@ -500,5 +529,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     public interface ICameraActions
     {
         void OnMove(InputAction.CallbackContext context);
+        void OnEnableRotation(InputAction.CallbackContext context);
     }
 }

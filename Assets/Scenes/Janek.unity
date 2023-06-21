@@ -171,8 +171,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 1357165101}
   _virtualCamera: {fileID: 1939441664}
+  _inputProvider: {fileID: 1939441665}
   CameraLookAtTarget: {fileID: 2942037}
-  _cameraSpeed: 5
+  _cameraSpeed: 10
 --- !u!1 &121971544
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +359,7 @@ MonoBehaviour:
     m_VelocityFilterStrength: 4
     m_Bias: 0
   m_RecenterToTargetHeading:
-    m_enabled: 1
+    m_enabled: 0
     m_WaitTime: 1
     m_RecenteringTime: 2
     m_LegacyHeadingDefinition: -1
@@ -2672,7 +2673,7 @@ GameObject:
   - component: {fileID: 1357165102}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4206,7 +4207,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1939441662}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
   m_Name: 
