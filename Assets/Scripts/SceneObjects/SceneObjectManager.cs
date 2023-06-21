@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Interactions;
+using Player.Movement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +14,7 @@ namespace SceneObjects
         public Dictionary<SceneReference, Vector3> SceneLocations { get; private set; } = new();
 
         // temp shit
-        [field:SerializeField] private GameObject _player;
+        [field: SerializeField] private PlayerMovement _playerMovement;
         
         private void Awake()
         {
@@ -51,7 +52,7 @@ namespace SceneObjects
                 return;
             }
 
-            _player.transform.position = SceneLocations[location];
+            _playerMovement.TeleportPlayer(SceneLocations[location]);
         }
         
     }
