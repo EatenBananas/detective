@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -69,6 +70,11 @@ namespace Player.Movement
             }
 
             PlayerMovingState = playerMovingState;
+        }
+
+        public void TeleportPlayer(Vector3 teleportPosition)
+        {
+            _agent.Warp(teleportPosition);
         }
     }
 }
