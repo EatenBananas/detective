@@ -9,12 +9,23 @@ namespace Player.Movement
         public PlayerMovingState PlayerMovingState { get; private set; }
         public Vector3 LastPlayerTargetPosition => _agent.destination;
 
+        public bool MovementBlocked
+        {
+            get => _movementBlocked;
+            set
+            {
+                _movementBlocked = value;
+                if (!_movementBlocked) SetPlayerTargetPosition(_agent.transform.position);
+            }
+        }
+
         [SerializeField] private string _walkableArea = "Walkable";
         [SerializeField] private float _walkSpeed;
         [SerializeField] private float _runSpeed;
         [SerializeField] private float _sneakSpeed;
         
         private static NavMeshAgent _agent;
+        private bool _movementBlocked;
 
         private void Awake()
         {
@@ -31,6 +42,8 @@ namespace Player.Movement
 
         public void SetPlayerTargetPosition(Vector3 newTargetPosition)
         {
+            if (MovementBlocked) return;
+
             // Move agent to position
             if (_agent.isOnNavMesh) 
                 _agent.destination = newTargetPosition;
