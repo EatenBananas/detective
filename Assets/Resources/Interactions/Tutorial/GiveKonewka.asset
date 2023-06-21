@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d7993e100484a799b014e92b5b98ca9, type: 3}
+  m_Name: GiveKonewka
+  m_EditorClassIdentifier: 
+  <Elements>k__BackingField:
+  - rid: 1446170542253539370
+  - rid: 1446170542253539371
+  references:
+    version: 2
+    RefIds:
+    - rid: 1446170542253539370
+      type: {class: Equip, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <Item>k__BackingField: {fileID: 11400000, guid: a82406aa6bed72a4d863792452badac6, type: 2}
+    - rid: 1446170542253539371
+      type: {class: SetState, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <StateMachine>k__BackingField: {fileID: 11400000, guid: dbd343f0885de2a49bb1e8115d88b2c7, type: 2}
+        <State>k__BackingField: 1

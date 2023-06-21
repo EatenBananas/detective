@@ -1,20 +1,22 @@
+using System;
+using UnityEngine;
+
 namespace Interactions.Elements
 {
+    [Serializable]
     public class SetState : InteractionElement
     {
-        private State _stateMachine;
-        private int _state;
+        [field:SerializeField] public State StateMachine { get; set; }
+        [field:SerializeField] public int State { get; set; }
 
-        public SetState(InteractionElementData data)
-        {
-            _stateMachine = data.StateMachine;
-            _state = data.Number1;
-        }
-        
         public override void Execute()
         {
-            _stateMachine.CurrentState = _state;
+            StateMachine.CurrentState = State;
             InteractionManager.Instance.CompleteElement();
         }
+        
+#if UNITY_EDITOR
+        public override int Height() => 4;
+#endif
     }
 }

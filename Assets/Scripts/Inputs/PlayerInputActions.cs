@@ -210,6 +210,138 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Camera"",
+            ""id"": ""2f065651-dec7-4878-93dd-a1f5bc1621c4"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""2c67badc-83ea-4d16-98f9-f7385dfe14b4"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""EnableRotation"",
+                    ""type"": ""Button"",
+                    ""id"": ""259e72f8-0ca7-44f2-b69b-b1fe1cdb8aa2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FindPlayer"",
+                    ""type"": ""Button"",
+                    ""id"": ""42c56bb8-6775-4359-81ca-92ec64fd327f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BondToPlayer"",
+                    ""type"": ""Button"",
+                    ""id"": ""fd1d6391-da00-4c7f-8383-775fd17a0aa0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""b7226ef5-2fa0-42e8-801b-ce9d4b435f81"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""d2c64d8f-8b9a-47dc-915e-27ee6398466e"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""1e858e68-e52e-4404-a2a0-8bcaa4af010f"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""9d80a756-bd04-492d-9e66-803a9553068d"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""7cd900ad-7fcd-46de-b565-cf64c9c58bc8"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74614de6-9363-4d83-9962-ce20695ec7b1"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EnableRotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c224f34-c39a-47ec-807f-fe3b870587e8"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FindPlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f99aae3-6eb3-4825-b80d-3cb78006c7f1"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""MultiTap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BondToPlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -225,6 +357,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Sneak = m_Player.FindAction("Sneak", throwIfNotFound: true);
         m_Player_Walk = m_Player.FindAction("Walk", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+        // Camera
+        m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
+        m_Camera_Move = m_Camera.FindAction("Move", throwIfNotFound: true);
+        m_Camera_EnableRotation = m_Camera.FindAction("EnableRotation", throwIfNotFound: true);
+        m_Camera_FindPlayer = m_Camera.FindAction("FindPlayer", throwIfNotFound: true);
+        m_Camera_BondToPlayer = m_Camera.FindAction("BondToPlayer", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -377,6 +515,63 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Camera
+    private readonly InputActionMap m_Camera;
+    private ICameraActions m_CameraActionsCallbackInterface;
+    private readonly InputAction m_Camera_Move;
+    private readonly InputAction m_Camera_EnableRotation;
+    private readonly InputAction m_Camera_FindPlayer;
+    private readonly InputAction m_Camera_BondToPlayer;
+    public struct CameraActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public CameraActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_Camera_Move;
+        public InputAction @EnableRotation => m_Wrapper.m_Camera_EnableRotation;
+        public InputAction @FindPlayer => m_Wrapper.m_Camera_FindPlayer;
+        public InputAction @BondToPlayer => m_Wrapper.m_Camera_BondToPlayer;
+        public InputActionMap Get() { return m_Wrapper.m_Camera; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CameraActions set) { return set.Get(); }
+        public void SetCallbacks(ICameraActions instance)
+        {
+            if (m_Wrapper.m_CameraActionsCallbackInterface != null)
+            {
+                @Move.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnMove;
+                @EnableRotation.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnEnableRotation;
+                @EnableRotation.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnEnableRotation;
+                @EnableRotation.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnEnableRotation;
+                @FindPlayer.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnFindPlayer;
+                @FindPlayer.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnFindPlayer;
+                @FindPlayer.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnFindPlayer;
+                @BondToPlayer.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnBondToPlayer;
+                @BondToPlayer.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnBondToPlayer;
+                @BondToPlayer.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnBondToPlayer;
+            }
+            m_Wrapper.m_CameraActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @EnableRotation.started += instance.OnEnableRotation;
+                @EnableRotation.performed += instance.OnEnableRotation;
+                @EnableRotation.canceled += instance.OnEnableRotation;
+                @FindPlayer.started += instance.OnFindPlayer;
+                @FindPlayer.performed += instance.OnFindPlayer;
+                @FindPlayer.canceled += instance.OnFindPlayer;
+                @BondToPlayer.started += instance.OnBondToPlayer;
+                @BondToPlayer.performed += instance.OnBondToPlayer;
+                @BondToPlayer.canceled += instance.OnBondToPlayer;
+            }
+        }
+    }
+    public CameraActions @Camera => new CameraActions(this);
     public interface IPlayerActions
     {
         void OnLeftClick(InputAction.CallbackContext context);
@@ -388,5 +583,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnSneak(InputAction.CallbackContext context);
         void OnWalk(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+    }
+    public interface ICameraActions
+    {
+        void OnMove(InputAction.CallbackContext context);
+        void OnEnableRotation(InputAction.CallbackContext context);
+        void OnFindPlayer(InputAction.CallbackContext context);
+        void OnBondToPlayer(InputAction.CallbackContext context);
     }
 }

@@ -1,27 +1,23 @@
+using System;
+using SceneObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Interactions.Elements
 {
+    [Serializable]
     public class Teleport : InteractionElement
     {
-        private int _teleportId;
-        
-        public Teleport(InteractionElementData data)
-        {
-            _teleportId = data.Number1;
-        }
+        [field: SerializeField] public SceneReference Location { get; set; }
 
         public override void Execute()
         {
-            if (_teleportId > ObjectManager.Instance.Objects.Count)
-            {
-                Debug.LogError("Invalid teleport ID");
-                return;
-            }
-
-            Vector3 destination = ObjectManager.Instance.Objects[_teleportId].transform.position;
-            //PlayerTeleport.Instance.Teleport(destination);
-            InteractionManager.Instance.ListenForKey(KeyCode.Escape);
+            SceneObjectManager.Instance.Teleport(Location);
+            InteractionManager.Instance.CompleteElement();
         }
+        
+#if UNITY_EDITOR
+        public override int Height() => 3;
+#endif
     }
 }

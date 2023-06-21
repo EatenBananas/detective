@@ -1,20 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using SceneObjects;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Interactions.Elements
 {
+    [Serializable]
     public class CameraChange : InteractionElement
     {
-        private int _cameraId;
-        
-        public CameraChange(InteractionElementData data)
-        {
-            _cameraId = data.Number1;
-        }
-
+        [field: SerializeField] public SceneReference Camera { get; set; }
         public override void Execute()
         {
-            CameraManager.Instance.ChangeCamera(_cameraId);
+            CameraManager.Instance.ChangeCamera(Camera);
             InteractionManager.Instance.CompleteElement();
         }
+        
+#if UNITY_EDITOR
+        public override int Height() => 3;
+#endif
+
     }
 }

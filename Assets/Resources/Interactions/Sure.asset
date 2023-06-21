@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d7993e100484a799b014e92b5b98ca9, type: 3}
+  m_Name: Sure
+  m_EditorClassIdentifier: 
+  <Elements>k__BackingField:
+  - rid: 1446170542253539396
+  - rid: 1446170542253539397
+  - rid: 1446170542253539398
+  - rid: 1446170542253539399
+  - rid: 1446170542253539400
+  - rid: 1446170542253539401
+  - rid: 1446170542253539402
+  - rid: 1446170542253539403
+  - rid: 1446170542253539404
+  - rid: 1446170542253539405
+  references:
+    version: 2
+    RefIds:
+    - rid: 1446170542253539396
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
+        <DialogueText>k__BackingField: I hope we'll get the championship this year.
+    - rid: 1446170542253539397
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: Sure thing bro!
+    - rid: 1446170542253539398
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
+        <DialogueText>k__BackingField: 'I need some information. '
+    - rid: 1446170542253539399
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
+        <DialogueText>k__BackingField: Where live this guy? The one, that just entered
+          the elevator.
+    - rid: 1446170542253539400
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: Mr. Jeremy Brown.
+    - rid: 1446170542253539401
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: Yeah... He's such an asshole.
+    - rid: 1446170542253539402
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: He is some kind of gangster so it's better
+          to not mess with him.
+    - rid: 1446170542253539403
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: He sometimes lives here, in 33.
+    - rid: 1446170542253539404
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: Ouch. Shouldn't tell you that friend.
+    - rid: 1446170542253539405
+      type: {class: Choice, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <Options>k__BackingField:
+        - <Text>k__BackingField: Gangster? Could you repeat please?
+          <Outcome>k__BackingField: {fileID: 11400000, guid: 7125d847b5224e945920f6e4c32e9331, type: 2}
+        - <Text>k__BackingField: Thanks for you help friend.
+          <Outcome>k__BackingField: {fileID: 0}

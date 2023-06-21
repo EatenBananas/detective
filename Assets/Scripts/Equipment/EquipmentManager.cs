@@ -10,8 +10,7 @@ namespace Equipment
         public static EquipmentManager Instance { get; private set; }
 
         [field:SerializeField] private List<Item> _items = new List<Item>();
-        private int _activeSlot = -1;
-        
+
         private void Awake()
         {
             Instance = this;
@@ -27,32 +26,21 @@ namespace Equipment
             _items.Add(item);
             ReloadEquipment();
         }
+        
 
-        public void Select(int slot)
+        public void ReloadEquipment()
         {
-            if (slot >= _items.Count)
-            {
-                return;
-            }
-            
-            _activeSlot = slot == _activeSlot ? -1 : slot;
-            ReloadEquipment();
+            UIManager.Instance.ReloadEquipment(_items);
         }
 
-        private void ReloadEquipment()
+        public void Use(ItemInteraction interaction, int slot)
         {
-            UIManager.Instance.ReloadEquipment(_items, _activeSlot);
+            interaction.Use(_items[slot]);
         }
 
-        public void Use(ItemInteraction interaction)
+        public void RemoveItem(int slot)
         {
-            interaction.Use(_items[_activeSlot]);
-        }
-
-        public void RemoveActiveItem()
-        {
-            _items.RemoveAt(_activeSlot);
-            _activeSlot = -1;
+            _items.RemoveAt(slot);
             ReloadEquipment();
         }
     }

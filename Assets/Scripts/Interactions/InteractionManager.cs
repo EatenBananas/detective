@@ -100,8 +100,8 @@ namespace Interactions
         private void StartElement()
         {
             var element = _interaction.Elements[_currentElementIndex];
-            Debug.Log($"Starting {element.Type}");
-            InteractionElement.ToElement(element).Execute();
+            Debug.Log($"Starting {element.GetType()}");
+            element.Execute();
         }
 
         public void CompleteElement()

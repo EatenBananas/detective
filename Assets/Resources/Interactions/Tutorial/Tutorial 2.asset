@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d7993e100484a799b014e92b5b98ca9, type: 3}
+  m_Name: Tutorial 2
+  m_EditorClassIdentifier: 
+  <Elements>k__BackingField:
+  - rid: 1446170542253539343
+  - rid: 1446170542253539344
+  - rid: 1446170542253539345
+  - rid: 1446170542253539346
+  - rid: 1446170542253539347
+  references:
+    version: 2
+    RefIds:
+    - rid: 1446170542253539343
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: I won't tell you anything untill people will
+          treat me right!
+    - rid: 1446170542253539344
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: You should see how it is to be nothing.
+    - rid: 1446170542253539345
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: You should jump into my pants and water this
+          plant over there.
+    - rid: 1446170542253539346
+      type: {class: Dialogue, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+        <DialogueText>k__BackingField: Then you'll understand how I feel.
+    - rid: 1446170542253539347
+      type: {class: Choice, ns: Interactions.Elements, asm: Assembly-CSharp}
+      data:
+        <Folded>k__BackingField: 0
+        <Options>k__BackingField:
+        - <Text>k__BackingField: Okay, I'll do that for you. But then you will tell
+            me what I need. Deal?
+          <Outcome>k__BackingField: {fileID: 11400000, guid: c3136e18f33a94c47806772936997840, type: 2}
+        - <Text>k__BackingField: "No way, I'm not that depressed. Do it yourself
+            dog. (Pomi\u0144 samouczek)"
+          <Outcome>k__BackingField: {fileID: 11400000, guid: e281a9a1d2fafca4bbab4a4b26732507, type: 2}

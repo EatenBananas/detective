@@ -15,7 +15,7 @@ namespace Interactions
         private void OnDrawGizmosSelected()
         {
             var trigger = GetComponent<SphereCollider>();
-            var scale = transform.localScale;
+            var scale = transform.lossyScale;
 
             Gizmos.color = INTERACTABLE_GIZMO_COLOR;
             Gizmos.DrawSphere(transform.position + trigger.center,
