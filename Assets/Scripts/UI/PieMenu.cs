@@ -10,11 +10,17 @@ namespace UI
     {
         [SerializeField] private float _spacing = 0.05f;
         [SerializeField] private float _radius = 100f;
-        [SerializeField] private List<string> _options = new List<string>();
+        [SerializeField] private List<PieMenuOption> _options = new();
         
         [SerializeField] private Button _addButton;
         [SerializeField] private Button _removeButton;
 
+        [SerializeField] private GameObject _buttons;
+        [SerializeField] private GameObject _icons;
+
+        [SerializeField] private Image _tinyCircle;
+        [SerializeField] private float _tinyCircleRadius = 60f;
+        
         private void Start()
         {
             _addButton.onClick.AddListener(Add);
@@ -23,7 +29,10 @@ namespace UI
 
         private void Add()
         {
-            _options.Add((_options.Count +1).ToString());
+            _options.Add(new PieMenuOption()
+            {
+                DisplayText = (_options.Count + 1).ToString()
+            });
             Reload();
         }
 
@@ -36,7 +45,7 @@ namespace UI
         [ContextMenu("Reload")]
         private void Reload()
         {
-            var buttons = GetComponentsInChildren<PieMenuButton>(true);
+            var buttons = _buttons.GetComponentsInChildren<PieMenuButton>(true);
 
             if (buttons.Length < _options.Count)
             {
@@ -51,6 +60,8 @@ namespace UI
                 {
                     buttons[i].Reload(fill, 360f / _options.Count * i);
                     buttons[i].gameObject.SetActive(true);
+                    var text = _options[i].DisplayText;
+                    buttons[i].Assign( ()=>Debug.Log($"Selected {text}") );
                 }
                 else
                 {
@@ -58,9 +69,9 @@ namespace UI
                 }
             }
 
-            var texts = GetComponentsInChildren<TextMeshProUGUI>(true);
+            var icons = _icons.GetComponentsInChildren<Image>(true);
 
-            for (int i = 0; i < texts.Length; i++)
+            for (int i = 0; i < icons.Length; i++)
             {
                 if (i < _options.Count)
                 {
@@ -73,26 +84,32 @@ namespace UI
                     float y = _radius * Mathf.Sin(angleInRadians);
 
                     // Ustaw pozycję obiektu na podstawie obliczonych współrzędnych
-                    texts[i].rectTransform.localPosition   = new Vector3(x, y, 0f);
+                    icons[i].rectTransform.localPosition   = new Vector3(x, y, 0f);
                     
-                    texts[i].text = _options[i];
-                    texts[i].gameObject.SetActive(true);
+                    icons[i].gameObject.SetActive(true);
+                    icons[i].sprite = _options[i].Icon;
                 }
                 else
                 {
-                    texts[i].gameObject.SetActive(false);
+                    icons[i].gameObject.SetActive(false);
                 }
-                
-                var text = texts[i];
             }
-            
-
-
         }
 
         private void OnValidate()
         {
             Reload();
+        }
+
+        private void Update()
+        {
+            var mousePos = Input.mousePosition;
+            var angleInRadians = Mathf.Atan2(mousePos.y - Screen.height / 2f, mousePos.x - Screen.width / 2f);
+            
+            float x = _tinyCircleRadius * Mathf.Cos(angleInRadians);
+            float y = _tinyCircleRadius * Mathf.Sin(angleInRadians);
+
+            _tinyCircle.rectTransform.localPosition = new Vector3(x, y, 0f);
         }
     }
 }
