@@ -11,7 +11,7 @@ namespace UI
         [SerializeField] private float _spacing = 0.05f;
         [SerializeField] private float _radius = 100f;
         [SerializeField] private List<string> _options = new List<string>();
-
+        
         [SerializeField] private Button _addButton;
         [SerializeField] private Button _removeButton;
 
@@ -64,8 +64,10 @@ namespace UI
             {
                 if (i < _options.Count)
                 {
-                    float angleInRadians = Mathf.PI * 2 / _options.Count * (i + 0.5f);
- 
+                    const float startOffset = 270f;
+                    float angle = startOffset + 360f * (i - 0.5f) / _options.Count;
+                    float angleInRadians = angle* (float)Math.PI / 180f;
+                    
                     // Oblicz współrzędne x i y na obwodzie koła
                     float x = _radius * Mathf.Cos(angleInRadians);
                     float y = _radius * Mathf.Sin(angleInRadians);
