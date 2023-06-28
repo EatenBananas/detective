@@ -77,7 +77,6 @@ namespace Player.Movement
             if (NavMesh.SamplePosition(hit.point, out var navMeshHit, 1f,
                     NavMesh.AllAreas))
             {
-                Debug.Log($"nav: {NavMesh.GetAreaFromName("Walkable")}");
                 position = navMeshHit.position;
                 return true;
             }
