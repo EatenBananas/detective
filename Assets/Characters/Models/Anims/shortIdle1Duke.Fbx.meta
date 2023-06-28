@@ -1,35 +1,11 @@
 fileFormatVersion: 2
-guid: 8ecfb0f8b83246a43b84fdf6670339d2
+guid: 89982c4337a5a5d4484b90180b3fd9b3
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
-      74: 9096462550879423754
-    second: idle01_000_FBX
-  - first:
-      74: -5029115747472339169
-    second: idleWatch
-  - first:
-      74: -8630904731539023137
-    second: idlePullingBacks
-  - first:
-      74: 3259209626276476585
-    second: idlePullingArms
-  - first:
-      74: 5459629024125735030
-    second: idleDirtyLegs
-  - first:
-      74: -6073080270772114343
-    second: idleFastSneeze
-  - first:
-      74: -5405104515206995590
-    second: idleSlowSneeze
-  - first:
-      74: -3165244525762816939
-    second: idleHowdy
-  - first:
-      74: -876906987116439791
-    second: idleHatHello
+      74: 4880836420880077001
+    second: idle01_5s
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -46,72 +22,30 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'CC_Base_Waist'
-      : position error = 27.154963 mm\nCopied Avatar Rig Configuration mis-match.
-      Inbetween bone rotation in copied configuration does not match rotation in
-      animation file:\n\t'CC_Base_NeckTwist02' : rotation error = 4.114089 deg\n"
+      : position error = 34.299053 mm\n\t'CC_Base_L_Pinky3' : position error = 18.052227
+      mm\n\t'CC_Base_L_Ring3' : position error = 28.673222 mm\n\t'CC_Base_L_Mid3'
+      : position error = 30.836702 mm\n\t'CC_Base_L_Index3' : position error = 27.358511
+      mm\n\t'CC_Base_L_Thumb3' : position error = 30.075060 mm\n\t'CC_Base_R_Ring3'
+      : position error = 28.674524 mm\n\t'CC_Base_R_Mid3' : position error = 30.837502
+      mm\n\t'CC_Base_R_Thumb3' : position error = 30.076290 mm\n\t'CC_Base_R_Index3'
+      : position error = 27.390968 mm\n\t'CC_Base_R_Pinky3' : position error = 18.051636
+      mm\nCopied Avatar Rig Configuration mis-match. Inbetween bone rotation in copied
+      configuration does not match rotation in animation file:\n\t'CC_Base_NeckTwist02'
+      : rotation error = 0.634759 deg\n"
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'idle01_000_FBX' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+    animationImportWarnings: "\nClip 'idle01_2' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar
       to improve retargeting quality.\n\t'CC_Base_Pelvis' has translation animation
       that will be discarded.\n\t'CC_Base_Pelvis' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\t'CC_Base_L_Calf' has
-      translation animation that will be discarded.\n\t'CC_Base_R_Calf' has translation
-      animation that will be discarded.\n\t'CC_Base_Waist' has translation animation
-      that will be discarded.\n\t'CC_Base_NeckTwist02' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\nClip 'idleWatch' has
-      import animation warnings that might lower retargeting quality:\nNote: Activate
-      translation DOF on avatar to improve retargeting quality.\n\t'CC_Base_Pelvis'
-      has translation animation that will be discarded.\n\t'CC_Base_Pelvis' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'CC_Base_Waist'
-      has translation animation that will be discarded.\n\t'CC_Base_NeckTwist02'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'idlePullingBacks' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'CC_Base_Pelvis'
-      has translation animation that will be discarded.\n\t'CC_Base_Pelvis' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'CC_Base_Waist'
-      has translation animation that will be discarded.\n\t'CC_Base_NeckTwist02'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'idlePullingArms' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'CC_Base_Pelvis'
-      has translation animation that will be discarded.\n\t'CC_Base_Pelvis' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'CC_Base_Waist'
-      has translation animation that will be discarded.\n\t'CC_Base_NeckTwist02'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'idleDirtyLegs' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'CC_Base_Pelvis'
-      has translation animation that will be discarded.\n\t'CC_Base_Pelvis' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'CC_Base_Waist'
-      has translation animation that will be discarded.\n\t'CC_Base_NeckTwist02'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'idleFastSneeze' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'CC_Base_Pelvis'
-      has translation animation that will be discarded.\n\t'CC_Base_Pelvis' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'CC_Base_Waist'
-      has translation animation that will be discarded.\n\t'CC_Base_NeckTwist02'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'idleSlowSneeze' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'CC_Base_Pelvis'
-      has translation animation that will be discarded.\n\t'CC_Base_Pelvis' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'CC_Base_Waist'
-      has translation animation that will be discarded.\n\t'CC_Base_NeckTwist02'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'idleHowdy' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'CC_Base_Pelvis'
-      has translation animation that will be discarded.\n\t'CC_Base_Pelvis' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'CC_Base_Waist'
-      has translation animation that will be discarded.\n\t'CC_Base_NeckTwist02'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'idleHatHello' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'CC_Base_Pelvis'
-      has translation animation that will be discarded.\n\t'CC_Base_Pelvis' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'CC_Base_Waist'
-      has translation animation that will be discarded.\n\t'CC_Base_NeckTwist02'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+      and has rotation animation that will be discarded.\n\t'CC_Base_R_Calf' has
+      translation animation that will be discarded.\n\t'CC_Base_Waist' has translation
+      animation that will be discarded.\n\t'CC_Base_NeckTwist02' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -120,11 +54,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: idle01_000_FBX
-      takeName: idle01_000_FBX
+      name: idle01_5s
+      takeName: idle01_2
       internalID: 0
       firstFrame: 1
-      lastFrame: 3148
+      lastFrame: 213
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -139,238 +73,6 @@ ModelImporter:
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
-    - serializedVersion: 16
-      name: idleWatch
-      takeName: idleWatch
-      internalID: 0
-      firstFrame: 1
-      lastFrame: 296
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
-    - serializedVersion: 16
-      name: idlePullingBacks
-      takeName: idlePullingBacks
-      internalID: 0
-      firstFrame: 1
-      lastFrame: 438
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
-    - serializedVersion: 16
-      name: idlePullingArms
-      takeName: idlePullingArms
-      internalID: 0
-      firstFrame: 1
-      lastFrame: 350
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
-    - serializedVersion: 16
-      name: idleDirtyLegs
-      takeName: idleDirtyLegs
-      internalID: 0
-      firstFrame: 1
-      lastFrame: 626
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
-    - serializedVersion: 16
-      name: idleFastSneeze
-      takeName: idleFastSneeze
-      internalID: 0
-      firstFrame: 1
-      lastFrame: 291
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
-    - serializedVersion: 16
-      name: idleSlowSneeze
-      takeName: idleSlowSneeze
-      internalID: 0
-      firstFrame: 1
-      lastFrame: 403
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
-    - serializedVersion: 16
-      name: idleHowdy
-      takeName: idleHowdy
-      internalID: 0
-      firstFrame: 1
-      lastFrame: 264
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
-    - serializedVersion: 16
-      name: idleHatHello
-      takeName: idleHatHello
-      internalID: 0
-      firstFrame: 1
-      lastFrame: 378
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
