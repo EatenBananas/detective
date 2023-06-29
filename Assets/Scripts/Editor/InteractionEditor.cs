@@ -1,12 +1,9 @@
+#if UNITY_EDITOR
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Interactions;
 using Interactions.Elements;
-using Unity.VisualScripting;
 using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -193,3 +190,4 @@ namespace EditorUtilities
         }
     }
 }
+#endif

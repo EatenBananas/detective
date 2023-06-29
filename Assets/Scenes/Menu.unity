@@ -5985,6 +5985,7 @@ GameObject:
   - component: {fileID: 1137383937}
   - component: {fileID: 1137383936}
   - component: {fileID: 1137383935}
+  - component: {fileID: 1137383938}
   m_Layer: 5
   m_Name: NewGameBtn
   m_TagString: Untagged
@@ -6131,6 +6132,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137383933}
   m_CullTransparentMesh: 1
+--- !u!114 &1137383938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137383933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5792ca6d71d5c04fbc6d4d262f93570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1139049599
 GameObject:
   m_ObjectHideFlags: 0
@@ -8392,7 +8405,6 @@ MonoBehaviour:
   _lists:
   - {fileID: 420744913}
   - {fileID: 1210949045}
-  isReading: 0
 --- !u!225 &1445855875
 CanvasGroup:
   m_ObjectHideFlags: 0

@@ -15,6 +15,9 @@ namespace Interactions.Elements
             SceneObjectManager.Instance.UpdatePhoto(Picture, Visible);
             InteractionManager.Instance.CompleteElement();
         }
+        
+        #if UNITY_EDITOR
         public override int Height() => 4;
+        #endif
     }
 }
