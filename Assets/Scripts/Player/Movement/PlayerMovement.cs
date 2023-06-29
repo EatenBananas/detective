@@ -23,13 +23,16 @@ namespace Player.Movement
         [SerializeField] private float _walkSpeed;
         [SerializeField] private float _runSpeed;
         [SerializeField] private float _sneakSpeed;
-        
+
         private static NavMeshAgent _agent;
         private bool _movementBlocked;
+        private PlayerAnimation playerAnimation;
 
         private void Awake()
         {
-            _agent = GetComponent<NavMeshAgent>(); 
+            _agent = GetComponent<NavMeshAgent>();
+            playerAnimation = GetComponent<PlayerAnimation>();
+            
             _agent.updateRotation = false;          // Fix agent slow rotation
         }
 
@@ -38,6 +41,10 @@ namespace Player.Movement
             // Fix slow agent rotation
             if (_agent.velocity.sqrMagnitude > Mathf.Epsilon)
                 transform.rotation = Quaternion.LookRotation(_agent.velocity.normalized);
+
+            if (_agent.velocity.x > 0 || _agent.velocity.y > 0 || _agent.velocity.z > 0)
+                playerAnimation.Walk(true);
+            else playerAnimation.Walk(false);
         }
 
         public void SetPlayerTargetPosition(Vector3 newTargetPosition)

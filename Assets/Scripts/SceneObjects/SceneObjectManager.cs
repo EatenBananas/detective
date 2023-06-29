@@ -11,7 +11,8 @@ namespace SceneObjects
     public class SceneObjectManager : MonoBehaviour
     {
         public static SceneObjectManager Instance { get; private set; }
-        public Dictionary<SceneReference, Vector3> SceneLocations { get; private set; } = new();
+        private Dictionary<SceneReference, Vector3> _sceneLocations = new();
+        private Dictionary<SceneReference, GameObject> _photos = new();
 
         // temp shit
         [field: SerializeField] private PlayerMovement _playerMovement;
@@ -32,7 +33,13 @@ namespace SceneObjects
                 }
                 case SceneReferenceType.LOCATION:
                 {
-                    SceneLocations.Add(key, sceneObject.transform.position);
+                    _sceneLocations.Add(key, sceneObject.transform.position);
+                    break;
+                }
+                case SceneReferenceType.PHOTO:
+                {
+                    _photos.Add(key, sceneObject.gameObject);
+                    sceneObject.SetActive(false);
                     break;
                 }
                 default:
@@ -46,14 +53,24 @@ namespace SceneObjects
         // temp here
         public void Teleport(SceneReference location)
         {
-            if (!SceneLocations.ContainsKey(location))
+            if (!_sceneLocations.ContainsKey(location))
             {
                 Debug.LogError("Scene Location not found");
                 return;
             }
 
-            _playerMovement.TeleportPlayer(SceneLocations[location]);
+            _playerMovement.TeleportPlayer(_sceneLocations[location]);
         }
-        
+
+        public void UpdatePhoto(SceneReference photo, bool visible)
+        {
+            if (!_photos.ContainsKey(photo))
+            {
+                Debug.LogError("Scene Photo not found");
+                return;
+            }
+            
+            _photos[photo].SetActive(visible);
+        }
     }
 }

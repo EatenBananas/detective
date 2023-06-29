@@ -1,12 +1,9 @@
+#if UNITY_EDITOR
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Interactions;
 using Interactions.Elements;
-using Unity.VisualScripting;
 using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -168,6 +165,12 @@ namespace EditorUtilities
                     sceneChange.SceneIndex = utils.IntField(sceneChange.SceneIndex, "Scene Index");
                     break;
                 }
+                case Photo photo:
+                {
+                    photo.Picture = utils.ScriptableObjectField(photo.Picture, "Picture");
+                    photo.Visible = utils.BoolField(photo.Visible, "Visible");
+                    break;
+                }
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -187,3 +190,4 @@ namespace EditorUtilities
         }
     }
 }
+#endif

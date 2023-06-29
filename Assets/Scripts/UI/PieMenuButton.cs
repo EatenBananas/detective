@@ -1,11 +1,14 @@
+using System;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
 {
+    [RequireComponent(typeof(Button))]
     public class PieMenuButton : Image
     {
         // this code overrides raycast logic, so that the area hidden by mask is not selectable
@@ -28,6 +31,15 @@ namespace UI
         {
             fillAmount = fill;
             rectTransform.eulerAngles = new Vector3(0f, 0f, angle);
+        }
+        
+        public void Assign(UnityAction operation)
+        {
+            // temp
+            var button = GetComponent<Button>();
+            
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(operation);
         }
     }
 }
