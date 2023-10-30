@@ -1,4 +1,6 @@
-using GraphEditor.Elements;
+using System;
+using System.Collections.Generic;
+using GraphEditor.Nodes;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -15,15 +17,7 @@ namespace GraphEditor
             AddStyles();
         }
 
-        private GraphEditorNode CreateNode(Vector2 position)
-        {
-            GraphEditorNode node = new();
-            
-            node.Initialize(position);
-            node.Draw();
-            
-            return node;
-        }
+
 
         private void AddManipulators()
         {
@@ -37,9 +31,17 @@ namespace GraphEditor
 
         private IManipulator CreateNodeContextualMenu()
         {
-            ContextualMenuManipulator manipulator = new(
-                menuEvent => menuEvent.menu.AppendAction("Add Node", actionEvent => AddElement(CreateNode(actionEvent.eventInfo.localMousePosition))));
+            ContextualMenuManipulator manipulator = new(MenuBuilder);
             return manipulator;
+        }
+
+        private void MenuBuilder(ContextualMenuPopulateEvent obj)
+        {
+            foreach (var type in GraphEditorNode.SubTypes)
+            {
+                // todo: reorganize this mess
+                obj.menu.AppendAction($"Add {type.Name}", actionEvent => AddElement((GraphEditorNode) Activator.CreateInstance(type, actionEvent.eventInfo.localMousePosition)));
+            }
         }
 
         private void AddStyles()

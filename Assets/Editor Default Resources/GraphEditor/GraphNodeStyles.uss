@@ -1,0 +1,25 @@
+﻿.unity-label {
+    font-size: 13px;
+    padding: 10px;
+}
+    
+#title {
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    -unity-text-align: middle-center;
+    font-size: 18px; /* Rozmiar czcionki */
+    padding-left: 15px;
+}
+
+.unity-base-text-field__input {
+    width: 100px;
+    height: 100px
+}
+
+.unity-base-text-field > .unity-base-field__input{
+    white-space: normal;
+    font-size: 13px;
+    --unity-word-wrap: true;
+    
+}
