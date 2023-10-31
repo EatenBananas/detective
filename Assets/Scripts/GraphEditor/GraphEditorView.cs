@@ -17,7 +17,22 @@ namespace GraphEditor
             AddStyles();
         }
 
+        public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
+        {
+            List<Port> compatiblePorts = new();
 
+            ports.ForEach(port =>
+            {
+                if (startPort == port || startPort.node == port.node || startPort.direction == port.direction)
+                {
+                    return;
+                }
+
+                compatiblePorts.Add(port);
+            });
+            
+            return compatiblePorts;
+        }
 
         private void AddManipulators()
         {

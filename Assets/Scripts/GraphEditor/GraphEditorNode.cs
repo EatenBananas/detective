@@ -28,10 +28,15 @@ namespace GraphEditor
 
         private void Draw()
         {
-            Label label = new(GetType().Name);
+            Label label = new(GetType().Name.Replace("Node", ""));
             label.name = "title";
             titleContainer.Insert(0, label);
 
+            TextField noteField = new TextField()
+            {
+                //label = "Note"
+            };
+            
             // todo: ogarnąć to
             // TextField description = new TextField()
             // {
@@ -41,12 +46,12 @@ namespace GraphEditor
             // titleContainer.Add(description);
 
             Port inputPort =
-                InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(bool));
+                InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(bool));
             inputPort.portName = "Previous";
             inputContainer.Add(inputPort);
             
             Port outputPort =
-                InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(bool));
+                InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
             outputPort.portName = "Next";
             outputContainer.Add(outputPort);
 

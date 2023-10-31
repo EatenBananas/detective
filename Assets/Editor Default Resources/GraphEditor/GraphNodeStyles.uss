@@ -8,11 +8,11 @@
     align-items: center;
     justify-content: center;
     -unity-text-align: middle-center;
-    font-size: 18px; /* Rozmiar czcionki */
+    font-size: 18px;
     padding-left: 15px;
 }
 
-.unity-base-text-field__input {
+.wide_text > .unity-base-text-field__input{
     width: 100px;
     height: 100px
 }
@@ -22,4 +22,12 @@
     font-size: 13px;
     --unity-word-wrap: true;
     
+}
+
+.comment{
+    background-color: yellow;
+}
+
+.start-node{
+    background-color: greenyellow;
 }

@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Interactions;
-using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -9,9 +7,9 @@ using UnityEngine.UIElements;
 
 namespace GraphEditor.Nodes
 {
-    public class ConditionNode : GraphEditorNode
+    public class SetStateNode : GraphEditorNode
     {
-        public ConditionNode(Vector2 position) : base(position) {}
+        public SetStateNode(Vector2 position) : base(position) {}
 
         private List<string> _options = new List<string>();
 
@@ -28,16 +26,11 @@ namespace GraphEditor.Nodes
 
             stateField.RegisterValueChangedCallback(StateValueChanged);
 
-            DropdownField equalToField = new DropdownField("Equal to");
+            DropdownField equalToField = new DropdownField("Set to");
             equalToField.choices = _options;
-
-            Port interactionPort = 
-                InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(bool));
-            interactionPort.portName = "Interaction";
             
             result.Add(stateField);
             result.Add(equalToField);
-            result.Add(interactionPort);
             
             return result;
         }
