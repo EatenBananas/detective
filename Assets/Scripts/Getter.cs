@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class Getter : MonoBehaviour
 {
-    public static Camera MainCamera
+    public static Getter Instance { get; set; }
+    
+    public Camera MainCamera
     {
         get
         {
@@ -11,16 +13,17 @@ public class Getter : MonoBehaviour
             return _mainCamera;
         }
     }
-    public static Transform Player => _player;
+    public Transform Player { get; private set; }
 
-    private static Camera _mainCamera;
-    private static Transform _player;
+    private Camera _mainCamera;
 
     private void Awake()
     {
-        TryGetComponent(out _mainCamera);
+        _mainCamera = Camera.main;
 
         if (TryGetComponent(out PlayerMovement playerMovement)) 
-            _player = playerMovement.transform;
+            Player = playerMovement.transform;
+
+        if (Instance == null) Instance = this;
     }
 }
