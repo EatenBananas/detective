@@ -84,7 +84,7 @@ namespace CameraSystem.CameraRotationAroundPlayer
 
         private void FindPlayer(InputAction.CallbackContext callbackContext)
         {
-            if (Getter.Player != null) MoveCameraToPosition(Getter.Player.position);
+            if (Getter.Instance.Player != null) MoveCameraToPosition(Getter.Instance.Player.position);
         }
 
         private void EnableCameraRotation(InputAction.CallbackContext callbackContext)
@@ -99,7 +99,7 @@ namespace CameraSystem.CameraRotationAroundPlayer
 
         private void BindCameraToPlayer(InputAction.CallbackContext obj)
         {
-            FollowTarget = Getter.Player;
+            FollowTarget = Getter.Instance.Player;
         }
     }
 }
