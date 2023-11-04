@@ -1,21 +1,25 @@
+using GameManagers;
 using UnityEngine;
+using Zenject;
 
 namespace CutoutObjectSystem
 {
     public class CutoutObjectManager : MonoBehaviour
     {
         [SerializeField] private LayerMask _wallLayerMask;
+
+        [Inject] private Raycaster _raycaster;
         
         private Renderer _lastRenderer;
 
         private void OnEnable()
         {
-            Raycaster.Instance.OnLookAtChange += HideWall;
+            _raycaster.OnLookingAtPlayerFromCameraCenterChange += HideWall;
         }
 
         private void OnDisable()
         {
-            Raycaster.Instance.OnLookAtChange -= HideWall;
+            _raycaster.OnLookingAtPlayerFromCameraCenterChange -= HideWall;
         }
 
         private void HideWall(GameObject wall)
