@@ -5,13 +5,10 @@ namespace GraphEditor.Nodes
 {
     public class CommentNode : GraphEditorNode
     {
-        public CommentNode(Vector2 position) : base(position) {}
-
+        public CommentNode(Vector2 position) : base(position, showInputPort:false, showOutputPort:false, showDescription:false) {}
+        
         protected override VisualElement GetDataContainer()
         {
-            inputContainer.Clear();
-            outputContainer.Clear();
-            
             mainContainer.AddToClassList("comment");
             
             VisualElement result = new();
@@ -20,7 +17,7 @@ namespace GraphEditor.Nodes
             {
                 multiline = true
             };
-            noteField.AddToClassList("wide_text");
+            noteField.AddToClassList("ge__textfield");
 
             result.Add(noteField);
             

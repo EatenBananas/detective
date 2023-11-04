@@ -23,7 +23,8 @@ namespace GraphEditor.Nodes
                 label = "Text",
                 multiline = true
             };
-            textTextField.AddToClassList("wide_text");
+            textTextField.AddToClassList("ge__textfield");
+            //textTextField.AddToClassList("wide_text");
             
             result.Add(objectField);
             result.Add(textTextField);

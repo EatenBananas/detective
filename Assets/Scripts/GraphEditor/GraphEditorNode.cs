@@ -13,17 +13,30 @@ namespace GraphEditor
     public abstract class GraphEditorNode : Node
     {
         protected abstract VisualElement GetDataContainer();
-        protected GraphEditorNode(Vector2 position)
+
+        private readonly bool _showInputPort;
+        private readonly bool _showOutputPort;
+        private readonly bool _showDescription;
+        
+        protected GraphEditorNode(Vector2 position, 
+            bool showInputPort = true, bool showOutputPort = true, bool showDescription = true)
         {
+            _showInputPort = showInputPort;
+            _showOutputPort = showOutputPort;
+            _showDescription = showDescription;
+            
             Initialize(position);
             Draw();
         }
-        
+
         private void Initialize(Vector2 position)
         {
             // todo: pozycja nie uwzględnia skali!
             SetPosition(new Rect(position, Vector2.zero));
             styleSheets.Add((StyleSheet) EditorGUIUtility.Load("GraphEditor/GraphNodeStyles.uss"));
+            
+            extensionContainer.AddToClassList("ge__extension-container");
+            mainContainer.AddToClassList("ge__main-container");
         }
 
         private void Draw()
@@ -31,29 +44,50 @@ namespace GraphEditor
             Label label = new(GetType().Name.Replace("Node", ""));
             label.name = "title";
             titleContainer.Insert(0, label);
-
-            TextField noteField = new TextField()
+            
+            if (_showDescription)
             {
-                //label = "Note"
-            };
-            
-            // todo: ogarnąć to
-            // TextField description = new TextField()
-            // {
-            //     multiline = true,
-            //     label = "Description"
-            // };
-            // titleContainer.Add(description);
+                VisualElement customDataContainer = new();
+                
+                customDataContainer.AddToClassList("ge__custom-data-container");
+                
+                Foldout foldout = new Foldout
+                {
+                    value = false,
+                    //text = "Description"
+                };
+                
+                foldout.AddToClassList("ge__foldout");
+                
+                TextField description = new TextField()
+                {
+                    multiline = true,
+                    value = "Description"
+                };
+                description.AddToClassList("ge__description");
+                
+                foldout.Add(description);
+                customDataContainer.Add(foldout);
+                
+                //mainContainer.Insert(1, customDataContainer);
+                extensionContainer.Add(customDataContainer);
+            }
 
-            Port inputPort =
-                InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(bool));
-            inputPort.portName = "Previous";
-            inputContainer.Add(inputPort);
-            
-            Port outputPort =
-                InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
-            outputPort.portName = "Next";
-            outputContainer.Add(outputPort);
+            if (_showInputPort)
+            {
+                Port inputPort =
+                    InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(bool));
+                inputPort.portName = "Previous";
+                inputContainer.Add(inputPort);
+            }
+
+            if (_showOutputPort)
+            {
+                Port outputPort =
+                    InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
+                outputPort.portName = "Next";
+                outputContainer.Add(outputPort);
+            }
 
             extensionContainer.Add(GetDataContainer());
             

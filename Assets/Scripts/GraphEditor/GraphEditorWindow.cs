@@ -20,7 +20,7 @@ namespace GraphEditor
 
         private void AddGraphView()
         {
-            GraphEditorView view = new();
+            GraphEditorView view = new(this);
             
             view.StretchToParentSize();
             
