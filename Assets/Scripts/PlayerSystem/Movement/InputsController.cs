@@ -1,14 +1,17 @@
-using System;
-using CameraSystem;
+using CameraSystem.CameraRotationAroundPlayer;
+using Player.Movement;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Zenject;
 
-namespace Player.Movement
+namespace PlayerSystem.Movement
 {
     public class InputsController : MonoBehaviour
     {
+        [Inject] private CameraController _cameraController;
+        
         private PlayerInputActions _playerInputActions;
         private PlayerMovement _playerMovement;
         private bool _isMouseOverUI;
@@ -65,7 +68,7 @@ namespace Player.Movement
         private bool GetMouseToWorldPosition(out Vector3 position)
         {
             var mousePosition = _playerInputActions.Player.MousePosition.ReadValue<Vector2>();
-            var ray = Getter.Instance.MainCamera.ScreenPointToRay(mousePosition);
+            var ray = _cameraController.Camera.ScreenPointToRay(mousePosition);
             Physics.Raycast(ray, out var hit);
 
             if (_isMouseOverUI)
