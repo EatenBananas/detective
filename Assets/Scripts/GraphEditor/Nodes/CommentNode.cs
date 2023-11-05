@@ -5,7 +5,8 @@ namespace GraphEditor.Nodes
 {
     public class CommentNode : GraphEditorNode
     {
-        public CommentNode(Vector2 position) : base(position, showInputPort:false, showOutputPort:false, showDescription:false) {}
+        public CommentNode(Vector2 position) : base(position,
+            showInputPort:false, showOutputPort:false, showDescription:false) {}
         
         protected override VisualElement GetDataContainer()
         {

@@ -9,7 +9,8 @@ namespace GraphEditor.Nodes
 {
     public class ChoiceNode : GraphEditorNode
     {
-        public ChoiceNode(Vector2 position) : base(position, showOutputPort: false) {}
+        public ChoiceNode(Vector2 position) : base(position, 
+            showOutputPort: false) {}
 
         private List<string> _options = new List<string>();
         

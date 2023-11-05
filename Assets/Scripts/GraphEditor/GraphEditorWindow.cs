@@ -1,7 +1,9 @@
 using System;
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utils;
 
 namespace GraphEditor
 {
@@ -16,8 +18,9 @@ namespace GraphEditor
         private void OnEnable()
         {
             AddGraphView();
+            AddToolbar();
         }
-
+        
         private void AddGraphView()
         {
             GraphEditorView view = new(this);
@@ -25,6 +28,28 @@ namespace GraphEditor
             view.StretchToParentSize();
             
             rootVisualElement.Add(view);
+        }
+        
+        private void AddToolbar()
+        {
+            Toolbar toolbar = new();
+
+            TextField fileNameTextField = new TextField("File Name:")
+            {
+                value = "NewFile"
+                
+            };
+            fileNameTextField.RegisterValueChangedCallback(evt =>
+                fileNameTextField.value = evt.newValue.RemoveSpecialCharacters().RemoveWhitespaces());
+            Button saveButton = new()
+            {
+                text = "Save",
+            };
+
+            toolbar.Add(fileNameTextField);
+            toolbar.Add(saveButton);
+            
+            rootVisualElement.Add(toolbar);
         }
     }
 }

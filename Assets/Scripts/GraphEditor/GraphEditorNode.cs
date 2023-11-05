@@ -18,12 +18,14 @@ namespace GraphEditor
         private readonly bool _showOutputPort;
         private readonly bool _showDescription;
         
-        protected GraphEditorNode(Vector2 position, 
+        protected GraphEditorNode(Vector2 position,
             bool showInputPort = true, bool showOutputPort = true, bool showDescription = true)
         {
             _showInputPort = showInputPort;
             _showOutputPort = showOutputPort;
             _showDescription = showDescription;
+
+            //capabilities ^= Capabilities.Resizable;
             
             Initialize(position);
             Draw();
@@ -31,7 +33,6 @@ namespace GraphEditor
 
         private void Initialize(Vector2 position)
         {
-            // todo: pozycja nie uwzględnia skali!
             SetPosition(new Rect(position, Vector2.zero));
             styleSheets.Add((StyleSheet) EditorGUIUtility.Load("GraphEditor/GraphNodeStyles.uss"));
             
@@ -41,8 +42,8 @@ namespace GraphEditor
 
         private void Draw()
         {
-            Label label = new(GetType().Name.Replace("Node", ""));
-            label.name = "title";
+            Label label = new(title);
+            //label.name = _title;
             titleContainer.Insert(0, label);
             
             if (_showDescription)
