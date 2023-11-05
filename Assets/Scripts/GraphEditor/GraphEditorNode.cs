@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GraphEditor.Save;
 using Interactions;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -12,6 +13,9 @@ namespace GraphEditor
 {
     public abstract class GraphEditorNode : Node
     {
+        public string ID { get; } = Guid.NewGuid().ToString();
+        public string NextNodeID { get; private set; }
+        public string GroupID { get; private set; }
         protected abstract VisualElement GetDataContainer();
 
         private readonly bool _showInputPort;
@@ -21,6 +25,7 @@ namespace GraphEditor
         protected GraphEditorNode(Vector2 position,
             bool showInputPort = true, bool showOutputPort = true, bool showDescription = true)
         {
+            
             _showInputPort = showInputPort;
             _showOutputPort = showOutputPort;
             _showDescription = showDescription;
@@ -102,5 +107,35 @@ namespace GraphEditor
                 .SelectMany(assembly => assembly.GetTypes(), (assembly, type) => new {assembly, type})
                 .Where(@t => @t.type.IsSubclassOf(typeof(GraphEditorNode)))
                 .Select(@t => @t.type)).ToList();
+
+        public GraphEditorNodeSave ToSave()
+        {
+            GraphEditorNodeSave save = new()
+            {
+                ID = ID,
+                NodeName = title,
+                // GroupID = null, todo: implement
+                Position = GetPosition().position,
+                NextNodeID = NextNodeID
+            };
+
+            return save;
+
+        }
+
+        public void ConnectTo(GraphEditorNode node)
+        {
+            NextNodeID = node.ID;
+        }
+
+        public void Disconnect()
+        {
+            NextNodeID = string.Empty;
+        }
+
+        public void AddToGroup(GraphEditorGroup group)
+        {
+            GroupID = group.ID;
+        }
     }
 }

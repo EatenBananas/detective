@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222fe16d6b5b40e7a78e353ef4447148, type: 3}
+  m_Name: TestFileGraph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: TestFile
+  <Nodes>k__BackingField:
+  - <NodeName>k__BackingField: Start_1
+    <ID>k__BackingField: 114f9950-2e8c-48d7-b36c-933d78583c19
+    <NextNodeID>k__BackingField: 8b180c33-359e-4963-a638-2c58fb136697
+    <GroupID>k__BackingField: 
+    <Position>k__BackingField: {x: 217.59999, y: 138.40001}
+  - <NodeName>k__BackingField: Choice_1
+    <ID>k__BackingField: 8b180c33-359e-4963-a638-2c58fb136697
+    <NextNodeID>k__BackingField: 70c960f3-f482-46c7-865a-b8a43ff14e33
+    <GroupID>k__BackingField: 
+    <Position>k__BackingField: {x: 458.40002, y: 138.40001}
+  - <NodeName>k__BackingField: CameraChange_2
+    <ID>k__BackingField: 70c960f3-f482-46c7-865a-b8a43ff14e33
+    <NextNodeID>k__BackingField: f894cdc9-29b4-4575-9255-b4311c65fc9c
+    <GroupID>k__BackingField: 
+    <Position>k__BackingField: {x: 895.2, y: -96.8}
+  - <NodeName>k__BackingField: Dialogue_1
+    <ID>k__BackingField: f894cdc9-29b4-4575-9255-b4311c65fc9c
+    <NextNodeID>k__BackingField: 
+    <GroupID>k__BackingField: 
+    <Position>k__BackingField: {x: 1476.7999, y: -96.8}
+  - <NodeName>k__BackingField: Equip_1
+    <ID>k__BackingField: 002cf5db-3f17-4c86-90ca-fc2103d70d24
+    <NextNodeID>k__BackingField: 
+    <GroupID>k__BackingField: 
+    <Position>k__BackingField: {x: 902.4, y: 226.40001}
+  - <NodeName>k__BackingField: CameraChange_1
+    <ID>k__BackingField: 33723392-975b-4785-b84a-c52feb643a6e
+    <NextNodeID>k__BackingField: 7703e764-8b45-466e-bbe4-77049debe168
+    <GroupID>k__BackingField: 
+    <Position>k__BackingField: {x: 895.2, y: 498.39996}
+  - <NodeName>k__BackingField: SetState_1
+    <ID>k__BackingField: 7703e764-8b45-466e-bbe4-77049debe168
+    <NextNodeID>k__BackingField: 
+    <GroupID>k__BackingField: 
+    <Position>k__BackingField: {x: 1443.2, y: 498.39996}
+  - <NodeName>k__BackingField: Comment_1
+    <ID>k__BackingField: 1124cd9d-f01b-4bcd-932d-b9aa036a1634
+    <NextNodeID>k__BackingField: 
+    <GroupID>k__BackingField: 
+    <Position>k__BackingField: {x: 1287.2, y: 254.40001}
+  <Groups>k__BackingField:
+  - <ID>k__BackingField: e89d8455-115e-4a66-9415-909bd23976f4
+    <GroupName>k__BackingField: Dialogue
+    <Position>k__BackingField: {x: 869.6, y: -156.80002}
+  - <ID>k__BackingField: 8c067b02-380b-409e-80b2-28a7acaa94aa
+    <GroupName>k__BackingField: Equip
+    <Position>k__BackingField: {x: 876.8, y: 166.40001}
+  - <ID>k__BackingField: 26609eb9-3529-4d02-b8d5-4308c0056b8a
+    <GroupName>k__BackingField: Flower
+    <Position>k__BackingField: {x: 869.5999, y: 438.39984}
+  <OldNodeNames>k__BackingField: []
+  <OldGroupNames>k__BackingField: []

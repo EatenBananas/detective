@@ -1,14 +1,22 @@
-﻿using UnityEditor.Experimental.GraphView;
+﻿using System;
+using GraphEditor.Save;
+using UnityEditor.Experimental.GraphView;
 
 namespace GraphEditor
 {
     public class GraphEditorGroup : Group
     {
+        public string ID { get; set; } = Guid.NewGuid().ToString();
         public string OldTitle { get; set; }
-        
-        public GraphEditorGroup()
+
+        public GraphEditorGroupSave ToSave()
         {
-            OldTitle = title;
+            return new GraphEditorGroupSave()
+            {
+                ID = ID,
+                GroupName = title,
+                Position = GetPosition().position
+            };
         }
     }
 }

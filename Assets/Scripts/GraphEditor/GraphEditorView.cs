@@ -24,6 +24,7 @@ namespace GraphEditor
 
             deleteSelection = (operationName, user) => OnElementsDeleted();
             groupTitleChanged = (group, newTitle) => OnGroupRenamed((GraphEditorGroup)group);
+            graphViewChanged = OnGraphViewChanged; 
             
             AddManipulators();
             AddGridBackground();
@@ -114,7 +115,11 @@ namespace GraphEditor
                     continue;
                 }
 
-                group.AddElement(selectedElement);
+                if (selectedElement is GraphEditorNode node)
+                {
+                    node.AddToGroup(group);
+                    group.AddElement(node);
+                }
             }
             
             AddElement(group);
@@ -189,6 +194,7 @@ namespace GraphEditor
         {
             List<GraphEditorNode> nodesToRemove = new();
             List<GraphEditorGroup> groupsToRemove = new();
+            List<GraphElement> otherToRemove = new();
             
             foreach (GraphElement element in selection)
             {
@@ -199,6 +205,9 @@ namespace GraphEditor
                         break;
                     case GraphEditorGroup group:
                         groupsToRemove.Add(group);
+                        break;
+                    default:
+                        otherToRemove.Add(element);
                         break;
                 }
             }
@@ -219,8 +228,14 @@ namespace GraphEditor
             
             foreach (GraphEditorNode node in nodesToRemove)
             {
+                // todo: remove connections
                 _nodes.Remove(node.title);
                 RemoveElement(node);
+            }
+
+            foreach (GraphElement other in otherToRemove)
+            {
+                RemoveElement(other);
             }
         }
 
@@ -243,5 +258,40 @@ namespace GraphEditor
             _groups[group.title] = group;
             group.OldTitle = group.title;
         }
+        
+        private GraphViewChange OnGraphViewChanged(GraphViewChange changes)
+        {
+            if (changes.edgesToCreate != null)
+            {
+                foreach (Edge edge in changes.edgesToCreate)
+                {
+                    GraphEditorNode leftNode = (GraphEditorNode)edge.output.node;
+                    GraphEditorNode rightNode = (GraphEditorNode)edge.input.node;
+
+                    leftNode.ConnectTo(rightNode);
+                }
+            }
+
+            if (changes.elementsToRemove != null)
+            {
+                Type edgeType = typeof(Edge);
+                foreach (var element in changes.elementsToRemove)
+                {
+                    if (element.GetType() != edgeType)
+                    {
+                        continue;
+                    }
+
+                    Edge edge = (Edge)element;
+                    GraphEditorNode node = (GraphEditorNode)edge.output.node;
+                    node.Disconnect();
+                    
+                    RemoveElement(edge);
+                }
+            }
+            
+            return changes;
+        }
+        
     }
 }

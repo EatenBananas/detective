@@ -1,4 +1,5 @@
 using System;
+using GraphEditor.Utils;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -9,6 +10,9 @@ namespace GraphEditor
 {
     public class GraphEditorWindow : EditorWindow
     {
+        private GraphEditorView _graphEditorView;
+        private TextField _fileNameTextField;
+        
         [MenuItem("Window/Graph Editor")]
         public static void Open()
         {
@@ -23,33 +27,47 @@ namespace GraphEditor
         
         private void AddGraphView()
         {
-            GraphEditorView view = new(this);
+            _graphEditorView = new GraphEditorView(this);
             
-            view.StretchToParentSize();
+            _graphEditorView.StretchToParentSize();
             
-            rootVisualElement.Add(view);
+            rootVisualElement.Add(_graphEditorView);
         }
         
         private void AddToolbar()
         {
             Toolbar toolbar = new();
 
-            TextField fileNameTextField = new TextField("File Name:")
+            _fileNameTextField = new TextField("File Name:")
             {
                 value = "NewFile"
                 
             };
-            fileNameTextField.RegisterValueChangedCallback(evt =>
-                fileNameTextField.value = evt.newValue.RemoveSpecialCharacters().RemoveWhitespaces());
-            Button saveButton = new()
+            _fileNameTextField.RegisterValueChangedCallback(evt =>
+                _fileNameTextField.value = evt.newValue.RemoveSpecialCharacters().RemoveWhitespaces());
+            Button saveButton = new(Save)
             {
                 text = "Save",
+                
             };
 
-            toolbar.Add(fileNameTextField);
+            toolbar.Add(_fileNameTextField);
             toolbar.Add(saveButton);
             
             rootVisualElement.Add(toolbar);
+        }
+
+        private void Save()
+        {
+            if (string.IsNullOrEmpty(_fileNameTextField.value))
+            {
+                EditorUtility.DisplayDialog(
+                    "Invalid file name", "File name can't be empty", "ok");
+                return;
+            }
+            
+            GraphEditorIOUtils.Initialize(_graphEditorView, _fileNameTextField.value);
+            GraphEditorIOUtils.Save();
         }
     }
 }
