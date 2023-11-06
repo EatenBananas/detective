@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using GraphEditor.Saves;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace GraphEditor.Nodes
 {
     public class CommentNode : GraphEditorNode
     {
+        private TextField _noteField;
         public CommentNode(Vector2 position) : base(position,
             showInputPort:false, showOutputPort:false, showDescription:false) {}
         
@@ -14,15 +16,23 @@ namespace GraphEditor.Nodes
             
             VisualElement result = new();
             
-            TextField noteField = new TextField()
+            _noteField = new TextField()
             {
                 multiline = true
             };
-            noteField.AddToClassList("ge__textfield");
+            _noteField.AddToClassList("ge__textfield");
 
-            result.Add(noteField);
+            result.Add(_noteField);
             
             return result;
+        }
+
+        public override GraphEditorNodeSave ToSave()
+        {
+            CommentNodeSave save = new();
+            FillBasicProperties(save);
+            save.Description = _noteField.value;
+            return save;
         }
     }
 }

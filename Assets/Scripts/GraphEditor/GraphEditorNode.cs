@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GraphEditor.Save;
+using GraphEditor.Saves;
 using Interactions;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -17,10 +17,13 @@ namespace GraphEditor
         public string NextNodeID { get; private set; }
         public string GroupID { get; private set; }
         protected abstract VisualElement GetDataContainer();
+        public abstract GraphEditorNodeSave ToSave();
 
         private readonly bool _showInputPort;
         private readonly bool _showOutputPort;
         private readonly bool _showDescription;
+
+        private TextField _descriptionTextField;
         
         protected GraphEditorNode(Vector2 position,
             bool showInputPort = true, bool showOutputPort = true, bool showDescription = true)
@@ -65,14 +68,14 @@ namespace GraphEditor
                 
                 foldout.AddToClassList("ge__foldout");
                 
-                TextField description = new TextField()
+                _descriptionTextField = new TextField()
                 {
                     multiline = true,
                     value = "Description"
                 };
-                description.AddToClassList("ge__description");
+                _descriptionTextField.AddToClassList("ge__description");
                 
-                foldout.Add(description);
+                foldout.Add(_descriptionTextField);
                 customDataContainer.Add(foldout);
                 
                 //mainContainer.Insert(1, customDataContainer);
@@ -107,20 +110,15 @@ namespace GraphEditor
                 .SelectMany(assembly => assembly.GetTypes(), (assembly, type) => new {assembly, type})
                 .Where(@t => @t.type.IsSubclassOf(typeof(GraphEditorNode)))
                 .Select(@t => @t.type)).ToList();
-
-        public GraphEditorNodeSave ToSave()
+        
+        public void FillBasicProperties(GraphEditorNodeSave save)
         {
-            GraphEditorNodeSave save = new()
-            {
-                ID = ID,
-                NodeName = title,
-                // GroupID = null, todo: implement
-                Position = GetPosition().position,
-                NextNodeID = NextNodeID
-            };
-
-            return save;
-
+            save.ID = ID;
+            save.NodeName = title;
+            save.GroupID = GroupID;
+            save.Position = GetPosition().position;
+            save.NextNodeID = NextNodeID;
+            save.Description = _descriptionTextField != null ? _descriptionTextField.value : string.Empty;
         }
 
         public void ConnectTo(GraphEditorNode node)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GraphEditor.Saves;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -26,6 +27,16 @@ namespace GraphEditor.Nodes
             result.Add(optionsCount);
 
             return result;
+        }
+
+        public override GraphEditorNodeSave ToSave()
+        {
+            // todo: this one will be tough
+
+            ChoiceNodeSave save = new();
+            FillBasicProperties(save);
+
+            return save;
         }
 
         private void OptionsChangedCallback(ChangeEvent<int> evt)

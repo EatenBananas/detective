@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace GraphEditor.Save
+namespace GraphEditor.Saves
 {
     [Serializable]
     public class GraphEditorNodeSave
@@ -11,5 +11,7 @@ namespace GraphEditor.Save
         [field:SerializeField] public string NextNodeID { get; set; }
         [field:SerializeField] public string GroupID { get; set; }
         [field:SerializeField] public Vector2 Position { get; set; }
+        
+        [field:SerializeField] public string Description { get; set; }
     }
 }

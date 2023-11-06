@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace GraphEditor.Save
+namespace GraphEditor.Saves
 {
     public class GraphEditorSaveSO : ScriptableObject
     {
         [field:SerializeField] public string FileName { get; set; }
-        [field:SerializeField] public List<GraphEditorNodeSave> Nodes { get; set; }
+        [field:SerializeField] [field:SerializeReference] public List<GraphEditorNodeSave> Nodes { get; set; }
         [field:SerializeField] public List<GraphEditorGroupSave> Groups { get; set; }
         [field:SerializeField] public List<string> OldNodeNames { get; set; }
         [field:SerializeField] public List<string> OldGroupNames { get; set; }

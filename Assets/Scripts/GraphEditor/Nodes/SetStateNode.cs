@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GraphEditor.Saves;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -9,30 +10,44 @@ namespace GraphEditor.Nodes
 {
     public class SetStateNode : GraphEditorNode
     {
-        public SetStateNode(Vector2 position) : base(position) {}
-
         private List<string> _options = new List<string>();
 
+        private ObjectField _stateField;
+        private DropdownField _setToField;
+        
+        public SetStateNode(Vector2 position) : base(position) {}
+        
         protected override VisualElement GetDataContainer()
         {
             VisualElement result = new();
 
-            ObjectField stateField = new ObjectField()
+            _stateField = new ObjectField()
             {
                 allowSceneObjects = false,
                 objectType = typeof(State),
                 label = "State"
             };
 
-            stateField.RegisterValueChangedCallback(StateValueChanged);
+            _stateField.RegisterValueChangedCallback(StateValueChanged);
 
-            DropdownField equalToField = new DropdownField("Set to");
-            equalToField.choices = _options;
+            _setToField = new DropdownField("Set to");
+            _setToField.choices = _options;
             
-            result.Add(stateField);
-            result.Add(equalToField);
+            result.Add(_stateField);
+            result.Add(_setToField);
             
             return result;
+        }
+
+        public override GraphEditorNodeSave ToSave()
+        {
+            SetStateNodeSave save = new();
+            FillBasicProperties(save);
+            
+            save.State = _stateField.value as State;
+            save.SetTo = _setToField.index;
+
+            return save;
         }
 
         private void StateValueChanged(ChangeEvent<Object> evt)
@@ -50,13 +65,7 @@ namespace GraphEditor.Nodes
 
         private void Refresh()
         {
-            // todo: remove magic number
-            if (extensionContainer.childCount < 2)
-                return;
-            
-            DropdownField dropdown = (DropdownField) extensionContainer.Children().ToArray()[1];
-            
-            dropdown.choices = _options;
+            _setToField.choices = _options;
         }
     }
 }
