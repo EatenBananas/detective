@@ -41,6 +41,9 @@ namespace GraphEditor.Nodes
             Port interactionPort = 
                 InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(bool));
             interactionPort.portName = "Interaction";
+
+            // binding custom action
+            interactionPort.userData = (Action<string>)(nodeID => _outcomeNodeID = nodeID);
             
             result.Add(_stateField);
             result.Add(_equalToField);

@@ -194,6 +194,7 @@ namespace GraphEditor
         {
             List<GraphEditorNode> nodesToRemove = new();
             List<GraphEditorGroup> groupsToRemove = new();
+            List<Edge> edgesToRemove = new();
             List<GraphElement> otherToRemove = new();
             
             foreach (GraphElement element in selection)
@@ -205,6 +206,9 @@ namespace GraphEditor
                         break;
                     case GraphEditorGroup group:
                         groupsToRemove.Add(group);
+                        break;
+                    case Edge edge:
+                        edgesToRemove.Add(edge);
                         break;
                     default:
                         otherToRemove.Add(element);
@@ -231,6 +235,25 @@ namespace GraphEditor
                 // todo: remove connections
                 _nodes.Remove(node.title);
                 RemoveElement(node);
+            }
+
+            foreach (Edge edge in edgesToRemove)
+            {
+                GraphEditorNode node = (GraphEditorNode)edge.output.node;
+                
+                // custom actions
+                var portData = edge.output.userData;
+                    
+                if (portData is Action<string> action)
+                {
+                    action.Invoke(string.Empty);
+                }
+                else
+                {
+                    node.Disconnect();
+                }
+                
+                RemoveElement(edge);
             }
 
             foreach (GraphElement other in otherToRemove)
@@ -268,7 +291,17 @@ namespace GraphEditor
                     GraphEditorNode leftNode = (GraphEditorNode)edge.output.node;
                     GraphEditorNode rightNode = (GraphEditorNode)edge.input.node;
 
-                    leftNode.ConnectTo(rightNode);
+                    // custom actions
+                    var portData = edge.output.userData;
+                    
+                    if (portData is Action<string> action)
+                    {
+                        action.Invoke(rightNode.ID);
+                    }
+                    else
+                    {
+                        leftNode.ConnectTo(rightNode);
+                    }
                 }
             }
 
@@ -284,7 +317,19 @@ namespace GraphEditor
 
                     Edge edge = (Edge)element;
                     GraphEditorNode node = (GraphEditorNode)edge.output.node;
-                    node.Disconnect();
+                    
+                    // custom actions
+                    var portData = edge.output.userData;
+                    
+                    if (portData is Action<string> action)
+                    {
+                        action.Invoke(string.Empty);
+                    }
+                    else
+                    {
+                        node.Disconnect();
+                    }
+                    
                     
                     RemoveElement(edge);
                 }

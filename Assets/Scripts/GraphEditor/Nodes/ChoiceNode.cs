@@ -13,7 +13,7 @@ namespace GraphEditor.Nodes
         public ChoiceNode(Vector2 position) : base(position, 
             showOutputPort: false) {}
 
-        private List<string> _options = new List<string>();
+        private readonly List<Choice> _options = new();
         
         protected override VisualElement GetDataContainer()
         {
@@ -31,11 +31,11 @@ namespace GraphEditor.Nodes
 
         public override GraphEditorNodeSave ToSave()
         {
-            // todo: this one will be tough
-
             ChoiceNodeSave save = new();
             FillBasicProperties(save);
 
+            save.Options = _options;
+            
             return save;
         }
 
@@ -53,7 +53,7 @@ namespace GraphEditor.Nodes
 
             while (_options.Count < count)
             {
-                _options.Add(String.Empty);
+                _options.Add(new Choice());
             }
 
             Refresh();
@@ -68,15 +68,21 @@ namespace GraphEditor.Nodes
 
             for (int i = 0; i < _options.Count; i++)
             {
+                var option = _options[i];
+                
                 TextField textField = new TextField()
                 {
                     label = $"Option {i+1}",
-                    value = _options[i]
+                    value = _options[i].Text
                 };
+
+                textField.RegisterValueChangedCallback(evt => option.Text = evt.newValue);
                 
                 Port outcomePort = 
                     InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(bool));
                 outcomePort.portName = "Outcome";
+
+                outcomePort.userData = (Action<string>)(nodeID => option.NodeID = nodeID);
                 
                 extensionContainer.Add(textField);
                 extensionContainer.Add(outcomePort);
