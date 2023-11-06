@@ -7,8 +7,8 @@ namespace GraphEditor.Nodes
     public class CommentNode : GraphEditorNode
     {
         private TextField _noteField;
-        public CommentNode(Vector2 position) : base(position,
-            showInputPort:false, showOutputPort:false, showDescription:false) {}
+        public CommentNode(string nodeName, Vector2 position) : base(nodeName, position,
+            showInputPort: false, showOutputPort: false, showDescription: false) {}
         
         protected override VisualElement GetDataContainer()
         {

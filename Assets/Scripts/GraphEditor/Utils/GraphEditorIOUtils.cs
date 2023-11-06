@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GraphEditor.Nodes;
 using GraphEditor.Saves;
 using UnityEditor;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace GraphEditor.Utils
         private static List<GraphEditorNode> _nodes;
         private static List<GraphEditorGroup> _groups;
 
+        private static Dictionary<string, GraphEditorGroup> _loadedGroups;
+        
         public static void Initialize(GraphEditorView graphEditorView, string graphFileName)
         {
             _graphEditorView = graphEditorView;
@@ -22,7 +25,11 @@ namespace GraphEditor.Utils
 
             _nodes = new List<GraphEditorNode>();
             _groups = new List<GraphEditorGroup>();
+
+            _loadedGroups = new Dictionary<string, GraphEditorGroup>();
         }
+        
+        #region Save Methods
         
         public static void Save()
         {
@@ -71,7 +78,7 @@ namespace GraphEditor.Utils
         {
             string fullPath = $"{path}/{assetName}.asset";
 
-            T asset = AssetDatabase.LoadAssetAtPath<T>(fullPath);
+            T asset = LoadAsset<T>(path, assetName);
             if (asset == null)
             {
                 asset = ScriptableObject.CreateInstance<T>();
@@ -117,5 +124,92 @@ namespace GraphEditor.Utils
                 save.Nodes.Add(node.ToSave());
             }
         }
+        
+        #endregion
+        
+        #region Load Methods
+
+        public static void Load()
+        {
+            GraphEditorSaveSO save = LoadAsset<GraphEditorSaveSO>("Assets/Editor/GraphEditor/Graphs", _graphFileName + "Graph");
+
+            if (save is null)
+            {
+                EditorUtility.DisplayDialog(
+                    "File not found",
+                    "The specified file could not be found",
+                    "ok");
+                return;
+            }
+            
+            // update filename?
+
+            LoadGroups(save.Groups);
+            LoadNodes(save.Nodes);
+
+        }
+        
+        private static void LoadGroups(List<GraphEditorGroupSave> saveGroups)
+        {
+            foreach (var saveGroup in saveGroups)
+            {
+                GraphEditorGroup group = _graphEditorView.CreateGroup(saveGroup.GroupName, saveGroup.Position);
+                group.ID = saveGroup.ID;
+
+                _loadedGroups[group.ID] = group;
+            }
+        }
+        
+        private static void LoadNodes(List<GraphEditorNodeSave> saveNodes)
+        {
+            foreach (var saveNode in saveNodes)
+            {
+                // temp
+                Type nodeType = saveNode switch
+                {
+                    CameraChangeNodeSave => typeof(CameraChangeNode),
+                    ChoiceNodeSave => typeof(ChoiceNode),
+                    CommentNodeSave => typeof(CommentNode),
+                    ConditionNodeSave => typeof(ConditionNode),
+                    DialogueNodeSave => typeof(DialogueNode),
+                    EquipNodeSave => typeof(EquipNode),
+                    GetKeyNodeSave => typeof(GetKeyNode),
+                    PhotoNodeSave => typeof(PhotoNode),
+                    SetStateNodeSave => typeof(SetStateNode),
+                    TeleportNodeSave => typeof(TeleportNode),
+                    _ => typeof(GraphEditorNode)
+                };
+
+                GraphEditorNode node = _graphEditorView.CreateNode(saveNode.NodeName, nodeType, saveNode.Position, shouldDraw:false);
+                node.ID = saveNode.ID;
+                node.GroupID = saveNode.GroupID;
+                node.NextNodeID = saveNode.NextNodeID;
+                
+                //_graphEditorView.Add(node);
+
+                node.Draw();
+                
+                if (string.IsNullOrEmpty(node.GroupID))
+                {
+                    continue;
+                }
+
+                var group = _loadedGroups[node.GroupID];
+                group.AddElement(node);
+            }
+        }
+        
+        
+
+        #endregion
+        
+        
+        private static T LoadAsset<T>(string path, string assetName) where T : ScriptableObject
+        {
+            string fullPath = $"{path}/{assetName}.asset";
+
+            return AssetDatabase.LoadAssetAtPath<T>(fullPath);
+        }
+        
     }
 }

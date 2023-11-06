@@ -13,9 +13,9 @@ namespace GraphEditor
 {
     public abstract class GraphEditorNode : Node
     {
-        public string ID { get; } = Guid.NewGuid().ToString();
-        public string NextNodeID { get; private set; }
-        public string GroupID { get; private set; }
+        public string ID { get; set; } = Guid.NewGuid().ToString();
+        public string NextNodeID { get; set; }
+        public string GroupID { get; set; }
         protected abstract VisualElement GetDataContainer();
         public abstract GraphEditorNodeSave ToSave();
 
@@ -25,9 +25,10 @@ namespace GraphEditor
 
         private TextField _descriptionTextField;
         
-        protected GraphEditorNode(Vector2 position,
+        protected GraphEditorNode(string nodeName, Vector2 position,
             bool showInputPort = true, bool showOutputPort = true, bool showDescription = true)
         {
+            title = nodeName;
             
             _showInputPort = showInputPort;
             _showOutputPort = showOutputPort;
@@ -36,7 +37,6 @@ namespace GraphEditor
             //capabilities ^= Capabilities.Resizable;
             
             Initialize(position);
-            Draw();
         }
 
         private void Initialize(Vector2 position)
@@ -48,7 +48,7 @@ namespace GraphEditor
             mainContainer.AddToClassList("ge__main-container");
         }
 
-        private void Draw()
+        public void Draw()
         {
             Label label = new(title);
             //label.name = _title;

@@ -10,7 +10,7 @@ namespace GraphEditor.Nodes
     {
         private ObjectField _photoField;
         private Toggle _visibleToggle;
-        public PhotoNode(Vector2 position) : base(position) {}
+        public PhotoNode(string nodeName, Vector2 position) : base(nodeName, position) {}
         protected override VisualElement GetDataContainer()
         {
             VisualElement result = new();

@@ -45,14 +45,27 @@ namespace GraphEditor
             };
             _fileNameTextField.RegisterValueChangedCallback(evt =>
                 _fileNameTextField.value = evt.newValue.RemoveSpecialCharacters().RemoveWhitespaces());
+            
             Button saveButton = new(Save)
             {
                 text = "Save",
                 
             };
 
+            Button loadButton = new(Load)
+            {
+                text = "Load"
+            };
+            
+            Button clearButton = new(_graphEditorView.ClearGraph)
+            {
+                text = "Clear"
+            };
+            
             toolbar.Add(_fileNameTextField);
             toolbar.Add(saveButton);
+            toolbar.Add(loadButton);
+            toolbar.Add(clearButton);
             
             rootVisualElement.Add(toolbar);
         }
@@ -68,6 +81,12 @@ namespace GraphEditor
             
             GraphEditorIOUtils.Initialize(_graphEditorView, _fileNameTextField.value);
             GraphEditorIOUtils.Save();
+        }
+
+        private void Load()
+        {
+            GraphEditorIOUtils.Initialize(_graphEditorView, _fileNameTextField.value);
+            GraphEditorIOUtils.Load();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace GraphEditor.Nodes
     public class EquipNode : GraphEditorNode
     {
         private ObjectField _itemField;
-        public EquipNode(Vector2 position) : base(position) {}
+        public EquipNode(string nodeName, Vector2 position) : base(nodeName, position) {}
         
         protected override VisualElement GetDataContainer()
         {

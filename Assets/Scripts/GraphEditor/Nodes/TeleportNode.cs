@@ -9,7 +9,7 @@ namespace GraphEditor.Nodes
     public class TeleportNode : GraphEditorNode
     {
         private ObjectField _locationField;
-        public TeleportNode(Vector2 position) : base(position) {}
+        public TeleportNode(string nodeName, Vector2 position) : base(nodeName, position) {}
 
         protected override VisualElement GetDataContainer()
         {

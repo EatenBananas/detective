@@ -84,23 +84,36 @@ namespace GraphEditor
             }
         }
 
-        public void CreateNode(Type type, Vector2 mousePosition, bool isSearchWindow = false)
+        public GraphEditorNode CreateNode(Type type, Vector2 mousePosition, bool isSearchWindow = false)
         {
-            string nodeName = NextNodeName(type);
-            
-            GraphEditorNode node = (GraphEditorNode)Activator.CreateInstance(type,
-                GetLocalMousePosition(mousePosition, isSearchWindow));
-
-            node.title = nodeName;
-            
-            AddElement(node);
-            _nodes[nodeName] = node;
+            return CreateNode(NextNodeName(type), type, mousePosition, isSearchWindow);
         }
         
-        public void CreateGroup(Vector2 mousePosition, bool isSearchWindow = false)
+        public GraphEditorNode CreateNode(string nodeName, Type type, Vector2 mousePosition, bool isSearchWindow = false, bool shouldDraw = true)
         {
-            string groupName = NextGroupName();
+            GraphEditorNode node = (GraphEditorNode)Activator.CreateInstance(type,
+                nodeName,
+                GetLocalMousePosition(mousePosition, isSearchWindow));
             
+            AddElement(node);
+
+            if (shouldDraw)
+            {
+                node.Draw();
+            }
+            
+            _nodes[nodeName] = node;
+
+            return node;
+        }
+
+        public GraphEditorGroup CreateGroup(Vector2 mousePosition, bool isSearchWindow = false)
+        {
+            return CreateGroup(NextGroupName(), mousePosition, isSearchWindow);
+        }
+        
+        public GraphEditorGroup CreateGroup(string groupName, Vector2 mousePosition, bool isSearchWindow = false)
+        {
             GraphEditorGroup group = new GraphEditorGroup()
             {
                 title = groupName
@@ -124,6 +137,8 @@ namespace GraphEditor
             
             AddElement(group);
             _groups[groupName] = group;
+
+            return group;
         }
         
         private void AddSearchWindow()
@@ -336,6 +351,16 @@ namespace GraphEditor
             }
             
             return changes;
+        }
+
+        public void ClearGraph()
+        {
+            foreach (var graphElement in graphElements)
+            {
+                RemoveElement(graphElement);
+                _groups.Clear();
+                _nodes.Clear();
+            }
         }
         
     }

@@ -15,7 +15,7 @@ namespace GraphEditor.Nodes
         private ObjectField _stateField;
         private DropdownField _setToField;
         
-        public SetStateNode(Vector2 position) : base(position) {}
+        public SetStateNode(string nodeName, Vector2 position) : base(nodeName, position) {}
         
         protected override VisualElement GetDataContainer()
         {

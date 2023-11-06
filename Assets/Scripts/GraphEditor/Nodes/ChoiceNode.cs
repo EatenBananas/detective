@@ -10,7 +10,7 @@ namespace GraphEditor.Nodes
 {
     public class ChoiceNode : GraphEditorNode
     {
-        public ChoiceNode(Vector2 position) : base(position, 
+        public ChoiceNode(string nodeName, Vector2 position) : base(nodeName, position, 
             showOutputPort: false) {}
 
         private readonly List<Choice> _options = new();

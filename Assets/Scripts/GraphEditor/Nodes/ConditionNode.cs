@@ -14,7 +14,7 @@ namespace GraphEditor.Nodes
 {
     public class ConditionNode : GraphEditorNode
     {
-        public ConditionNode(Vector2 position) : base(position) {}
+        public ConditionNode(string nodeName, Vector2 position) : base(nodeName, position) {}
 
         private List<string> _options = new List<string>();
 

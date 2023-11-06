@@ -9,7 +9,7 @@ namespace GraphEditor.Nodes
     public class CameraChangeNode : GraphEditorNode
     {
         private ObjectField _cameraObjectField;
-        public CameraChangeNode(Vector2 position) : base(position) {}
+        public CameraChangeNode(string nodeName, Vector2 position) : base(nodeName, position) {}
 
         protected override VisualElement GetDataContainer()
         {

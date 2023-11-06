@@ -8,7 +8,7 @@ namespace GraphEditor.Nodes
     public class GetKeyNode : GraphEditorNode
     {
         private EnumField _keyCodeField;
-        public GetKeyNode(Vector2 position) : base(position) {}
+        public GetKeyNode(string nodeName, Vector2 position) : base(nodeName, position) {}
 
         protected override VisualElement GetDataContainer()
         {

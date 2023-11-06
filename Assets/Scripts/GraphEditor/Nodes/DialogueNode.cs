@@ -10,7 +10,7 @@ namespace GraphEditor.Nodes
         private TextField _dialogueTextTextField;
         private ObjectField _dialogueNpcObjectField;
         
-        public DialogueNode(Vector2 position) : base(position) {}
+        public DialogueNode(string nodeName, Vector2 position) : base(nodeName, position) {}
         protected override VisualElement GetDataContainer()
         {
             VisualElement result = new VisualElement();
