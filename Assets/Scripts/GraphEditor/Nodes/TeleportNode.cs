@@ -18,6 +18,7 @@ namespace GraphEditor.Nodes
 
         public TeleportNode(TeleportNodeSave save) : this(save.NodeName, save.Position)
         {
+            SetBasicProperties(save);
             _locationField.value = save.Location;
         }
 

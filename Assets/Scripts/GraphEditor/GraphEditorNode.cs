@@ -39,6 +39,13 @@ namespace GraphEditor
             Initialize(position);
         }
 
+        protected void SetBasicProperties(GraphEditorNodeSave save)
+        {
+            ID = save.ID;
+            GroupID = save.GroupID;
+            NextNodeID = save.NextNodeID;
+        }
+
         private void Initialize(Vector2 position)
         {
             SetPosition(new Rect(position, Vector2.zero));

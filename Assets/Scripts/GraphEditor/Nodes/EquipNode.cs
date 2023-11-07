@@ -18,6 +18,7 @@ namespace GraphEditor.Nodes
 
         public EquipNode(EquipNodeSave save) : this(save.NodeName, save.Position)
         {
+            SetBasicProperties(save);
             _itemField.value = save.Item;
         }
 

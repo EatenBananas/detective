@@ -179,8 +179,6 @@ namespace GraphEditor.Utils
                 group.AddElement(node);
             }
         }
-        
-        
 
         #endregion
         

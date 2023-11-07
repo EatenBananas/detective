@@ -18,6 +18,7 @@ namespace GraphEditor.Nodes
 
         public DialogueNode(DialogueNodeSave save) : this(save.NodeName, save.Position)
         {
+            SetBasicProperties(save);
             _dialogueNpcObjectField.value = save.DialogueNpc;
             _dialogueTextTextField.value = save.DialogueText;
         }

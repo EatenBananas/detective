@@ -18,11 +18,8 @@ namespace GraphEditor.Nodes
 
         public CameraChangeNode(CameraChangeNodeSave save) : this(save.NodeName, save.Position)
         {
+            SetBasicProperties(save);
             _cameraObjectField.value = save.Camera;
-
-            ID = save.ID;
-            GroupID = save.GroupID;
-            NextNodeID = save.NextNodeID;
         }
 
         private void InitializeDataContainer()

@@ -25,6 +25,7 @@ namespace GraphEditor.Nodes
 
         public ChoiceNode(ChoiceNodeSave save) : this(save.NodeName, save.Position)
         {
+            SetBasicProperties(save);
             _optionsCount.value = save.Options.Count;
             _options = save.Options;
             RefreshOptions();

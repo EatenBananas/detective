@@ -17,6 +17,7 @@ namespace GraphEditor.Nodes
 
         public GetKeyNode(GetKeyNodeSave save) : this(save.NodeName, save.Position)
         {
+            SetBasicProperties(save);
             _keyCodeField.value = save.KeyCode;
         }
 

@@ -18,6 +18,7 @@ namespace GraphEditor.Nodes
 
         public CommentNode(CommentNodeSave save) : this(save.NodeName, save.Position)
         {
+            SetBasicProperties(save);
             _noteField.value = save.Description;
         }
 

@@ -21,23 +21,24 @@ namespace GraphEditor.Nodes
         private DropdownField _equalToField;
         private ObjectField _stateField;
         private String _outcomeNodeID;
-        
-        public ConditionNode(string nodeName, Vector2 position) : base(nodeName, position) {}
+
+        public ConditionNode(string nodeName, Vector2 position) : base(nodeName, position)
+        {
+            InitializeDataContainer();
+        }
 
         public ConditionNode(ConditionNodeSave save) : this(save.NodeName, save.Position)
         {
-            
+            SetBasicProperties(save);
+            _stateField.value = save.State;
+            _equalToField.index = save.EqualTo;
+            _outcomeNodeID = save.OutcomeNodeID;
         }
 
         private void InitializeDataContainer()
         {
+            _dataContainer = new VisualElement();
             
-        }
-        
-        protected override VisualElement GetDataContainer()
-        {
-            VisualElement result = new();
-
             _stateField = new ObjectField()
             {
                 allowSceneObjects = false,
@@ -57,12 +58,12 @@ namespace GraphEditor.Nodes
             // binding custom action
             interactionPort.userData = (Action<string>)(nodeID => _outcomeNodeID = nodeID);
             
-            result.Add(_stateField);
-            result.Add(_equalToField);
-            result.Add(interactionPort);
-            
-            return result;
+            _dataContainer.Add(_stateField);
+            _dataContainer.Add(_equalToField);
+            _dataContainer.Add(interactionPort);
         }
+
+        protected override VisualElement GetDataContainer() => _dataContainer;
 
         private void StateValueChanged(ChangeEvent<UnityEngine.Object> evt)
         {

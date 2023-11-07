@@ -19,6 +19,7 @@ namespace GraphEditor.Nodes
 
         public PhotoNode(PhotoNodeSave save) : this(save.NodeName, save.Position)
         {
+            SetBasicProperties(save);
             _photoField.value = save.Picture;
             _visibleToggle.value = save.Visible;
         }

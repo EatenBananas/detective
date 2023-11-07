@@ -23,6 +23,7 @@ namespace GraphEditor.Nodes
 
         public SetStateNode(SetStateNodeSave save) : this(save.NodeName, save.Position)
         {
+            SetBasicProperties(save);
             _stateField.value = save.State;
             _setToField.index = save.SetTo;
         }
