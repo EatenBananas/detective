@@ -7,18 +7,28 @@ namespace GraphEditor.Nodes
 {
     public class GetKeyNode : GraphEditorNode
     {
+        private VisualElement _dataContainer;
         private EnumField _keyCodeField;
-        public GetKeyNode(string nodeName, Vector2 position) : base(nodeName, position) {}
 
-        protected override VisualElement GetDataContainer()
+        public GetKeyNode(string nodeName, Vector2 position) : base(nodeName, position)
         {
-            VisualElement result = new();
-
-            _keyCodeField = new EnumField("Key",KeyCode.Escape);
-            result.Add(_keyCodeField);
-            
-            return result;
+            InitializeDataContainer();
         }
+
+        public GetKeyNode(GetKeyNodeSave save) : this(save.NodeName, save.Position)
+        {
+            _keyCodeField.value = save.KeyCode;
+        }
+
+        private void InitializeDataContainer()
+        {
+            _dataContainer = new VisualElement();
+            
+            _keyCodeField = new EnumField("Key",KeyCode.Escape);
+            _dataContainer.Add(_keyCodeField);
+        }
+
+        protected override VisualElement GetDataContainer() => _dataContainer;
 
         public override GraphEditorNodeSave ToSave()
         {

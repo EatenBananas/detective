@@ -9,23 +9,36 @@ namespace GraphEditor.Nodes
     public class CameraChangeNode : GraphEditorNode
     {
         private ObjectField _cameraObjectField;
-        public CameraChangeNode(string nodeName, Vector2 position) : base(nodeName, position) {}
-
-        protected override VisualElement GetDataContainer()
+        private VisualElement _dataContainer;
+        
+        public CameraChangeNode(string nodeName, Vector2 position) : base(nodeName, position)
         {
-            VisualElement result = new();
-            
+            InitializeDataContainer();
+        }
+
+        public CameraChangeNode(CameraChangeNodeSave save) : this(save.NodeName, save.Position)
+        {
+            _cameraObjectField.value = save.Camera;
+
+            ID = save.ID;
+            GroupID = save.GroupID;
+            NextNodeID = save.NextNodeID;
+        }
+
+        private void InitializeDataContainer()
+        {
             _cameraObjectField = new ObjectField()
             {
                 allowSceneObjects = false,
                 objectType = typeof(SceneReference),
                 label = "Camera"
             };
-            
-            result.Add(_cameraObjectField);
 
-            return result;
+            _dataContainer = new VisualElement();
+            _dataContainer.Add(_cameraObjectField);
         }
+
+        protected override VisualElement GetDataContainer() => _dataContainer;
 
         public override GraphEditorNodeSave ToSave()
         {

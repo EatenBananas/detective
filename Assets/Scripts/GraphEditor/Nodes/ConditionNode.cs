@@ -14,13 +14,25 @@ namespace GraphEditor.Nodes
 {
     public class ConditionNode : GraphEditorNode
     {
-        public ConditionNode(string nodeName, Vector2 position) : base(nodeName, position) {}
-
+        private VisualElement _dataContainer;
+        
         private List<string> _options = new List<string>();
 
         private DropdownField _equalToField;
         private ObjectField _stateField;
-        private String _outcomeNodeID;  // todo: implement logic for it
+        private String _outcomeNodeID;
+        
+        public ConditionNode(string nodeName, Vector2 position) : base(nodeName, position) {}
+
+        public ConditionNode(ConditionNodeSave save) : this(save.NodeName, save.Position)
+        {
+            
+        }
+
+        private void InitializeDataContainer()
+        {
+            
+        }
         
         protected override VisualElement GetDataContainer()
         {

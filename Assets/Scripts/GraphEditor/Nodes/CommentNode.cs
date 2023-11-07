@@ -6,26 +6,35 @@ namespace GraphEditor.Nodes
 {
     public class CommentNode : GraphEditorNode
     {
+        private VisualElement _dataContainer;
         private TextField _noteField;
+
         public CommentNode(string nodeName, Vector2 position) : base(nodeName, position,
-            showInputPort: false, showOutputPort: false, showDescription: false) {}
-        
-        protected override VisualElement GetDataContainer()
+            showInputPort: false, showOutputPort: false, showDescription: false)
         {
             mainContainer.AddToClassList("comment");
-            
-            VisualElement result = new();
+            InitializeDataContainer();
+        }
+
+        public CommentNode(CommentNodeSave save) : this(save.NodeName, save.Position)
+        {
+            _noteField.value = save.Description;
+        }
+
+        private void InitializeDataContainer()
+        {
+            _dataContainer = new VisualElement();
             
             _noteField = new TextField()
             {
                 multiline = true
             };
             _noteField.AddToClassList("ge__textfield");
-
-            result.Add(_noteField);
             
-            return result;
+            _dataContainer.Add(_noteField);
         }
+
+        protected override VisualElement GetDataContainer() => _dataContainer;
 
         public override GraphEditorNodeSave ToSave()
         {

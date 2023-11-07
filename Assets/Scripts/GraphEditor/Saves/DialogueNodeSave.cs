@@ -1,4 +1,5 @@
 ﻿using System;
+using GraphEditor.Nodes;
 using UnityEngine;
 
 namespace GraphEditor.Saves
@@ -8,5 +9,6 @@ namespace GraphEditor.Saves
     {
         [field:SerializeField] public string DialogueText { get; set; }
         [field:SerializeField] public DialogueNpc DialogueNpc { get; set; }
+        public override GraphEditorNode ToNode() => new DialogueNode(this);
     }
 }

@@ -8,13 +8,23 @@ namespace GraphEditor.Nodes
 {
     public class TeleportNode : GraphEditorNode
     {
+        private VisualElement _dataContainer;
         private ObjectField _locationField;
-        public TeleportNode(string nodeName, Vector2 position) : base(nodeName, position) {}
 
-        protected override VisualElement GetDataContainer()
+        public TeleportNode(string nodeName, Vector2 position) : base(nodeName, position)
         {
-            VisualElement result = new();
+            InitializeDataContainer();
+        }
 
+        public TeleportNode(TeleportNodeSave save) : this(save.NodeName, save.Position)
+        {
+            _locationField.value = save.Location;
+        }
+
+        private void InitializeDataContainer()
+        {
+            _dataContainer = new VisualElement();
+            
             _locationField = new ObjectField()
             {
                 allowSceneObjects = false,
@@ -22,9 +32,10 @@ namespace GraphEditor.Nodes
                 label = "Location"
             };
             
-            result.Add(_locationField);
-            return result;
+            _dataContainer.Add(_locationField);
         }
+
+        protected override VisualElement GetDataContainer() => _dataContainer;
 
         public override GraphEditorNodeSave ToSave()
         {

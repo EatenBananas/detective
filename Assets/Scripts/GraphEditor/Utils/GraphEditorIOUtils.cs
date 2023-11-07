@@ -164,30 +164,11 @@ namespace GraphEditor.Utils
         {
             foreach (var saveNode in saveNodes)
             {
-                // temp
-                Type nodeType = saveNode switch
-                {
-                    CameraChangeNodeSave => typeof(CameraChangeNode),
-                    ChoiceNodeSave => typeof(ChoiceNode),
-                    CommentNodeSave => typeof(CommentNode),
-                    ConditionNodeSave => typeof(ConditionNode),
-                    DialogueNodeSave => typeof(DialogueNode),
-                    EquipNodeSave => typeof(EquipNode),
-                    GetKeyNodeSave => typeof(GetKeyNode),
-                    PhotoNodeSave => typeof(PhotoNode),
-                    SetStateNodeSave => typeof(SetStateNode),
-                    TeleportNodeSave => typeof(TeleportNode),
-                    _ => typeof(GraphEditorNode)
-                };
 
-                GraphEditorNode node = _graphEditorView.CreateNode(saveNode.NodeName, nodeType, saveNode.Position, shouldDraw:false);
-                node.ID = saveNode.ID;
-                node.GroupID = saveNode.GroupID;
-                node.NextNodeID = saveNode.NextNodeID;
-                
-                //_graphEditorView.Add(node);
+                // temp solution to deal with zooming
+                //Vector2 position = saveNode.Position * _graphEditorView.scale;
 
-                node.Draw();
+                GraphEditorNode node = _graphEditorView.LoadNode(saveNode);
                 
                 if (string.IsNullOrEmpty(node.GroupID))
                 {

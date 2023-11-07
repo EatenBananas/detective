@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GraphEditor.Nodes;
+using GraphEditor.Saves;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -25,6 +26,8 @@ namespace GraphEditor
             deleteSelection = (operationName, user) => OnElementsDeleted();
             groupTitleChanged = (group, newTitle) => OnGroupRenamed((GraphEditorGroup)group);
             graphViewChanged = OnGraphViewChanged; 
+            elementsAddedToGroup = OnElementsAddedToGroup;
+            elementsRemovedFromGroup = OnElementsRemovedFromGroup;
             
             AddManipulators();
             AddGridBackground();
@@ -104,6 +107,18 @@ namespace GraphEditor
             
             _nodes[nodeName] = node;
 
+            return node;
+        }
+
+        public GraphEditorNode LoadNode(GraphEditorNodeSave save)
+        {
+            GraphEditorNode node = save.ToNode();
+            
+            AddElement(node);
+
+            node.Draw();
+            
+            _nodes[save.NodeName] = node;
             return node;
         }
 
@@ -351,6 +366,29 @@ namespace GraphEditor
             }
             
             return changes;
+        }
+        
+        private void OnElementsAddedToGroup(Group group, IEnumerable<GraphElement> elements)
+        {
+            GraphEditorGroup myGroup = (GraphEditorGroup)group;
+            foreach (var element in elements)
+            {
+                if (element is not GraphEditorNode node)
+                    continue;
+
+                node.GroupID = myGroup.ID;
+            }
+        }
+        
+        private void OnElementsRemovedFromGroup(Group group, IEnumerable<GraphElement> elements)
+        {
+            foreach (var element in elements)
+            {
+                if (element is not GraphEditorNode node)
+                    continue;
+
+                node.GroupID = string.Empty;
+            }
         }
 
         public void ClearGraph()

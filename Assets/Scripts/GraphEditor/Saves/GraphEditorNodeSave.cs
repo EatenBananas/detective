@@ -4,8 +4,9 @@ using UnityEngine;
 namespace GraphEditor.Saves
 {
     [Serializable]
-    public class GraphEditorNodeSave
+    public abstract class GraphEditorNodeSave
     {
+        public abstract GraphEditorNode ToNode();
         [field:SerializeField] public string NodeName { get; set; }
         [field:SerializeField] public string ID { get; set; }
         [field:SerializeField] public string NextNodeID { get; set; }

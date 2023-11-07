@@ -18,7 +18,7 @@ namespace GraphEditor
         public string GroupID { get; set; }
         protected abstract VisualElement GetDataContainer();
         public abstract GraphEditorNodeSave ToSave();
-
+        
         private readonly bool _showInputPort;
         private readonly bool _showOutputPort;
         private readonly bool _showDescription;

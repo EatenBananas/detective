@@ -10,24 +10,42 @@ namespace GraphEditor.Nodes
 {
     public class ChoiceNode : GraphEditorNode
     {
-        public ChoiceNode(string nodeName, Vector2 position) : base(nodeName, position, 
-            showOutputPort: false) {}
-
+        private VisualElement _dataContainer;
         private readonly List<Choice> _options = new();
+        private Label _label;
+        private IntegerField _optionsCount;
+
+        private VisualElement _choicesContainer;
         
-        protected override VisualElement GetDataContainer()
+        public ChoiceNode(string nodeName, Vector2 position) : base(nodeName, position,
+            showOutputPort: false)
         {
-            VisualElement result = new();
-
-            Label label = new Label("Options");
-            IntegerField optionsCount = new IntegerField("Count");
-            optionsCount.RegisterValueChangedCallback((OptionsChangedCallback));
-            
-            result.Add(label);
-            result.Add(optionsCount);
-
-            return result;
+            InitializeDataContainer();
         }
+
+        public ChoiceNode(ChoiceNodeSave save) : this(save.NodeName, save.Position)
+        {
+            _optionsCount.value = save.Options.Count;
+            _options = save.Options;
+            RefreshOptions();
+        }
+
+        private void InitializeDataContainer()
+        {
+            _dataContainer = new VisualElement();
+            
+            _label = new Label("Options");
+            _optionsCount = new IntegerField("Count");
+            _optionsCount.RegisterValueChangedCallback((OptionsChangedCallback));
+
+            _choicesContainer = new VisualElement();
+            
+            _dataContainer.Add(_label);
+            _dataContainer.Add(_optionsCount);
+            _dataContainer.Add(_choicesContainer);
+        }
+
+        protected override VisualElement GetDataContainer() => _dataContainer;
 
         public override GraphEditorNodeSave ToSave()
         {
@@ -56,15 +74,12 @@ namespace GraphEditor.Nodes
                 _options.Add(new Choice());
             }
 
-            Refresh();
+            RefreshOptions();
         }
 
-        private void Refresh()
+        private void RefreshOptions()
         {
-            for (int i = extensionContainer.childCount-1; i > 0; i--)
-            {
-                extensionContainer.RemoveAt(i);
-            }
+            _choicesContainer.Clear();
 
             for (int i = 0; i < _options.Count; i++)
             {
@@ -84,8 +99,8 @@ namespace GraphEditor.Nodes
 
                 outcomePort.userData = (Action<string>)(nodeID => option.NodeID = nodeID);
                 
-                extensionContainer.Add(textField);
-                extensionContainer.Add(outcomePort);
+                _choicesContainer.Add(textField);
+                _choicesContainer.Add(outcomePort);
             }
         }
     }

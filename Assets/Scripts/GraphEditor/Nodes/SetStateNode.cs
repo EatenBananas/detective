@@ -10,17 +10,27 @@ namespace GraphEditor.Nodes
 {
     public class SetStateNode : GraphEditorNode
     {
-        private List<string> _options = new List<string>();
+        private readonly List<string> _options = new List<string>();
 
+        private VisualElement _dataContainer;
         private ObjectField _stateField;
         private DropdownField _setToField;
-        
-        public SetStateNode(string nodeName, Vector2 position) : base(nodeName, position) {}
-        
-        protected override VisualElement GetDataContainer()
-        {
-            VisualElement result = new();
 
+        public SetStateNode(string nodeName, Vector2 position) : base(nodeName, position)
+        {
+            InitializeDataContainer();
+        }
+
+        public SetStateNode(SetStateNodeSave save) : this(save.NodeName, save.Position)
+        {
+            _stateField.value = save.State;
+            _setToField.index = save.SetTo;
+        }
+
+        void InitializeDataContainer()
+        {
+            _dataContainer = new VisualElement();
+            
             _stateField = new ObjectField()
             {
                 allowSceneObjects = false,
@@ -33,11 +43,11 @@ namespace GraphEditor.Nodes
             _setToField = new DropdownField("Set to");
             _setToField.choices = _options;
             
-            result.Add(_stateField);
-            result.Add(_setToField);
-            
-            return result;
+            _dataContainer.Add(_stateField);
+            _dataContainer.Add(_setToField);
         }
+
+        protected override VisualElement GetDataContainer() => _dataContainer;
 
         public override GraphEditorNodeSave ToSave()
         {

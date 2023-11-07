@@ -8,13 +8,23 @@ namespace GraphEditor.Nodes
 {
     public class EquipNode : GraphEditorNode
     {
+        private VisualElement _dataContainer;
         private ObjectField _itemField;
-        public EquipNode(string nodeName, Vector2 position) : base(nodeName, position) {}
-        
-        protected override VisualElement GetDataContainer()
-        {
-            VisualElement result = new();
 
+        public EquipNode(string nodeName, Vector2 position) : base(nodeName, position)
+        {
+            InitializeDataContainer();
+        }
+
+        public EquipNode(EquipNodeSave save) : this(save.NodeName, save.Position)
+        {
+            _itemField.value = save.Item;
+        }
+
+        private void InitializeDataContainer()
+        {
+            _dataContainer = new VisualElement();
+            
             _itemField = new ObjectField()
             {
                 allowSceneObjects = false,
@@ -22,10 +32,10 @@ namespace GraphEditor.Nodes
                 label = "Item"
             };
             
-            result.Add(_itemField);
-            
-            return result;
+            _dataContainer.Add(_itemField);
         }
+
+        protected override VisualElement GetDataContainer() => _dataContainer;
 
         public override GraphEditorNodeSave ToSave()
         {

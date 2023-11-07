@@ -8,13 +8,25 @@ namespace GraphEditor.Nodes
 {
     public class PhotoNode : GraphEditorNode
     {
+        private VisualElement _dataContainer;
         private ObjectField _photoField;
         private Toggle _visibleToggle;
-        public PhotoNode(string nodeName, Vector2 position) : base(nodeName, position) {}
-        protected override VisualElement GetDataContainer()
-        {
-            VisualElement result = new();
 
+        public PhotoNode(string nodeName, Vector2 position) : base(nodeName, position)
+        {
+            InitializeDataContainer();
+        }
+
+        public PhotoNode(PhotoNodeSave save) : this(save.NodeName, save.Position)
+        {
+            _photoField.value = save.Picture;
+            _visibleToggle.value = save.Visible;
+        }
+
+        private void InitializeDataContainer()
+        {
+            _dataContainer = new VisualElement();
+            
             _photoField = new ObjectField()
             {
                 allowSceneObjects = false,
@@ -24,12 +36,11 @@ namespace GraphEditor.Nodes
 
             _visibleToggle = new Toggle("Visible");
             
-            result.Add(_photoField);
-            result.Add(_visibleToggle);
-
-            return result;
+            _dataContainer.Add(_photoField);
+            _dataContainer.Add(_visibleToggle);
         }
 
+        protected override VisualElement GetDataContainer() => _dataContainer;
         public override GraphEditorNodeSave ToSave()
         {
             PhotoNodeSave save = new();
