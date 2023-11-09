@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GraphEditor.Saves;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -9,22 +10,52 @@ namespace GraphEditor.Nodes
 {
     public class ChoiceNode : GraphEditorNode
     {
-        public ChoiceNode(Vector2 position) : base(position) {}
+        private VisualElement _dataContainer;
+        private readonly List<Choice> _options = new();
+        private Label _label;
+        private IntegerField _optionsCount;
 
-        private List<string> _options = new List<string>();
+        private VisualElement _choicesContainer;
         
-        protected override VisualElement GetDataContainer()
+        public ChoiceNode(string nodeName, Vector2 position) : base(nodeName, position,
+            showOutputPort: false)
         {
-            VisualElement result = new();
+            InitializeDataContainer();
+        }
 
-            Label label = new Label("Options");
-            IntegerField optionsCount = new IntegerField("Count");
-            optionsCount.RegisterValueChangedCallback((OptionsChangedCallback));
+        public ChoiceNode(ChoiceNodeSave save) : this(save.NodeName, save.Position)
+        {
+            SetBasicProperties(save);
+            _optionsCount.value = save.Options.Count;
+            _options = save.Options;
+            RefreshOptions();
+        }
+
+        private void InitializeDataContainer()
+        {
+            _dataContainer = new VisualElement();
             
-            result.Add(label);
-            result.Add(optionsCount);
+            _label = new Label("Options");
+            _optionsCount = new IntegerField("Count");
+            _optionsCount.RegisterValueChangedCallback((OptionsChangedCallback));
 
-            return result;
+            _choicesContainer = new VisualElement();
+            
+            _dataContainer.Add(_label);
+            _dataContainer.Add(_optionsCount);
+            _dataContainer.Add(_choicesContainer);
+        }
+
+        protected override VisualElement GetDataContainer() => _dataContainer;
+
+        public override GraphEditorNodeSave ToSave()
+        {
+            ChoiceNodeSave save = new();
+            FillBasicProperties(save);
+
+            save.Options = _options;
+            
+            return save;
         }
 
         private void OptionsChangedCallback(ChangeEvent<int> evt)
@@ -41,33 +72,36 @@ namespace GraphEditor.Nodes
 
             while (_options.Count < count)
             {
-                _options.Add(String.Empty);
+                _options.Add(new Choice());
             }
 
-            Refresh();
+            RefreshOptions();
         }
 
-        private void Refresh()
+        private void RefreshOptions()
         {
-            for (int i = extensionContainer.childCount-1; i > 0; i--)
-            {
-                extensionContainer.RemoveAt(i);
-            }
+            _choicesContainer.Clear();
 
             for (int i = 0; i < _options.Count; i++)
             {
+                var option = _options[i];
+                
                 TextField textField = new TextField()
                 {
                     label = $"Option {i+1}",
-                    value = _options[i]
+                    value = _options[i].Text
                 };
+
+                textField.RegisterValueChangedCallback(evt => option.Text = evt.newValue);
                 
                 Port outcomePort = 
                     InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(bool));
                 outcomePort.portName = "Outcome";
+
+                outcomePort.userData = (Action<string>)(nodeID => option.NodeID = nodeID);
                 
-                extensionContainer.Add(textField);
-                extensionContainer.Add(outcomePort);
+                _choicesContainer.Add(textField);
+                _choicesContainer.Add(outcomePort);
             }
         }
     }

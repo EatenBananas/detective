@@ -1,4 +1,5 @@
-﻿using UnityEditor.UIElements;
+﻿using GraphEditor.Saves;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,16 +7,38 @@ namespace GraphEditor.Nodes
 {
     public class GetKeyNode : GraphEditorNode
     {
-        public GetKeyNode(Vector2 position) : base(position) {}
+        private VisualElement _dataContainer;
+        private EnumField _keyCodeField;
 
-        protected override VisualElement GetDataContainer()
+        public GetKeyNode(string nodeName, Vector2 position) : base(nodeName, position)
         {
-            VisualElement result = new();
+            InitializeDataContainer();
+        }
 
-            EnumField keyCodeField = new EnumField("Key",KeyCode.Escape);
-            result.Add(keyCodeField);
+        public GetKeyNode(GetKeyNodeSave save) : this(save.NodeName, save.Position)
+        {
+            SetBasicProperties(save);
+            _keyCodeField.value = save.KeyCode;
+        }
+
+        private void InitializeDataContainer()
+        {
+            _dataContainer = new VisualElement();
             
-            return result;
+            _keyCodeField = new EnumField("Key",KeyCode.Escape);
+            _dataContainer.Add(_keyCodeField);
+        }
+
+        protected override VisualElement GetDataContainer() => _dataContainer;
+
+        public override GraphEditorNodeSave ToSave()
+        {
+            GetKeyNodeSave save = new();
+            FillBasicProperties(save);
+
+            save.KeyCode = _keyCodeField.value is KeyCode code ? code : KeyCode.None;
+
+            return save;
         }
     }
 }

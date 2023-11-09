@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GraphEditor.Saves;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -9,30 +10,55 @@ namespace GraphEditor.Nodes
 {
     public class SetStateNode : GraphEditorNode
     {
-        public SetStateNode(Vector2 position) : base(position) {}
+        private readonly List<string> _options = new List<string>();
 
-        private List<string> _options = new List<string>();
+        private VisualElement _dataContainer;
+        private ObjectField _stateField;
+        private DropdownField _setToField;
 
-        protected override VisualElement GetDataContainer()
+        public SetStateNode(string nodeName, Vector2 position) : base(nodeName, position)
         {
-            VisualElement result = new();
+            InitializeDataContainer();
+        }
 
-            ObjectField stateField = new ObjectField()
+        public SetStateNode(SetStateNodeSave save) : this(save.NodeName, save.Position)
+        {
+            SetBasicProperties(save);
+            _stateField.value = save.State;
+            _setToField.index = save.SetTo;
+        }
+
+        void InitializeDataContainer()
+        {
+            _dataContainer = new VisualElement();
+            
+            _stateField = new ObjectField()
             {
                 allowSceneObjects = false,
                 objectType = typeof(State),
                 label = "State"
             };
 
-            stateField.RegisterValueChangedCallback(StateValueChanged);
+            _stateField.RegisterValueChangedCallback(StateValueChanged);
 
-            DropdownField equalToField = new DropdownField("Set to");
-            equalToField.choices = _options;
+            _setToField = new DropdownField("Set to");
+            _setToField.choices = _options;
             
-            result.Add(stateField);
-            result.Add(equalToField);
+            _dataContainer.Add(_stateField);
+            _dataContainer.Add(_setToField);
+        }
+
+        protected override VisualElement GetDataContainer() => _dataContainer;
+
+        public override GraphEditorNodeSave ToSave()
+        {
+            SetStateNodeSave save = new();
+            FillBasicProperties(save);
             
-            return result;
+            save.State = _stateField.value as State;
+            save.SetTo = _setToField.index;
+
+            return save;
         }
 
         private void StateValueChanged(ChangeEvent<Object> evt)
@@ -50,13 +76,7 @@ namespace GraphEditor.Nodes
 
         private void Refresh()
         {
-            // todo: remove magic number
-            if (extensionContainer.childCount < 2)
-                return;
-            
-            DropdownField dropdown = (DropdownField) extensionContainer.Children().ToArray()[1];
-            
-            dropdown.choices = _options;
+            _setToField.choices = _options;
         }
     }
 }

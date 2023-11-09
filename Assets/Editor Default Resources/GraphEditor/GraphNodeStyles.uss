@@ -1,4 +1,65 @@
-﻿.unity-label {
+﻿.ge__extension-container {
+    background-color: #1D1D1E;
+    padding: 8px;
+}
+
+.ge__data-container{
+    background-color: #212325;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.ge__main-container{
+    background-color: #1D1D1E;
+}
+
+.ge__textfield{
+    padding: 8px;
+}
+
+.ge__textfield > .unity-base-field__input{
+    background-color: #1D1D1E;
+    border-color: #27292C;
+    border-radius: 4px;
+    max-width: 240px;
+    min-width: 160px;
+    padding: 8px;
+    
+    white-space: normal;
+}
+
+.ge__description > .unity-base-field__input{
+    /*background-color: #1D1D1E;*/
+    background-color: dimgray;
+    
+    border-color: #27292C;
+    border-radius: 4px;
+    max-width: 340px;
+    min-width: 160px;
+    padding: 8px;
+
+    white-space: normal;
+}
+
+.ge__custom-data-container{
+
+    padding-bottom: 8px;
+    /*background-color: #383838;*/
+}
+
+
+.unity-foldout__toggle{
+    color: red;
+    margin: 0px;
+    padding: 0px;
+    font-size: 2px;
+}
+
+TextField{
+    margin-left: 0px;
+}
+
+.unity-label {
     font-size: 13px;
     padding: 10px;
 }
@@ -12,17 +73,17 @@
     padding-left: 15px;
 }
 
-.wide_text > .unity-base-text-field__input{
-    width: 100px;
-    height: 100px
-}
+/*.wide_text > .unity-base-text-field__input{*/
+/*    width: 100px;*/
+/*    height: 100px*/
+/*}*/
 
-.unity-base-text-field > .unity-base-field__input{
-    white-space: normal;
-    font-size: 13px;
-    --unity-word-wrap: true;
-    
-}
+/*.unity-base-text-field > .unity-base-field__input{*/
+/*    white-space: normal;*/
+/*    font-size: 13px;*/
+/*    --unity-word-wrap: true;*/
+/*    */
+/*}*/
 
 .comment{
     background-color: yellow;

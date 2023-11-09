@@ -1,4 +1,5 @@
-﻿using SceneObjects;
+﻿using GraphEditor.Saves;
+using SceneObjects;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -7,24 +8,49 @@ namespace GraphEditor.Nodes
 {
     public class PhotoNode : GraphEditorNode
     {
-        public PhotoNode(Vector2 position) : base(position) {}
-        protected override VisualElement GetDataContainer()
-        {
-            VisualElement result = new();
+        private VisualElement _dataContainer;
+        private ObjectField _photoField;
+        private Toggle _visibleToggle;
 
-            ObjectField photoField = new ObjectField()
+        public PhotoNode(string nodeName, Vector2 position) : base(nodeName, position)
+        {
+            InitializeDataContainer();
+        }
+
+        public PhotoNode(PhotoNodeSave save) : this(save.NodeName, save.Position)
+        {
+            SetBasicProperties(save);
+            _photoField.value = save.Picture;
+            _visibleToggle.value = save.Visible;
+        }
+
+        private void InitializeDataContainer()
+        {
+            _dataContainer = new VisualElement();
+            
+            _photoField = new ObjectField()
             {
                 allowSceneObjects = false,
                 objectType = typeof(SceneReference),
                 label = "Scene Reference"
             };
 
-            Toggle toggle = new Toggle("Visible");
+            _visibleToggle = new Toggle("Visible");
             
-            result.Add(photoField);
-            result.Add(toggle);
+            _dataContainer.Add(_photoField);
+            _dataContainer.Add(_visibleToggle);
+        }
 
-            return result;
+        protected override VisualElement GetDataContainer() => _dataContainer;
+        public override GraphEditorNodeSave ToSave()
+        {
+            PhotoNodeSave save = new();
+            FillBasicProperties(save);
+            
+            save.Picture = _photoField.value as SceneReference;
+            save.Visible = _visibleToggle.value;
+
+            return save;
         }
     }
 }
