@@ -45,10 +45,11 @@ namespace GraphEditor.Nodes
 
         public override InteractionElement ToInteraction()
         {
-            return new GetKey()
-            {
-                Key = _keyCodeField.value is KeyCode code ? code : KeyCode.None
-            };
+            var getKey = ScriptableObject.CreateInstance<GetKey>();
+
+            getKey.Key = _keyCodeField.value is KeyCode code ? code : KeyCode.None;
+
+            return getKey;
         }
     }
 }

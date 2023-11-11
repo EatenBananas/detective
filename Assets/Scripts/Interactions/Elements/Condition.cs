@@ -8,7 +8,7 @@ namespace Interactions.Elements
     {
         [field:SerializeField] public State StateMachine { get; set; }
         [field:SerializeField] public int EqualTo { get; set; }
-        [field:SerializeField] public Interaction GoTo { get; set; }
+        [field:SerializeField] public InteractionElement GoTo { get; set; }
         
         public override void Execute()
         {

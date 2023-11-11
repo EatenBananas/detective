@@ -65,11 +65,12 @@ namespace GraphEditor.Nodes
 
         public override InteractionElement ToInteraction()
         {
-            return new SetState()
-            {
-                StateMachine = _stateField.value as State,
-                State = _setToField.index
-            };
+            var setState = ScriptableObject.CreateInstance<SetState>();
+
+            setState.StateMachine = _stateField.value as State;
+            setState.State = _setToField.index;
+
+            return setState;
         }
 
         private void StateValueChanged(ChangeEvent<Object> evt)

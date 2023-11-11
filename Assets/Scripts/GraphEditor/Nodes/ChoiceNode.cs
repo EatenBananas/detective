@@ -91,13 +91,11 @@ namespace GraphEditor.Nodes
 
         public override InteractionElement ToInteraction()
         {
-            return new Interactions.Elements.Choice()
-            {
-                Options = new List<Option>()
-                {
-                    // todo
-                }
-            };
+            var choice = ScriptableObject.CreateInstance<Interactions.Elements.Choice>();
+            
+            // todo : opcje
+
+            return choice;
         }
 
         private void OptionsChangedCallback(ChangeEvent<int> evt)

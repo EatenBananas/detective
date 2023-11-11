@@ -62,11 +62,13 @@ namespace GraphEditor.Nodes
 
         public override InteractionElement ToInteraction()
         {
-            return new Dialogue()
-            {
-                DialogueNpc = _dialogueNpcObjectField.value as DialogueNpc,
-                DialogueText = _dialogueTextTextField.value
-            };
+            var dialogue = ScriptableObject.CreateInstance<Dialogue>();
+            
+            dialogue.DialogueNpc = _dialogueNpcObjectField.value as DialogueNpc;
+            dialogue.DialogueText = _dialogueTextTextField.value;
+
+            return dialogue;
+
         }
     }
 }

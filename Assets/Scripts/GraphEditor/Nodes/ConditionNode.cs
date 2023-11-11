@@ -115,12 +115,13 @@ namespace GraphEditor.Nodes
 
         public override InteractionElement ToInteraction()
         {
-            return new Condition()
-            {
-                StateMachine = _stateField.value as State,
-                EqualTo = _equalToField.index,
-                // GoTo = todo 
-            };
+            var condition = ScriptableObject.CreateInstance<Condition>();
+
+            condition.StateMachine = _stateField.value as State;
+            condition.EqualTo = _equalToField.index;
+            // GoTo = todo 
+
+            return condition;
         }
     }
 }

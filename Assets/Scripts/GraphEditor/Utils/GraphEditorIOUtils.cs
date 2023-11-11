@@ -56,8 +56,12 @@ namespace GraphEditor.Utils
             // SO part
             
             CreateInteractions();
-            UpdateConnections();
             SaveElements();
+            UpdateConnections();
+            foreach (var element in _loadedInteractions)
+            {
+                SaveAsset(element.Value);
+            }
             
         }
         
@@ -281,10 +285,7 @@ namespace GraphEditor.Utils
             {
                 if (_loadedInteractions.TryGetValue(node.ID, out var element))
                 {
-                    var interaction = CreateAsset<Interaction>($"Assets/Resources/Interactions/{_graphFileName}",
-                        node.NodeName);
-                    
-                    interaction.Elements.Add(element);
+                    AssetDatabase.CreateAsset(element, $"Assets/Resources/Interactions/{_graphFileName}/{node.NodeName}.asset");
                 }
             }
             

@@ -52,10 +52,11 @@ namespace GraphEditor.Nodes
 
         public override InteractionElement ToInteraction()
         {
-            return new Equip()
-            {
-                Item = _itemField.value as Item
-            };
+            var equip = ScriptableObject.CreateInstance<Equip>();
+            
+            equip.Item = _itemField.value as Item;
+
+            return equip;
         }
     }
 }

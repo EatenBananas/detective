@@ -57,10 +57,11 @@ namespace GraphEditor.Nodes
 
         public override InteractionElement ToInteraction()
         {
-            return new Photo()
-            {
-                Picture = _photoField.value as SceneReference
-            };
+            var photo = ScriptableObject.CreateInstance<Photo>();
+
+            photo.Picture = _photoField.value as SceneReference;
+
+            return photo;
         }
     }
 }

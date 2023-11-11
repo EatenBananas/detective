@@ -51,10 +51,12 @@ namespace GraphEditor.Nodes
 
         public override InteractionElement ToInteraction()
         {
-            return new CameraChange()
-            {
-                Camera = _cameraObjectField.value as SceneReference
-            };
+            var cameraChange = ScriptableObject.CreateInstance<CameraChange>();
+
+            cameraChange.Camera = _cameraObjectField.value as SceneReference;
+
+            return cameraChange;
+
         }
     }
 }

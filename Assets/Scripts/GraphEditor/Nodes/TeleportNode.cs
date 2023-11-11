@@ -52,10 +52,11 @@ namespace GraphEditor.Nodes
 
         public override InteractionElement ToInteraction()
         {
-            return new Teleport()
-            {
-                Location = _locationField.value as SceneReference
-            };
+            var teleport = ScriptableObject.CreateInstance<Teleport>();
+
+            teleport.Location = _locationField.value as SceneReference;
+
+            return teleport;
         }
     }
 }
