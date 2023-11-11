@@ -1,5 +1,7 @@
 ﻿using Equipment;
 using GraphEditor.Saves;
+using Interactions;
+using Interactions.Elements;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -46,6 +48,14 @@ namespace GraphEditor.Nodes
             save.Item = _itemField.value as Item;
 
             return save;
+        }
+
+        public override InteractionElement ToInteraction()
+        {
+            return new Equip()
+            {
+                Item = _itemField.value as Item
+            };
         }
     }
 }

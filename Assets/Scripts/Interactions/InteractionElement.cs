@@ -15,6 +15,10 @@ namespace Interactions
         [field: HideInInspector]
         public bool Folded { get; set; } = false;
         
+        [field:SerializeField]
+        
+        public InteractionElement NextElement { get; set; }
+        
 #region EDITOR LOGIC
 #if UNITY_EDITOR
         

@@ -1,4 +1,5 @@
 ﻿using GraphEditor.Saves;
+using Interactions;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -43,6 +44,11 @@ namespace GraphEditor.Nodes
             FillBasicProperties(save);
             save.Description = _noteField.value;
             return save;
+        }
+
+        public override InteractionElement ToInteraction()
+        {
+            return null;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using GraphEditor.Saves;
 using GraphEditor.Utils;
 using Interactions;
+using Interactions.Elements;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
@@ -110,6 +111,16 @@ namespace GraphEditor.Nodes
             save.OutcomeNodeID = _outcomeNodeID;
 
             return save;
+        }
+
+        public override InteractionElement ToInteraction()
+        {
+            return new Condition()
+            {
+                StateMachine = _stateField.value as State,
+                EqualTo = _equalToField.index,
+                // GoTo = todo 
+            };
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using GraphEditor.Saves;
+using Interactions;
+using Interactions.Elements;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -39,6 +41,14 @@ namespace GraphEditor.Nodes
             save.KeyCode = _keyCodeField.value is KeyCode code ? code : KeyCode.None;
 
             return save;
+        }
+
+        public override InteractionElement ToInteraction()
+        {
+            return new GetKey()
+            {
+                Key = _keyCodeField.value is KeyCode code ? code : KeyCode.None
+            };
         }
     }
 }

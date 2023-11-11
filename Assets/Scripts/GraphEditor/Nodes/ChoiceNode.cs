@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using GraphEditor.Saves;
 using GraphEditor.Utils;
+using Interactions;
+using Interactions.Elements;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -48,6 +50,10 @@ namespace GraphEditor.Nodes
                 }
 
                 GraphEditorNode nextNode = GraphEditorIOUtils.GetNode(option.NodeID);
+                
+                if (nextNode == null)
+                    continue;
+                
                 Edge edge = port.ConnectTo(nextNode.InputPort);
                 
                 edges.Add(edge);
@@ -81,6 +87,17 @@ namespace GraphEditor.Nodes
             save.Options = _options;
             
             return save;
+        }
+
+        public override InteractionElement ToInteraction()
+        {
+            return new Interactions.Elements.Choice()
+            {
+                Options = new List<Option>()
+                {
+                    // todo
+                }
+            };
         }
 
         private void OptionsChangedCallback(ChangeEvent<int> evt)

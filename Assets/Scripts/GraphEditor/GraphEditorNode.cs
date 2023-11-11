@@ -15,16 +15,19 @@ namespace GraphEditor
 {
     public abstract class GraphEditorNode : Node
     {
+        public string NodeName { get; set; }
         public string ID { get; set; } = Guid.NewGuid().ToString();
         public string NextNodeID { get; set; }
         public string GroupID { get; set; }
         protected abstract VisualElement GetDataContainer();
         public abstract GraphEditorNodeSave ToSave();
+
+        public abstract InteractionElement ToInteraction();
         
         private readonly bool _showInputPort;
         private readonly bool _showOutputPort;
         private readonly bool _showDescription;
-
+        
         private TextField _descriptionTextField;
         public Port InputPort { get; private set; }
         private Port _outputPort;
@@ -32,13 +35,11 @@ namespace GraphEditor
         protected GraphEditorNode(string nodeName, Vector2 position,
             bool showInputPort = true, bool showOutputPort = true, bool showDescription = true)
         {
-            title = nodeName;
+            NodeName = nodeName;
             
             _showInputPort = showInputPort;
             _showOutputPort = showOutputPort;
             _showDescription = showDescription;
-
-            //capabilities ^= Capabilities.Resizable;
             
             Initialize(position);
         }
@@ -61,8 +62,8 @@ namespace GraphEditor
 
         public void Draw()
         {
-            Label label = new(title);
-            //label.name = _title;
+            string displayName = NodeName.Replace('_', ' ');
+            Label label = new(displayName);
             titleContainer.Insert(0, label);
             
             if (_showDescription)
@@ -125,13 +126,13 @@ namespace GraphEditor
         public void FillBasicProperties(GraphEditorNodeSave save)
         {
             save.ID = ID;
-            save.NodeName = title;
+            save.NodeName = NodeName;
             save.GroupID = GroupID;
             save.Position = GetPosition().position;
             save.NextNodeID = NextNodeID;
             save.Description = _descriptionTextField != null ? _descriptionTextField.value : string.Empty;
         }
-
+        
         public void ConnectTo(GraphEditorNode node)
         {
             NextNodeID = node.ID;
@@ -158,6 +159,20 @@ namespace GraphEditor
 
             var edge = _outputPort.ConnectTo(nextNode.InputPort);
             return new List<Edge>() { edge };
+        }
+
+        public virtual void UpdateConnections(InteractionElement element)
+        {
+            if (string.IsNullOrEmpty(NextNodeID))
+                return;
+
+            var nextInteraction = GraphEditorIOUtils.GetElement(NextNodeID);
+            
+            if (nextInteraction == null)
+                return;
+
+            element.NextElement = nextInteraction;
+
         }
     }
 }

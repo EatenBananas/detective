@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GraphEditor.Nodes;
 using GraphEditor.Saves;
+using Interactions;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace GraphEditor.Utils
 
         private static Dictionary<string, GraphEditorGroup> _loadedGroups;
         private static Dictionary<string, GraphEditorNode> _loadedNodes;
+
+        private static Dictionary<string, InteractionElement> _loadedInteractions;
         
         public static void Initialize(GraphEditorView graphEditorView, string graphFileName)
         {
@@ -36,20 +39,33 @@ namespace GraphEditor.Utils
         
         public static void Save()
         {
+            // setup
+            
             CreateStaticFolders();
             GetElementsFromGraphView();
+            
+            // editor part
+            
             GraphEditorSaveSO save = CreateAsset<GraphEditorSaveSO>("Assets/Editor/GraphEditor/Graphs", $"{_graphFileName}Graph");
             save.Initialize(_graphFileName);
             SaveGroups(save);
             SaveNodes(save);
             
             SaveAsset(save);
+            
+            // SO part
+            
+            CreateInteractions();
+            UpdateConnections();
+            SaveElements();
+            
         }
         
         private static void CreateStaticFolders()
         {
             CreateFolder("Assets/Editor", "GraphEditor");   
-            CreateFolder("Assets/Editor/GraphEditor", "Graphs");   
+            CreateFolder("Assets/Editor/GraphEditor", "Graphs");
+            CreateFolder("Assets/Resources", "Interactions");
         }
         private static void CreateFolder(string path, string folderName)
         {
@@ -225,6 +241,58 @@ namespace GraphEditor.Utils
             string fullPath = $"{path}/{assetName}.asset";
 
             return AssetDatabase.LoadAssetAtPath<T>(fullPath);
+        }
+
+        private static void CreateInteractions()
+        {
+            _loadedInteractions = new Dictionary<string, InteractionElement>();
+
+            foreach (GraphEditorNode node in _nodes)
+            {
+                InteractionElement element = node.ToInteraction();
+
+                if (element != null)
+                {
+                    _loadedInteractions[node.ID] = element;
+                }
+            }
+        }
+
+        private static void UpdateConnections()
+        {
+            foreach (var node in _nodes)
+            {
+                if (_loadedInteractions.TryGetValue(node.ID, out var interaction))
+                {
+                    node.UpdateConnections(interaction);
+                }
+            }
+        }
+
+        private static void SaveElements()
+        {
+            if (AssetDatabase.IsValidFolder($"Assets/Resources/Interactions/{_graphFileName}"))
+            {
+                AssetDatabase.DeleteAsset($"Assets/Resources/Interactions/{_graphFileName}");
+            }
+            CreateFolder("Assets/Resources/Interactions", _graphFileName);
+
+            foreach (var node in _nodes)
+            {
+                if (_loadedInteractions.TryGetValue(node.ID, out var element))
+                {
+                    var interaction = CreateAsset<Interaction>($"Assets/Resources/Interactions/{_graphFileName}",
+                        node.NodeName);
+                    
+                    interaction.Elements.Add(element);
+                }
+            }
+            
+        }
+        
+        public static InteractionElement GetElement(string uuid)
+        {
+            return _loadedInteractions[uuid];
         }
         
     }
