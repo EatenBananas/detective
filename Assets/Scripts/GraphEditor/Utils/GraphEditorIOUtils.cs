@@ -4,6 +4,7 @@ using System.Linq;
 using GraphEditor.Nodes;
 using GraphEditor.Saves;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace GraphEditor.Utils
@@ -17,6 +18,7 @@ namespace GraphEditor.Utils
         private static List<GraphEditorGroup> _groups;
 
         private static Dictionary<string, GraphEditorGroup> _loadedGroups;
+        private static Dictionary<string, GraphEditorNode> _loadedNodes;
         
         public static void Initialize(GraphEditorView graphEditorView, string graphFileName)
         {
@@ -27,6 +29,7 @@ namespace GraphEditor.Utils
             _groups = new List<GraphEditorGroup>();
 
             _loadedGroups = new Dictionary<string, GraphEditorGroup>();
+            _loadedNodes = new Dictionary<string, GraphEditorNode>();
         }
         
         #region Save Methods
@@ -146,6 +149,7 @@ namespace GraphEditor.Utils
 
             LoadGroups(save.Groups);
             LoadNodes(save.Nodes);
+            LoadConnections();
 
         }
         
@@ -169,6 +173,8 @@ namespace GraphEditor.Utils
                 //Vector2 position = saveNode.Position * _graphEditorView.scale;
 
                 GraphEditorNode node = _graphEditorView.LoadNode(saveNode);
+
+                _loadedNodes[node.ID] = node;
                 
                 if (string.IsNullOrEmpty(node.GroupID))
                 {
@@ -180,6 +186,37 @@ namespace GraphEditor.Utils
             }
         }
 
+        private static void LoadConnections()
+        {
+            foreach (KeyValuePair<string,GraphEditorNode> entry in _loadedNodes)
+            {
+                var node = entry.Value;
+
+                List<Edge> edges = node.LoadConnections();
+
+                if (edges != null)
+                {
+                    foreach (var edge in edges)
+                    {
+                        _graphEditorView.AddElement(edge);
+                    }
+
+                    node.RefreshPorts();
+                }
+            }
+        }
+
+        public static GraphEditorNode GetNode(string uuid)
+        {
+            if (_loadedNodes == null)
+                return null;
+
+            if (!_loadedNodes.ContainsKey(uuid))
+                return null;
+
+            return _loadedNodes[uuid];
+        }
+        
         #endregion
         
         

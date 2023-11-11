@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GraphEditor.Saves;
+using GraphEditor.Utils;
 using Interactions;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
@@ -20,7 +21,8 @@ namespace GraphEditor.Nodes
 
         private DropdownField _equalToField;
         private ObjectField _stateField;
-        private String _outcomeNodeID;
+        private string _outcomeNodeID;
+        private Port _outcomePort;
 
         public ConditionNode(string nodeName, Vector2 position) : base(nodeName, position)
         {
@@ -33,6 +35,21 @@ namespace GraphEditor.Nodes
             _stateField.value = save.State;
             _equalToField.index = save.EqualTo;
             _outcomeNodeID = save.OutcomeNodeID;
+        }
+
+        public override List<Edge> LoadConnections()
+        {
+            List<Edge> edges = base.LoadConnections() ?? new List<Edge>();
+
+            if (string.IsNullOrEmpty(_outcomeNodeID) || _outcomePort == null)
+                return edges;
+
+            GraphEditorNode outcomeNode = GraphEditorIOUtils.GetNode(_outcomeNodeID);
+            Edge edge = _outcomePort.ConnectTo(outcomeNode.InputPort);
+            
+            edges.Add(edge);
+            
+            return edges;
         }
 
         private void InitializeDataContainer()
@@ -51,16 +68,16 @@ namespace GraphEditor.Nodes
             _equalToField = new DropdownField("Equal to");
             _equalToField.choices = _options;
 
-            Port interactionPort = 
+            _outcomePort = 
                 InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(bool));
-            interactionPort.portName = "Interaction";
+            _outcomePort.portName = "Then";
 
             // binding custom action
-            interactionPort.userData = (Action<string>)(nodeID => _outcomeNodeID = nodeID);
+            _outcomePort.userData = (Action<string>)(nodeID => _outcomeNodeID = nodeID);
             
             _dataContainer.Add(_stateField);
             _dataContainer.Add(_equalToField);
-            _dataContainer.Add(interactionPort);
+            _dataContainer.Add(_outcomePort);
         }
 
         protected override VisualElement GetDataContainer() => _dataContainer;

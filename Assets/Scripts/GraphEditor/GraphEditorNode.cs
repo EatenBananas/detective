@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GraphEditor.Saves;
+using GraphEditor.Utils;
 using Interactions;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Edge = UnityEditor.Experimental.GraphView.Edge;
 
 namespace GraphEditor
 {
@@ -24,6 +26,8 @@ namespace GraphEditor
         private readonly bool _showDescription;
 
         private TextField _descriptionTextField;
+        public Port InputPort { get; private set; }
+        private Port _outputPort;
         
         protected GraphEditorNode(string nodeName, Vector2 position,
             bool showInputPort = true, bool showOutputPort = true, bool showDescription = true)
@@ -91,18 +95,18 @@ namespace GraphEditor
 
             if (_showInputPort)
             {
-                Port inputPort =
+                InputPort =
                     InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(bool));
-                inputPort.portName = "Previous";
-                inputContainer.Add(inputPort);
+                InputPort.portName = "Previous";
+                inputContainer.Add(InputPort);
             }
 
             if (_showOutputPort)
             {
-                Port outputPort =
+                _outputPort =
                     InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
-                outputPort.portName = "Next";
-                outputContainer.Add(outputPort);
+                _outputPort.portName = "Next";
+                outputContainer.Add(_outputPort);
             }
 
             extensionContainer.Add(GetDataContainer());
@@ -141,6 +145,19 @@ namespace GraphEditor
         public void AddToGroup(GraphEditorGroup group)
         {
             GroupID = group.ID;
+        }
+        
+        public virtual List<Edge> LoadConnections()
+        {
+            if (_outputPort == null || string.IsNullOrEmpty(NextNodeID))
+                return null;
+
+            GraphEditorNode nextNode = GraphEditorIOUtils.GetNode(NextNodeID);
+            if (nextNode == null)
+                return null;
+
+            var edge = _outputPort.ConnectTo(nextNode.InputPort);
+            return new List<Edge>() { edge };
         }
     }
 }
