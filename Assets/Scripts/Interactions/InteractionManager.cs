@@ -13,7 +13,7 @@ namespace Interactions
         public static InteractionManager Instance { get; private set; }
         
         private Interactable _interactable;
-        private Interaction _interaction;
+        private InteractionElement _interaction;
         private int _currentElementIndex;
 
         private KeyCode _keyCode;
@@ -87,19 +87,19 @@ namespace Interactions
             CompleteElement();
         }
 
-        public void StartInteraction(Interaction interaction)
+        public void StartInteraction(InteractionElement interaction)
         {
             _interaction = interaction;
             Debug.Log($"Starting {_interaction.name}");
             UIManager.Instance.HideInteractableText();
             UIManager.Instance.HideEquipment();
-            _currentElementIndex = 0;
+            //_currentElementIndex = 0;
             StartElement();
         }
 
         private void StartElement()
         {
-            var element = _interaction.Elements[_currentElementIndex];
+            var element = _interaction;
             Debug.Log($"Starting {element.GetType()}");
             element.Execute();
         }
@@ -109,8 +109,9 @@ namespace Interactions
             Debug.Log("Completed");
             _currentElementIndex++;
 
-            if (_currentElementIndex < _interaction.Elements.Count)
+            if (_interaction.NextElement != null)
             {
+                _interaction = _interaction.NextElement;
                 StartElement();
             }
             else

@@ -6,7 +6,7 @@ namespace Interactions
     public class ItemInteraction : MonoBehaviour
     {
         [SerializeField] private Item _requiredItem;
-        [SerializeField] private Interaction _interaction;
+        [SerializeField] private InteractionElement _interaction;
         [SerializeField] private bool _removeItem = true;
 
         public void Use(Item item)

@@ -1,4 +1,6 @@
 ﻿using GraphEditor.Saves;
+using Interactions;
+using Interactions.Elements;
 using SceneObjects;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -45,6 +47,16 @@ namespace GraphEditor.Nodes
             save.Camera = _cameraObjectField.value as SceneReference;
             
             return save;
+        }
+
+        public override InteractionElement ToInteraction()
+        {
+            var cameraChange = ScriptableObject.CreateInstance<CameraChange>();
+
+            cameraChange.Camera = _cameraObjectField.value as SceneReference;
+
+            return cameraChange;
+
         }
     }
 }

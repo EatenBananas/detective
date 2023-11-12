@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222fe16d6b5b40e7a78e353ef4447148, type: 3}
+  m_Name: 2Graph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: 2
+  <Nodes>k__BackingField:
+  - rid: 5206900307115114496
+  - rid: 5206900307115114497
+  <Groups>k__BackingField: []
+  <OldNodeNames>k__BackingField: []
+  <OldGroupNames>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 5206900307115114496
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_1
+        <ID>k__BackingField: e1c31bff-f350-43a3-807e-3d5c863e6abd
+        <NextNodeID>k__BackingField: 62d154a2-4000-4a4d-83f8-6d19c3989eed
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: -379.19998, y: -614.4}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: 
+        <DialogueNpc>k__BackingField: {fileID: 0}
+    - rid: 5206900307115114497
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_2
+        <ID>k__BackingField: 62d154a2-4000-4a4d-83f8-6d19c3989eed
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 364.80002, y: -366.40002}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: 
+        <DialogueNpc>k__BackingField: {fileID: 0}

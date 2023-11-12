@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using GraphEditor.Saves;
+using GraphEditor.Utils;
+using Interactions;
+using Interactions.Elements;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -12,6 +15,7 @@ namespace GraphEditor.Nodes
     {
         private VisualElement _dataContainer;
         private readonly List<Choice> _options = new();
+        private readonly Dictionary<Choice, Port> _ports = new();
         private Label _label;
         private IntegerField _optionsCount;
 
@@ -29,6 +33,33 @@ namespace GraphEditor.Nodes
             _optionsCount.value = save.Options.Count;
             _options = save.Options;
             RefreshOptions();
+        }
+
+        public override List<Edge> LoadConnections()
+        {
+            List<Edge> edges = base.LoadConnections() ?? new List<Edge>();
+
+            foreach (var option in _options)
+            {
+                Port port = _ports[option];
+
+                if (port == null)
+                {
+                    Debug.LogError("Port not found?!");
+                    continue;
+                }
+
+                GraphEditorNode nextNode = GraphEditorIOUtils.GetNode(option.NodeID);
+                
+                if (nextNode == null)
+                    continue;
+                
+                Edge edge = port.ConnectTo(nextNode.InputPort);
+                
+                edges.Add(edge);
+            }
+
+            return edges;
         }
 
         private void InitializeDataContainer()
@@ -58,6 +89,15 @@ namespace GraphEditor.Nodes
             return save;
         }
 
+        public override InteractionElement ToInteraction()
+        {
+            var choice = ScriptableObject.CreateInstance<Interactions.Elements.Choice>();
+            
+            // todo : opcje
+
+            return choice;
+        }
+
         private void OptionsChangedCallback(ChangeEvent<int> evt)
         {
             int count = evt.newValue;
@@ -81,6 +121,7 @@ namespace GraphEditor.Nodes
         private void RefreshOptions()
         {
             _choicesContainer.Clear();
+            _ports.Clear();
 
             for (int i = 0; i < _options.Count; i++)
             {
@@ -97,8 +138,9 @@ namespace GraphEditor.Nodes
                 Port outcomePort = 
                     InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(bool));
                 outcomePort.portName = "Outcome";
-
                 outcomePort.userData = (Action<string>)(nodeID => option.NodeID = nodeID);
+                
+                _ports[option] = outcomePort;
                 
                 _choicesContainer.Add(textField);
                 _choicesContainer.Add(outcomePort);

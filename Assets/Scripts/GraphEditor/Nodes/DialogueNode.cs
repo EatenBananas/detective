@@ -1,4 +1,6 @@
 ﻿using GraphEditor.Saves;
+using Interactions;
+using Interactions.Elements;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -56,6 +58,17 @@ namespace GraphEditor.Nodes
             save.DialogueText = _dialogueTextTextField.value;
             
             return save;
+        }
+
+        public override InteractionElement ToInteraction()
+        {
+            var dialogue = ScriptableObject.CreateInstance<Dialogue>();
+            
+            dialogue.DialogueNpc = _dialogueNpcObjectField.value as DialogueNpc;
+            dialogue.DialogueText = _dialogueTextTextField.value;
+
+            return dialogue;
+
         }
     }
 }

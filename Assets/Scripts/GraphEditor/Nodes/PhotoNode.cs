@@ -1,4 +1,6 @@
 ﻿using GraphEditor.Saves;
+using Interactions;
+using Interactions.Elements;
 using SceneObjects;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -51,6 +53,15 @@ namespace GraphEditor.Nodes
             save.Visible = _visibleToggle.value;
 
             return save;
+        }
+
+        public override InteractionElement ToInteraction()
+        {
+            var photo = ScriptableObject.CreateInstance<Photo>();
+
+            photo.Picture = _photoField.value as SceneReference;
+
+            return photo;
         }
     }
 }

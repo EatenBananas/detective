@@ -1,4 +1,6 @@
 ﻿using GraphEditor.Saves;
+using Interactions;
+using Interactions.Elements;
 using SceneObjects;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -46,6 +48,15 @@ namespace GraphEditor.Nodes
             save.Location = _locationField.value as SceneReference;
 
             return save;
+        }
+
+        public override InteractionElement ToInteraction()
+        {
+            var teleport = ScriptableObject.CreateInstance<Teleport>();
+
+            teleport.Location = _locationField.value as SceneReference;
+
+            return teleport;
         }
     }
 }

@@ -7,6 +7,6 @@ namespace Interactions.Elements
     public class Option
     {
         [field:SerializeField] public string Text { get; set; }
-        [field:SerializeField] public Interaction Outcome { get; set; }
+        [field:SerializeField] public InteractionElement Outcome { get; set; }
     }
 }

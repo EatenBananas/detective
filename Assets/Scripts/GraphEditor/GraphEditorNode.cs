@@ -2,39 +2,44 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GraphEditor.Saves;
+using GraphEditor.Utils;
 using Interactions;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Edge = UnityEditor.Experimental.GraphView.Edge;
 
 namespace GraphEditor
 {
     public abstract class GraphEditorNode : Node
     {
+        public string NodeName { get; set; }
         public string ID { get; set; } = Guid.NewGuid().ToString();
         public string NextNodeID { get; set; }
         public string GroupID { get; set; }
         protected abstract VisualElement GetDataContainer();
         public abstract GraphEditorNodeSave ToSave();
+
+        public abstract InteractionElement ToInteraction();
         
         private readonly bool _showInputPort;
         private readonly bool _showOutputPort;
         private readonly bool _showDescription;
-
+        
         private TextField _descriptionTextField;
+        public Port InputPort { get; private set; }
+        private Port _outputPort;
         
         protected GraphEditorNode(string nodeName, Vector2 position,
             bool showInputPort = true, bool showOutputPort = true, bool showDescription = true)
         {
-            title = nodeName;
+            NodeName = nodeName;
             
             _showInputPort = showInputPort;
             _showOutputPort = showOutputPort;
             _showDescription = showDescription;
-
-            //capabilities ^= Capabilities.Resizable;
             
             Initialize(position);
         }
@@ -57,8 +62,8 @@ namespace GraphEditor
 
         public void Draw()
         {
-            Label label = new(title);
-            //label.name = _title;
+            string displayName = NodeName.Replace('_', ' ');
+            Label label = new(displayName);
             titleContainer.Insert(0, label);
             
             if (_showDescription)
@@ -91,18 +96,18 @@ namespace GraphEditor
 
             if (_showInputPort)
             {
-                Port inputPort =
+                InputPort =
                     InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(bool));
-                inputPort.portName = "Previous";
-                inputContainer.Add(inputPort);
+                InputPort.portName = "Previous";
+                inputContainer.Add(InputPort);
             }
 
             if (_showOutputPort)
             {
-                Port outputPort =
+                _outputPort =
                     InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
-                outputPort.portName = "Next";
-                outputContainer.Add(outputPort);
+                _outputPort.portName = "Next";
+                outputContainer.Add(_outputPort);
             }
 
             extensionContainer.Add(GetDataContainer());
@@ -121,13 +126,13 @@ namespace GraphEditor
         public void FillBasicProperties(GraphEditorNodeSave save)
         {
             save.ID = ID;
-            save.NodeName = title;
+            save.NodeName = NodeName;
             save.GroupID = GroupID;
             save.Position = GetPosition().position;
             save.NextNodeID = NextNodeID;
             save.Description = _descriptionTextField != null ? _descriptionTextField.value : string.Empty;
         }
-
+        
         public void ConnectTo(GraphEditorNode node)
         {
             NextNodeID = node.ID;
@@ -141,6 +146,33 @@ namespace GraphEditor
         public void AddToGroup(GraphEditorGroup group)
         {
             GroupID = group.ID;
+        }
+        
+        public virtual List<Edge> LoadConnections()
+        {
+            if (_outputPort == null || string.IsNullOrEmpty(NextNodeID))
+                return null;
+
+            GraphEditorNode nextNode = GraphEditorIOUtils.GetNode(NextNodeID);
+            if (nextNode == null)
+                return null;
+
+            var edge = _outputPort.ConnectTo(nextNode.InputPort);
+            return new List<Edge>() { edge };
+        }
+
+        public virtual void UpdateConnections(InteractionElement element)
+        {
+            if (string.IsNullOrEmpty(NextNodeID))
+                return;
+
+            var nextInteraction = GraphEditorIOUtils.GetElement(NextNodeID);
+            
+            if (nextInteraction == null)
+                return;
+
+            element.NextElement = nextInteraction;
+
         }
     }
 }

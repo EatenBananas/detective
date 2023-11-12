@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GraphEditor.Saves;
+using Interactions;
+using Interactions.Elements;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -59,6 +61,16 @@ namespace GraphEditor.Nodes
             save.SetTo = _setToField.index;
 
             return save;
+        }
+
+        public override InteractionElement ToInteraction()
+        {
+            var setState = ScriptableObject.CreateInstance<SetState>();
+
+            setState.StateMachine = _stateField.value as State;
+            setState.State = _setToField.index;
+
+            return setState;
         }
 
         private void StateValueChanged(ChangeEvent<Object> evt)
