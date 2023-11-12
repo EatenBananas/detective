@@ -1,9 +1,11 @@
 using CameraSystem.CameraRotationAroundPlayer;
+using InputSystem;
 using Player.Movement;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 using Zenject;
 
 namespace PlayerSystem.Movement
@@ -11,28 +13,37 @@ namespace PlayerSystem.Movement
     public class InputsController : MonoBehaviour
     {
         [Inject] private CameraController _cameraController;
+        [Inject] private InputManager _inputManager;
         
-        private PlayerInputActions _playerInputActions;
         private PlayerMovement _playerMovement;
         private bool _isMouseOverUI;
 
-        private void OnEnable() => _playerInputActions.Enable();
-        private void OnDisable() => _playerInputActions.Disable();
+        private void OnEnable() => _inputManager.Input.Player.Map.EnableInputActionMap();
+        private void OnDisable() => _inputManager.Input.Player.Map.DisableInputActionMap();
 
         private void Awake()
         {
             _playerMovement = GetComponent<PlayerMovement>();
-            
-            _playerInputActions = new PlayerInputActions();
-            _playerInputActions.Player.Sneak.started += OnStartedSneak;
-            _playerInputActions.Player.Sneak.canceled += OnCanceledSneak;
-            _playerInputActions.Player.Walk.performed += OnWalk;
-            _playerInputActions.Player.Sprint.performed += OnSprint;
+
+            _inputManager.Input.Player.Move.performed += MoveHandler;
+            _inputManager.Input.Player.Sneak.started += OnStartedSneak;
+            _inputManager.Input.Player.Sneak.canceled += OnCanceledSneak;
         }
 
         private void Update()
         {
             IsMouseOverUI();
+        }
+
+        private void MoveHandler(InputAction.CallbackContext context)
+        {
+            if (context.interaction is MultiTapInteraction)
+            {
+                Sprint();
+                return;
+            }
+            
+            Walk();
         }
 
         private void OnCanceledSneak(InputAction.CallbackContext obj)
@@ -47,7 +58,7 @@ namespace PlayerSystem.Movement
             _playerMovement.SetPlayerMovingState(PlayerMovingState.Sneaking);
         }
 
-        private void OnWalk(InputAction.CallbackContext obj)
+        private void Walk()
         {
             if (_playerMovement.PlayerMovingState != PlayerMovingState.Sneaking)
                 _playerMovement.SetPlayerMovingState(PlayerMovingState.Walking);
@@ -56,7 +67,7 @@ namespace PlayerSystem.Movement
                 _playerMovement.SetPlayerTargetPosition(position);
         }
 
-        private void OnSprint(InputAction.CallbackContext obj)
+        private void Sprint()
         {
             if (_playerMovement.PlayerMovingState != PlayerMovingState.Sneaking)
                 _playerMovement.SetPlayerMovingState(PlayerMovingState.Sprinting);
@@ -67,7 +78,7 @@ namespace PlayerSystem.Movement
 
         private bool GetMouseToWorldPosition(out Vector3 position)
         {
-            var mousePosition = _playerInputActions.Player.MousePosition.ReadValue<Vector2>();
+            var mousePosition = _inputManager.Input.Mouse.Position.ReadValue<Vector2>();
             var ray = _cameraController.Camera.ScreenPointToRay(mousePosition);
             Physics.Raycast(ray, out var hit);
 
