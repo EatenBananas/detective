@@ -46,8 +46,8 @@ namespace Interactions
             {
                 if (_interactable != null && _interaction == null)
                 {
-                    Debug.Log($"Starting {_interactable.name}");
-                    StartInteraction(_interactable.Interaction);
+                    Debug.Log($"Entering {_interactable.name}");
+                    UIManager.Instance.ShowPieMenu(_interactable.Interactions);
                 }
             }
             else if (_listenForKey && Input.GetKeyDown(_keyCode))
