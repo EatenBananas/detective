@@ -26,12 +26,18 @@ public class UIManager : MonoBehaviour
     [Header("Equipment")]
     [SerializeField] private GameObject _equipmentPanel;
     [SerializeField] private Image[] _equipmentItems;
+    [SerializeField] private Button _foldEqButton;
+    [SerializeField] private GameObject _foldEqIcon;
+    [SerializeField] private GameObject _unfoldEqIcon;
+    [SerializeField] private float _foldEqOffset = 200f;
     [SerializeField] private Color _selectedColor = Color.red;
     [SerializeField] private RectTransform _cursorIcon;
 
     [Header("Pie Menu")] 
     [SerializeField] private GameObject _pieMenuPanel;
     [SerializeField] private PieMenu _pieMenu;
+
+    private bool _eqFolded = false;
     
     private void Awake()
     {
@@ -53,6 +59,7 @@ public class UIManager : MonoBehaviour
         HidePieMenu();
         
         _cursorIcon.gameObject.SetActive(false);
+        _foldEqButton.onClick.AddListener(FoldEqButtonClicked);
     }
     
     public void ShowInteractableText(string text)
@@ -129,10 +136,26 @@ public class UIManager : MonoBehaviour
     {
         _pieMenu.Show(options);
         _pieMenuPanel.SetActive(true);
+        HideEquipment();
+        HideInteractableText();
     }
 
     public void HidePieMenu()
     {
         _pieMenuPanel.SetActive(false);
+    }
+
+    private void FoldEqButtonClicked()
+    {
+        var offset = _eqFolded ? -_foldEqOffset :_foldEqOffset;
+        
+        var position = _equipmentPanel.transform.position;
+        position = new Vector3(position.x, position.y - offset, position.z);
+        _equipmentPanel.transform.position = position;
+        
+        _foldEqIcon.SetActive(!_eqFolded);
+        _unfoldEqIcon.SetActive(_eqFolded);
+
+        _eqFolded = !_eqFolded;
     }
 }
