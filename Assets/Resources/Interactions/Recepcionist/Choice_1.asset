@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f669c0e95d7787a4a86e2a519c74111b, type: 3}
+  m_Name: Choice_1
+  m_EditorClassIdentifier: 
+  <Folded>k__BackingField: 0
+  <NextElement>k__BackingField: {fileID: 0}
+  <Options>k__BackingField:
+  - <Text>k__BackingField: Yes, I'm blind.
+    <Outcome>k__BackingField: {fileID: 11400000, guid: fc6106d32fd7a874cbd73be734092d79, type: 2}
+  - <Text>k__BackingField: 'I really need you to tell me something. '
+    <Outcome>k__BackingField: {fileID: 11400000, guid: 34df7a47d1272934b991112560fe0a06, type: 2}
+  - <Text>k__BackingField: Maybe I can help you somehow?
+    <Outcome>k__BackingField: {fileID: 11400000, guid: 156026795d3fe6c4a9a4677e676f88ff, type: 2}
+  - <Text>k__BackingField: I don't have time for argues. Bye.
+    <Outcome>k__BackingField: {fileID: 11400000, guid: 3d23e94e707c7774da998a329dec60f3, type: 2}
