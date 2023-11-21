@@ -7,13 +7,17 @@ using UnityEngine;
 namespace Interactions
 {
     [Serializable]
-    public abstract class InteractionElement
+    public abstract class InteractionElement : ScriptableObject
     {
         public abstract void Execute();
 
         [field: SerializeField]
         [field: HideInInspector]
         public bool Folded { get; set; } = false;
+        
+        [field:SerializeField]
+        [field:SerializeReference]
+        public InteractionElement NextElement { get; set; }
         
 #region EDITOR LOGIC
 #if UNITY_EDITOR

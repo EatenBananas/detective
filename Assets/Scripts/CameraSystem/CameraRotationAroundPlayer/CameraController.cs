@@ -1,6 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 namespace CameraSystem.CameraRotationAroundPlayer
 {
@@ -13,6 +14,7 @@ namespace CameraSystem.CameraRotationAroundPlayer
     public class CameraController : MonoBehaviour
     {
         public Transform FollowTarget;
+        public Camera Camera => _camera;
         
         [SerializeField] private Camera _camera;
         [SerializeField] private CinemachineVirtualCamera _virtualCamera;
@@ -20,6 +22,8 @@ namespace CameraSystem.CameraRotationAroundPlayer
         [SerializeField] private GameObject _cameraLookAtTarget;
         [SerializeField] private float _cameraSpeed = 10;
 
+        [Inject] private PlayerSystem.Player _player;
+        
         private PlayerInputActions _inputActions;
         private CameraMode _cameraMode;
         private bool _cameraCanRotation;
@@ -84,7 +88,7 @@ namespace CameraSystem.CameraRotationAroundPlayer
 
         private void FindPlayer(InputAction.CallbackContext callbackContext)
         {
-            if (Getter.Player != null) MoveCameraToPosition(Getter.Player.position);
+            if (_player != null) MoveCameraToPosition(_player.PlayerTransform.position);
         }
 
         private void EnableCameraRotation(InputAction.CallbackContext callbackContext)
@@ -99,7 +103,7 @@ namespace CameraSystem.CameraRotationAroundPlayer
 
         private void BindCameraToPlayer(InputAction.CallbackContext obj)
         {
-            FollowTarget = Getter.Player;
+            FollowTarget = _player.PlayerTransform;
         }
     }
 }

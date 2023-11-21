@@ -10,7 +10,7 @@ namespace Interactions
             new Color(Color.yellow.r, Color.yellow.g, Color.yellow.b, 0.2f);
 
         [field: SerializeField] public string Text { get; private set; } = "";
-        [field: SerializeField] public Interaction Interaction { get; private set; }
+        [field: SerializeField] public InteractionElement Interaction { get; private set; }
 
         private void OnDrawGizmosSelected()
         {
