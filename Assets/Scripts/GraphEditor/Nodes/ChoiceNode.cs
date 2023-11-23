@@ -93,11 +93,34 @@ namespace GraphEditor.Nodes
         {
             var choice = ScriptableObject.CreateInstance<Interactions.Elements.Choice>();
             
-            // todo : opcje
-
             return choice;
         }
 
+        public override void UpdateConnections(InteractionElement element)
+        {
+            base.UpdateConnections(element);
+
+            if (element is not Interactions.Elements.Choice choice)
+            {
+                Debug.LogError("Wrong interaction type, Choice expected");
+                return;
+            }
+
+            // todo: this naming is hella confusing
+            
+            choice.Options = new List<Option>();
+
+            foreach (var connection in _options)
+            {
+                choice.Options.Add(new Option()
+                {
+                    Text = connection.Text,
+                    Outcome = GraphEditorIOUtils.GetElement(connection.NodeID) 
+                });
+            }
+
+        }
+        
         private void OptionsChangedCallback(ChangeEvent<int> evt)
         {
             int count = evt.newValue;

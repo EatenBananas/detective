@@ -18,6 +18,9 @@ namespace GraphEditor
 
         private readonly SerializableDictionary<string, GraphEditorGroup> _groups = new();
         private readonly SerializableDictionary<string, GraphEditorNode> _nodes = new();
+
+        private const float MIN_ZOOM_SCALE = 0.1f;
+        private const float MAX_ZOOM_SCALE = 1f;
         
         public GraphEditorView(GraphEditorWindow editorWindow)
         {
@@ -54,7 +57,7 @@ namespace GraphEditor
 
         private void AddManipulators()
         {
-            SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
+            SetupZoom(MIN_ZOOM_SCALE, MAX_ZOOM_SCALE);
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());

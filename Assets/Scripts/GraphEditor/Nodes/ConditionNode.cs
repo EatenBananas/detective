@@ -119,9 +119,21 @@ namespace GraphEditor.Nodes
 
             condition.StateMachine = _stateField.value as State;
             condition.EqualTo = _equalToField.index;
-            // GoTo = todo 
 
             return condition;
+        }
+
+        public override void UpdateConnections(InteractionElement element)
+        {
+            base.UpdateConnections(element);
+
+            if (element is not Condition condition)
+            {
+                Debug.LogError("Invalid interaction type, Condition expected");
+                return;
+            }
+
+            condition.GoTo = GraphEditorIOUtils.GetElement(_outcomeNodeID);
         }
     }
 }

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Interactions;
+using Interactions.Elements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,18 +22,24 @@ namespace UI
 
         [SerializeField] private Image _tinyCircle;
         [SerializeField] private float _tinyCircleRadius = 60f;
+
+        public void Show(List<PieMenuOption> options)
+        {
+            _options = options;
+            Reload();
+        }
         
         private void Start()
         {
-            _addButton.onClick.AddListener(Add);
-            _removeButton.onClick.AddListener(Remove);
+            //_addButton.onClick.AddListener(Add);
+            //_removeButton.onClick.AddListener(Remove);
         }
 
         private void Add()
         {
             _options.Add(new PieMenuOption()
             {
-                DisplayText = (_options.Count + 1).ToString()
+                //DisplayText = (_options.Count + 1).ToString()
             });
             Reload();
         }
@@ -60,8 +68,8 @@ namespace UI
                 {
                     buttons[i].Reload(fill, 360f / _options.Count * i);
                     buttons[i].gameObject.SetActive(true);
-                    var text = _options[i].DisplayText;
-                    buttons[i].Assign( ()=>Debug.Log($"Selected {text}") );
+                    var i1 = i;
+                    buttons[i].Assign( ()=>Select(_options[i1].Interaction));
                 }
                 else
                 {
@@ -87,7 +95,7 @@ namespace UI
                     icons[i].rectTransform.localPosition   = new Vector3(x, y, 0f);
                     
                     icons[i].gameObject.SetActive(true);
-                    icons[i].sprite = _options[i].Icon;
+                    icons[i].sprite = _options[i].OptionType.Icon;
                 }
                 else
                 {
@@ -98,7 +106,7 @@ namespace UI
 
         private void OnValidate()
         {
-            Reload();
+            //Reload();
         }
 
         private void Update()
@@ -110,6 +118,12 @@ namespace UI
             float y = _tinyCircleRadius * Mathf.Sin(angleInRadians);
 
             _tinyCircle.rectTransform.localPosition = new Vector3(x, y, 0f);
+        }
+
+        private void Select(StartInteraction interaction)
+        {
+            UIManager.Instance.HidePieMenu();
+            InteractionManager.Instance.StartInteraction(interaction);
         }
     }
 }

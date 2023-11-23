@@ -5,6 +5,7 @@ using Equipment;
 using Interactions;
 using Interactions.Elements;
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -24,11 +25,20 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _optionsText;
     [Header("Equipment")]
     [SerializeField] private GameObject _equipmentPanel;
-
     [SerializeField] private Image[] _equipmentItems;
+    [SerializeField] private Button _foldEqButton;
+    [SerializeField] private GameObject _foldEqIcon;
+    [SerializeField] private GameObject _unfoldEqIcon;
+    [SerializeField] private float _foldEqOffset = 200f;
     [SerializeField] private Color _selectedColor = Color.red;
     [SerializeField] private RectTransform _cursorIcon;
 
+    [Header("Pie Menu")] 
+    [SerializeField] private GameObject _pieMenuPanel;
+    [SerializeField] private PieMenu _pieMenu;
+
+    private bool _eqFolded = false;
+    
     private void Awake()
     {
         Instance = this;
@@ -38,14 +48,18 @@ public class UIManager : MonoBehaviour
         Debug.Assert(_dialogueText != null, "_dialogueText != null");
         Debug.Assert(_optionsPanel != null, "_optionsPanel != null");
         Debug.Assert(_optionsText != null, "_optionsText != null");
+        Debug.Assert(_pieMenuPanel != null, "_pieMenuPanel != null");
+        Debug.Assert(_pieMenu != null, "_pieMenu!= null");
     }
 
     private void Start()
     {
         HideDialogue();
         HideOptions();
+        HidePieMenu();
         
         _cursorIcon.gameObject.SetActive(false);
+        _foldEqButton.onClick.AddListener(FoldEqButtonClicked);
     }
     
     public void ShowInteractableText(string text)
@@ -116,5 +130,32 @@ public class UIManager : MonoBehaviour
             }
         }
         EquipmentManager.Instance.ReloadEquipment();
+    }
+
+    public void ShowPieMenu(List<PieMenuOption> options)
+    {
+        _pieMenu.Show(options);
+        _pieMenuPanel.SetActive(true);
+        HideEquipment();
+        HideInteractableText();
+    }
+
+    public void HidePieMenu()
+    {
+        _pieMenuPanel.SetActive(false);
+    }
+
+    private void FoldEqButtonClicked()
+    {
+        var offset = _eqFolded ? -_foldEqOffset :_foldEqOffset;
+        
+        var position = _equipmentPanel.transform.position;
+        position = new Vector3(position.x, position.y - offset, position.z);
+        _equipmentPanel.transform.position = position;
+        
+        _foldEqIcon.SetActive(!_eqFolded);
+        _unfoldEqIcon.SetActive(_eqFolded);
+
+        _eqFolded = !_eqFolded;
     }
 }

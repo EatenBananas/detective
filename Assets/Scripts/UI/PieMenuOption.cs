@@ -1,4 +1,5 @@
 using System;
+using Interactions.Elements;
 using UnityEngine;
 
 namespace UI
@@ -6,7 +7,7 @@ namespace UI
     [Serializable]
     public class PieMenuOption
     {
-        [field:SerializeField] public string DisplayText { get; set; }
-        [field:SerializeField] public Sprite Icon { get; set; }
+        [field:SerializeField] public PieMenuOptionType OptionType { get; set; }
+        [field:SerializeField] public StartInteraction Interaction { get; set; }
     }
 }

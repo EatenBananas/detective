@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using GraphEditor.Nodes;
 using GraphEditor.Saves;
@@ -22,6 +23,8 @@ namespace GraphEditor.Utils
         private static Dictionary<string, GraphEditorNode> _loadedNodes;
 
         private static Dictionary<string, InteractionElement> _loadedInteractions;
+
+        private static List<string> _assetsToRemove;
         
         public static void Initialize(GraphEditorView graphEditorView, string graphFileName)
         {
@@ -33,6 +36,8 @@ namespace GraphEditor.Utils
 
             _loadedGroups = new Dictionary<string, GraphEditorGroup>();
             _loadedNodes = new Dictionary<string, GraphEditorNode>();
+            
+            _assetsToRemove = new List<string>();
         }
         
         #region Save Methods
@@ -54,6 +59,8 @@ namespace GraphEditor.Utils
             SaveAsset(save);
             
             // SO part
+
+            LoadAssetsToRemove();
             
             CreateInteractions();
             SaveElements();
@@ -62,7 +69,8 @@ namespace GraphEditor.Utils
             {
                 SaveAsset(element.Value);
             }
-            
+
+            RemoveOldFiles();
         }
         
         private static void CreateStaticFolders()
@@ -275,25 +283,63 @@ namespace GraphEditor.Utils
 
         private static void SaveElements()
         {
-            if (AssetDatabase.IsValidFolder($"Assets/Resources/Interactions/{_graphFileName}"))
-            {
-                AssetDatabase.DeleteAsset($"Assets/Resources/Interactions/{_graphFileName}");
-            }
             CreateFolder("Assets/Resources/Interactions", _graphFileName);
 
             foreach (var node in _nodes)
             {
                 if (_loadedInteractions.TryGetValue(node.ID, out var element))
                 {
-                    AssetDatabase.CreateAsset(element, $"Assets/Resources/Interactions/{_graphFileName}/{node.NodeName}.asset");
+                    string fullPath = $"Assets/Resources/Interactions/{_graphFileName}/{node.NodeName}.asset";
+                    
+                    var asset = AssetDatabase.LoadAssetAtPath<InteractionElement>(fullPath);
+                    if (asset == null)
+                    {
+                        asset = element;
+                        //asset = ScriptableObject.CreateInstance<T>();
+                        AssetDatabase.CreateAsset(element, fullPath);
+                    }
+                    else
+                    {
+                        EditorUtility.CopySerialized(element, asset);
+                        asset.name = node.NodeName;
+                        _loadedInteractions[node.ID] = asset;
+                    }
+                    
+                    SaveAsset(asset);
+
+                    _assetsToRemove.Remove($"{node.NodeName}.asset");
                 }
             }
             
         }
         
+        private static void LoadAssetsToRemove()
+        {
+            DirectoryInfo directoryInfo = new($"Assets/Resources/Interactions/{_graphFileName}");
+
+            foreach (var fileInfo in directoryInfo.GetFiles())
+            {
+                if (fileInfo.Extension == ".asset")
+                {
+                    _assetsToRemove.Add(fileInfo.Name);
+                }
+            }
+            
+        }
+        
+        private static void RemoveOldFiles()
+        {
+            foreach (var fileName in _assetsToRemove)
+            {
+                AssetDatabase.DeleteAsset($"Assets/Resources/Interactions/{_graphFileName}/{fileName}");
+            }
+        }
+        
+        
         public static InteractionElement GetElement(string uuid)
         {
-            return _loadedInteractions[uuid];
+            _loadedInteractions.TryGetValue(uuid, out var result);
+            return result;
         }
         
     }
