@@ -1,7 +1,10 @@
 using Cinemachine;
+using InputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 using Zenject;
+using Camera = UnityEngine.Camera;
 
 namespace CameraSystem.CameraRotationAroundPlayer
 {
@@ -23,23 +26,57 @@ namespace CameraSystem.CameraRotationAroundPlayer
         [SerializeField] private float _cameraSpeed = 10;
 
         [Inject] private PlayerSystem.Player _player;
+        [Inject] private InputManager _inputManager;
         
-        private PlayerInputActions _inputActions;
         private CameraMode _cameraMode;
         private bool _cameraCanRotation;
 
-        private void OnEnable() => _inputActions.Enable();
-        private void OnDisable() => _inputActions.Disable();
+        #region Unity Lifecycle
+
+        private void OnEnable()
+        {
+            _inputManager.Input.Camera.Map.EnableInputActionMap();
+        }
         
+        private void OnDisable()
+        {
+            _inputManager.Input.Camera.Map.DisableInputActionMap();
+        }
+
         private void Awake()
         {
-            _inputActions = new PlayerInputActions();
+            _inputManager.Input.Camera.Move.performed += FreeModeCamera;
+            _inputManager.Input.Camera.Rotation.started += EnableCameraRotation;
+            _inputManager.Input.Camera.Rotation.canceled += DisableCameraRotation;
+            _inputManager.Input.Camera.FindPlayer.performed += FindPlayerHandler;
+        }
 
-            _inputActions.Camera.Move.performed += FreeModeCamera;
-            _inputActions.Camera.EnableRotation.started += EnableCameraRotation;
-            _inputActions.Camera.EnableRotation.canceled += DisableCameraRotation;
-            _inputActions.Camera.FindPlayer.performed += FindPlayer;
-            _inputActions.Camera.BondToPlayer.performed += BindCameraToPlayer;
+        private void Update()
+        {
+            if (FollowTarget != null)
+            {
+                _cameraMode = CameraMode.Lock;
+                transform.position = FollowTarget.position;
+            }
+            
+            if (_cameraMode == CameraMode.Free) CameraFreeMovement();
+        }
+        
+        #endregion
+        
+        private void FindPlayerHandler(InputAction.CallbackContext context)
+        {
+            switch (context.interaction)
+            {
+                case TapInteraction:
+                    // Move camera to player
+                    MoveCameraToPosition(_player.PlayerTransform.position);
+                    break;
+                case MultiTapInteraction:
+                    // Bind camera to player
+                    FollowTarget = _player.PlayerTransform;
+                    break;
+            }
         }
 
         private void FreeModeCamera(InputAction.CallbackContext obj)
@@ -48,21 +85,10 @@ namespace CameraSystem.CameraRotationAroundPlayer
             _cameraMode = CameraMode.Free;
         }
 
-        private void Update()
-        {
-            if (FollowTarget != null)
-            {
-                if (_cameraMode != CameraMode.Lock) _cameraMode = CameraMode.Lock;
-                transform.position = FollowTarget.position;
-            }
-            
-            if (_cameraMode == CameraMode.Free) CameraFreeMovement();
-        }
-
         private void CameraFreeMovement()
         {
             // Get input
-            var input = _inputActions.Camera.Move.ReadValue<Vector2>().normalized;
+            var input = _inputManager.Input.Camera.Move.ReadValue<Vector2>().normalized;
             
             // Get camera normalized direction
             var forward = _camera.transform.forward;
@@ -86,11 +112,6 @@ namespace CameraSystem.CameraRotationAroundPlayer
             transform.position = newCameraPosition;
         }
 
-        private void FindPlayer(InputAction.CallbackContext callbackContext)
-        {
-            if (_player != null) MoveCameraToPosition(_player.PlayerTransform.position);
-        }
-
         private void EnableCameraRotation(InputAction.CallbackContext callbackContext)
         {
             _inputProvider.enabled = true;
@@ -99,11 +120,6 @@ namespace CameraSystem.CameraRotationAroundPlayer
         private void DisableCameraRotation(InputAction.CallbackContext callbackContext)
         {
             _inputProvider.enabled = false;
-        }
-
-        private void BindCameraToPlayer(InputAction.CallbackContext obj)
-        {
-            FollowTarget = _player.PlayerTransform;
         }
     }
 }
