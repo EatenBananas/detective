@@ -1,4 +1,3 @@
-using GameManagers;
 using Zenject;
 
 namespace Installers
@@ -7,7 +6,7 @@ namespace Installers
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<Raycaster>().AsSingle().NonLazy();
+            
         }
     }
 }

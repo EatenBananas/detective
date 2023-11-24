@@ -6,7 +6,7 @@ using Zenject;
 
 namespace GameManagers
 {
-    public class Raycaster : ITickable
+    public class Raycaster : MonoBehaviour
     {
         #region Events
 
@@ -98,7 +98,7 @@ namespace GameManagers
 
         #endregion
 
-        public void Tick()
+        public void Update()
         {
             UpdateLookingAtPlayerFromCameraCenter();
             UpdateLookingAtPlayerFromCameraCenterArray();
