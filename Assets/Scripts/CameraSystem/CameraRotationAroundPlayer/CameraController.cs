@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Cinemachine;
 using InputSystem;
 using UnityEngine;
@@ -11,16 +12,14 @@ namespace CameraSystem.CameraRotationAroundPlayer
 {
     public enum CameraMode
     {
+        Lock,
         Free,
-        Locked,
-        FollowPlayer,
-        FollowSpecifiedTarget
+        FollowTarget,
     }
     
     public class CameraController : MonoBehaviour
     {
         #region Events
-        
         public Action<CameraMode> OnCameraModeChange { get; set; }
         public Action<Transform> OnFollowTargetChange { get; set; }
         public Action<Transform> OnCameraLookAtTargetChange { get; set; }
@@ -30,6 +29,30 @@ namespace CameraSystem.CameraRotationAroundPlayer
         
         #region Properties
 
+        public CameraMode CameraMode
+        {
+            get => _cameraMode;
+            set
+            {
+                if (_cameraMode == value) return;
+                _cameraMode = value;
+                
+                switch (_cameraMode)
+                {
+                    case CameraMode.Lock:
+                        break;
+                    case CameraMode.Free:
+                        CameraFollowTarget = null;
+                        break;
+                    case CameraMode.FollowTarget:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                
+                OnCameraModeChange?.Invoke(_cameraMode);
+            }
+        }
         public Camera Camera => _camera;
         public float CameraSpeed
         {
@@ -41,30 +64,9 @@ namespace CameraSystem.CameraRotationAroundPlayer
                 OnCameraSpeedChange?.Invoke(_cameraSpeed);
             }
         }
-        public CameraMode CameraMode
-        {
-            get => _cameraMode;
-            set
-            {
-                if (_cameraMode == value) return;
-                _cameraMode = value;
-                OnCameraModeChange?.Invoke(_cameraMode);
-            }
-        }
         public Transform CameraFollowTarget
         {
-            get
-            {
-                switch (CameraMode)
-                {
-                    case CameraMode.FollowPlayer:
-                        return _player != null ? _player.PlayerTransform : null;
-                    case CameraMode.FollowSpecifiedTarget:
-                        return _cameraFollowTarget;
-                    default:
-                        return null;
-                }
-            }
+            get => _cameraFollowTarget;
             set
             {
                 if (_cameraFollowTarget == value) return;
@@ -89,12 +91,12 @@ namespace CameraSystem.CameraRotationAroundPlayer
         
         #region Private Fields
         
+        [SerializeField] private CameraMode _cameraMode;
         [SerializeField] private Camera _camera;
         [SerializeField] private CinemachineVirtualCamera _virtualCamera;
         [SerializeField] private CinemachineInputProvider _inputProvider;
         [SerializeField] private Transform _cameraFollowTarget;
         [SerializeField] private Transform _cameraLookAtTarget;
-        [SerializeField] private CameraMode _cameraMode;
         [SerializeField] private float _cameraSpeed = 10;
         
         [Inject] private PlayerSystem.Player _player;
@@ -125,16 +127,14 @@ namespace CameraSystem.CameraRotationAroundPlayer
         {
             switch (CameraMode)
             {
+                case CameraMode.Lock:
+                    // TODO: Add camera lock mode
+                    break;
                 case CameraMode.Free:
-                    CameraFreeMovement();
+                    CameraFreeModeMovement();
                     break;
-                case CameraMode.Locked:
-                    break;
-                case CameraMode.FollowPlayer:
-                    MoveCameraToPosition(_player.PlayerTransform.position);
-                    break;
-                case CameraMode.FollowSpecifiedTarget:
-                    MoveCameraToPosition(CameraFollowTarget.position);
+                case CameraMode.FollowTarget:
+                    CameraFollowTargetMovement(CameraFollowTarget);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -143,8 +143,10 @@ namespace CameraSystem.CameraRotationAroundPlayer
         
         #endregion
 
-        private void CameraFreeMovement()
+        private void CameraFreeModeMovement()
         {
+            if (CameraFollowTarget != null) CameraFollowTarget = null;
+            
             // Get input
             var moveVector = _inputManager.Input.Camera.Move.ReadValue<Vector2>().normalized;
             
@@ -165,6 +167,11 @@ namespace CameraSystem.CameraRotationAroundPlayer
             var cameraMovement = (forwardRelative + rightRelative) * (_cameraSpeed * Time.deltaTime);
             transform.Translate(cameraMovement, Space.World);
         }
+
+        private void CameraFollowTargetMovement(Transform target)
+        {
+            CameraFollowTarget = target;
+        }
         
         private void MoveCameraToPosition(Vector3 newCameraPosition)
         {
@@ -175,8 +182,7 @@ namespace CameraSystem.CameraRotationAroundPlayer
 
         private void SetCameraModeToFree(InputAction.CallbackContext context)
         {
-            if (CameraMode != CameraMode.Free)
-                CameraMode = CameraMode.Free;
+            // CameraFollowTarget = _defCameraFollowTarget;
         }
 
         private void FindPlayerHandler(InputAction.CallbackContext context)
@@ -184,7 +190,7 @@ namespace CameraSystem.CameraRotationAroundPlayer
             switch (context.interaction)
             {
                 case TapInteraction:
-                    // Move camera to player
+                    // Only move camera to player
                     MoveCameraToPosition(_player.PlayerTransform.position);
                     break;
                 case MultiTapInteraction:
