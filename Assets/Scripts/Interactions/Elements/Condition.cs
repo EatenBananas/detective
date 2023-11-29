@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 namespace Interactions.Elements
 {
@@ -7,14 +9,14 @@ namespace Interactions.Elements
     public class Condition : InteractionElement
     {
         [field:SerializeField] public State StateMachine { get; set; }
-        [field:SerializeField] public int EqualTo { get; set; }
-        [field:SerializeField] public InteractionElement GoTo { get; set; }
+        
+        [field:SerializeField] public SerializableDictionary<int, InteractionElement> Outcomes { get; set; }
         
         public override void Execute()
         {
-            if (StateMachine.CurrentState == EqualTo)
+            if (Outcomes.TryGetValue(StateMachine.CurrentState, out var outcome))
             {
-                InteractionManager.Instance.StartInteraction(GoTo);
+                InteractionManager.Instance.StartInteraction(outcome);
             }
             else
             {

@@ -91,7 +91,7 @@ namespace GraphEditor
                 return;
             }
 
-            EditorUtility.DisplayProgressBar("Saving", "Saving...", 0);
+            EditorUtility.DisplayProgressBar("Saving graph", "Saving...", 0);
             GraphEditorIOUtils.Initialize(_graphEditorView, _fileNameTextField.value);
             GraphEditorIOUtils.Save();
             EditorUtility.ClearProgressBar();

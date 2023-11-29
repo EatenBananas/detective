@@ -317,6 +317,9 @@ namespace GraphEditor.Utils
         {
             DirectoryInfo directoryInfo = new($"Assets/Resources/Interactions/{_graphFileName}");
 
+            if (!directoryInfo.Exists)
+                return;
+                
             foreach (var fileInfo in directoryInfo.GetFiles())
             {
                 if (fileInfo.Extension == ".asset")

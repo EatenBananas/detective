@@ -1,12 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
-namespace GraphEditor
+namespace GraphEditor.Saves
 {
     [Serializable]
-    public class Choice
+    public class OutcomeSave
     {
-        [field: SerializeField] public string Text { get; set; } = string.Empty;
+        [field: SerializeField] public int Value { get; set; } = 1;
         [field: SerializeField] public string NodeID { get; set; } = string.Empty;
     }
 }

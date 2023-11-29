@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222fe16d6b5b40e7a78e353ef4447148, type: 3}
+  m_Name: Test123Graph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Test123
+  <Nodes>k__BackingField:
+  - rid: 5206900708040245282
+  - rid: 5206900708040245283
+  - rid: 5206900708040245284
+  - rid: 5206900708040245285
+  - rid: 5206900708040245286
+  - rid: 5206900708040245287
+  - rid: 5206900708040245288
+  - rid: 5206900708040245289
+  - rid: 5206900708040245290
+  <Groups>k__BackingField: []
+  <OldNodeNames>k__BackingField: []
+  <OldGroupNames>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 5206900708040245282
+      type: {class: ConditionNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Condition_1
+        <ID>k__BackingField: 606f5b21-2675-49a6-832e-eb75330e3493
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: -289.59998, y: -1078.3999}
+        <Description>k__BackingField: Description
+        <State>k__BackingField: {fileID: 11400000, guid: dbd343f0885de2a49bb1e8115d88b2c7, type: 2}
+        <Outcomes>k__BackingField:
+        - <Value>k__BackingField: 0
+          <NodeID>k__BackingField: 7545f076-fea9-4cb9-aa0e-a7425dc4290b
+        - <Value>k__BackingField: 1
+          <NodeID>k__BackingField: ec0ec3ed-0692-47b1-985e-8764fa11c081
+        - <Value>k__BackingField: 2
+          <NodeID>k__BackingField: 5dcc029f-4863-418f-aef5-f47af3837af3
+        - <Value>k__BackingField: 4
+          <NodeID>k__BackingField: e0e1d554-d54e-4735-9df6-7c2e45744b26
+    - rid: 5206900708040245283
+      type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Test123Start
+        <ID>k__BackingField: c915d2c7-c24e-44ec-9c2f-ca0e018bbe1d
+        <NextNodeID>k__BackingField: 606f5b21-2675-49a6-832e-eb75330e3493
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: -741.6, y: -1078.3999}
+        <Description>k__BackingField: Description
+        <Title>k__BackingField: Test123Start
+    - rid: 5206900708040245284
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_1
+        <ID>k__BackingField: 7545f076-fea9-4cb9-aa0e-a7425dc4290b
+        <NextNodeID>k__BackingField: 67944fb4-a455-4dbb-8af0-580796324ad8
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 346.40002, y: -1210.3999}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: Dialog  startowy
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+    - rid: 5206900708040245285
+      type: {class: SetStateNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: SetState_2
+        <ID>k__BackingField: 67944fb4-a455-4dbb-8af0-580796324ad8
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 849.60004, y: -1210.3999}
+        <Description>k__BackingField: Description
+        <State>k__BackingField: {fileID: 11400000, guid: dbd343f0885de2a49bb1e8115d88b2c7, type: 2}
+        <SetTo>k__BackingField: 1
+    - rid: 5206900708040245286
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_2
+        <ID>k__BackingField: ec0ec3ed-0692-47b1-985e-8764fa11c081
+        <NextNodeID>k__BackingField: 7eda9979-e366-422b-8621-8c8eab5aa7f7
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 346.40002, y: -984}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: Dialog questowy
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+    - rid: 5206900708040245287
+      type: {class: SetStateNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: SetState_3
+        <ID>k__BackingField: 7eda9979-e366-422b-8621-8c8eab5aa7f7
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 849.60004, y: -984}
+        <Description>k__BackingField: Description
+        <State>k__BackingField: {fileID: 11400000, guid: dbd343f0885de2a49bb1e8115d88b2c7, type: 2}
+        <SetTo>k__BackingField: 2
+    - rid: 5206900708040245288
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_3
+        <ID>k__BackingField: 5dcc029f-4863-418f-aef5-f47af3837af3
+        <NextNodeID>k__BackingField: aed3d959-95ae-4665-96fd-11587a7e2e69
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 346.40002, y: -750.4}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: Skip
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
+    - rid: 5206900708040245289
+      type: {class: SetStateNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: SetState_4
+        <ID>k__BackingField: aed3d959-95ae-4665-96fd-11587a7e2e69
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 849.60004, y: -750.4}
+        <Description>k__BackingField: Description
+        <State>k__BackingField: {fileID: 11400000, guid: dbd343f0885de2a49bb1e8115d88b2c7, type: 2}
+        <SetTo>k__BackingField: 4
+    - rid: 5206900708040245290
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_4
+        <ID>k__BackingField: e0e1d554-d54e-4735-9df6-7c2e45744b26
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 162.4, y: -452}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: Good Choice
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}

@@ -10,6 +10,8 @@ using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utils;
+
 //using Object = UnityEngine.Object;
 
 namespace GraphEditor.Nodes
@@ -18,12 +20,19 @@ namespace GraphEditor.Nodes
     {
         private VisualElement _dataContainer;
         
+        private readonly List<OutcomeSave> _outcomes = new();
+        private readonly Dictionary<OutcomeSave, Port> _ports = new();
+        
         private List<string> _options = new List<string>();
 
-        private DropdownField _equalToField;
+        private VisualElement _outcomesContainer;
         private ObjectField _stateField;
-        private string _outcomeNodeID;
-        private Port _outcomePort;
+        private IntegerField _optionsCount;
+        private Label _label;
+        
+        //private DropdownField _equalToField;
+        //private string _outcomeNodeID;
+        //private Port _outcomePort;
 
         public ConditionNode(string nodeName, Vector2 position) : base(nodeName, position)
         {
@@ -34,22 +43,35 @@ namespace GraphEditor.Nodes
         {
             SetBasicProperties(save);
             _stateField.value = save.State;
-            Refresh(save.State);
-            _equalToField.index = save.EqualTo;
-            _outcomeNodeID = save.OutcomeNodeID;
+            RefreshState(save.State);
+            _optionsCount.value = save.Outcomes.Count;
+            _outcomes = save.Outcomes;
+            RefreshOutcomes();
         }
 
         public override List<Edge> LoadConnections()
         {
             List<Edge> edges = base.LoadConnections() ?? new List<Edge>();
 
-            if (string.IsNullOrEmpty(_outcomeNodeID) || _outcomePort == null)
-                return edges;
+            foreach (var outcome in _outcomes)
+            {
+                Port port = _ports[outcome];
 
-            GraphEditorNode outcomeNode = GraphEditorIOUtils.GetNode(_outcomeNodeID);
-            Edge edge = _outcomePort.ConnectTo(outcomeNode.InputPort);
-            
-            edges.Add(edge);
+                if (port == null)
+                {
+                    Debug.LogError("Port not found?!");
+                    continue;
+                }
+
+                GraphEditorNode nextNode = GraphEditorIOUtils.GetNode(outcome.NodeID);
+                
+                if (nextNode == null)
+                    continue;
+                
+                Edge edge = port.ConnectTo(nextNode.InputPort);
+                
+                edges.Add(edge);
+            }
             
             return edges;
         }
@@ -64,22 +86,19 @@ namespace GraphEditor.Nodes
                 objectType = typeof(State),
                 label = "State"
             };
-
+            
             _stateField.RegisterValueChangedCallback(StateValueChanged);
 
-            _equalToField = new DropdownField("Equal to");
-            _equalToField.choices = _options;
+            _label = new Label("Outcomes");
+            _optionsCount = new IntegerField("Count");
+            _optionsCount.RegisterValueChangedCallback((OutcomesChangedCallback));
 
-            _outcomePort = 
-                InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(bool));
-            _outcomePort.portName = "Then";
-
-            // binding custom action
-            _outcomePort.userData = (Action<string>)(nodeID => _outcomeNodeID = nodeID);
+            _outcomesContainer = new VisualElement();
             
             _dataContainer.Add(_stateField);
-            _dataContainer.Add(_equalToField);
-            _dataContainer.Add(_outcomePort);
+            _dataContainer.Add(_label);
+            _dataContainer.Add(_optionsCount);
+            _dataContainer.Add(_outcomesContainer);
         }
 
         protected override VisualElement GetDataContainer() => _dataContainer;
@@ -87,17 +106,16 @@ namespace GraphEditor.Nodes
         private void StateValueChanged(ChangeEvent<UnityEngine.Object> evt)
         {
             State state = (State) evt.newValue;
-            Refresh(state);
+            RefreshState(state);
         }
 
-        private void Refresh(State state)
+        private void RefreshState(State state)
         {
             _options.Clear();
             foreach (var option in state.States)
             {
                 _options.Add(option);
             }
-            _equalToField.choices = _options;
         }
         
         public override GraphEditorNodeSave ToSave()
@@ -106,8 +124,7 @@ namespace GraphEditor.Nodes
             FillBasicProperties(save);
 
             save.State = _stateField.value as State;
-            save.EqualTo = _equalToField.index;
-            save.OutcomeNodeID = _outcomeNodeID;
+            save.Outcomes = _outcomes;
 
             return save;
         }
@@ -117,22 +134,75 @@ namespace GraphEditor.Nodes
             var condition = ScriptableObject.CreateInstance<Condition>();
 
             condition.StateMachine = _stateField.value as State;
-            condition.EqualTo = _equalToField.index;
 
             return condition;
         }
-
+        
         public override void UpdateConnections(InteractionElement element)
         {
             base.UpdateConnections(element);
 
             if (element is not Condition condition)
             {
-                Debug.LogError("Invalid interaction type, Condition expected");
+                Debug.LogError("Wrong interaction type, Choice expected");
                 return;
             }
+            
+            condition.Outcomes = new SerializableDictionary<int, InteractionElement>();
 
-            condition.GoTo = GraphEditorIOUtils.GetElement(_outcomeNodeID);
+            foreach (var outcome in _outcomes)
+            {
+                condition.Outcomes[outcome.Value] = GraphEditorIOUtils.GetElement(outcome.NodeID);
+            }
+        }
+        
+        
+        
+        private void OutcomesChangedCallback(ChangeEvent<int> evt)
+        {
+            int count = evt.newValue;
+            
+            if (count < 0)
+                return;
+
+            while (_outcomes.Count > count)
+            {
+                _outcomes.RemoveAt(_options.Count-1);
+            }
+
+            while (_outcomes.Count < count)
+            {
+                _outcomes.Add(new OutcomeSave());
+            }
+
+            RefreshOutcomes();
+        }
+
+        private void RefreshOutcomes()
+        {
+            _outcomesContainer.Clear();
+            _ports.Clear();
+
+            for (int i = 0; i < _outcomes.Count; i++)
+            {
+                var outcome = _outcomes[i];
+                
+                var equalToField = new DropdownField($"Outcome {i+1}");
+                equalToField.choices = _options;
+                equalToField.index = outcome.Value;
+                
+                equalToField.RegisterValueChangedCallback(evt => outcome.Value = equalToField.index);
+                
+                Port outcomePort = 
+                    InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(bool));
+                outcomePort.portName = "Outcome";
+                outcomePort.userData = (Action<string>)(nodeID => outcome.NodeID = nodeID);
+                
+                _ports[outcome] = outcomePort;
+                
+                _outcomesContainer.Add(equalToField);
+                _outcomesContainer.Add(outcomePort);
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ using Interactions;
 using Interactions.Elements;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -83,6 +84,10 @@ namespace GraphEditor.Nodes
         private void Refresh(State state)
         {
             _options.Clear();
+            
+            if (state == null)
+                return;
+            
             foreach (var option in state.States)
             {
                 _options.Add(option);
