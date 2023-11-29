@@ -5,6 +5,7 @@ using GraphEditor.Saves;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 using Utils;
@@ -36,6 +37,10 @@ namespace GraphEditor
             AddGridBackground();
             AddSearchWindow();
             AddStyles();
+            
+            canPasteSerializedData = _ => true;
+
+            GraphEditorNode.ActiveGraphView = this;
         }
         
         
@@ -112,6 +117,14 @@ namespace GraphEditor
             _nodes[nodeName] = node;
 
             return node;
+        }
+
+        public void OnEdgeDropped(Edge edge, Vector2 position)
+        {
+            var searchWindow = ScriptableObject.CreateInstance<GraphEditorSearchWindow>();
+            searchWindow.Initialize(this, position, edge);
+            
+            SearchWindow.Open(new SearchWindowContext(position), searchWindow);
         }
 
         public GraphEditorNode LoadNode(GraphEditorNodeSave save)
@@ -403,7 +416,6 @@ namespace GraphEditor
                 _groups.Clear();
                 _nodes.Clear();
             }
-        }
-        
+        }   
     }
 }

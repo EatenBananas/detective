@@ -13,10 +13,22 @@ MonoBehaviour:
   m_Name: NewFileGraph
   m_EditorClassIdentifier: 
   <FileName>k__BackingField: NewFile
-  <Nodes>k__BackingField: []
+  <Nodes>k__BackingField:
+  - rid: 5206900708040245514
   <Groups>k__BackingField: []
   <OldNodeNames>k__BackingField: []
   <OldGroupNames>k__BackingField: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5206900708040245514
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_1
+        <ID>k__BackingField: 3a7e7445-a253-495f-80e8-94acbc271d7f
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 323.2, y: 226.40001}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: 
+        <DialogueNpc>k__BackingField: {fileID: 0}
