@@ -192,7 +192,7 @@ namespace GraphEditor.Utils
             }
         }
         
-        private static void LoadNodes(List<GraphEditorNodeSave> saveNodes)
+        public static void LoadNodes(List<GraphEditorNodeSave> saveNodes)
         {
             foreach (var saveNode in saveNodes)
             {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using GraphEditor.Nodes;
 using GraphEditor.Saves;
+using GraphEditor.Utils;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -22,6 +23,8 @@ namespace GraphEditor
 
         private const float MIN_ZOOM_SCALE = 0.1f;
         private const float MAX_ZOOM_SCALE = 1f;
+
+        private readonly List<GraphEditorNode> _nodesToCopy = new();
         
         public GraphEditorView(GraphEditorWindow editorWindow)
         {
@@ -38,9 +41,11 @@ namespace GraphEditor
             AddSearchWindow();
             AddStyles();
             
-            canPasteSerializedData = _ => true;
-
             GraphEditorNode.ActiveGraphView = this;
+            
+            serializeGraphElements += CopyOperation;
+            unserializeAndPaste += PasteOperation;
+            canPasteSerializedData = _ => true;
         }
         
         
@@ -417,5 +422,36 @@ namespace GraphEditor
                 _nodes.Clear();
             }
         }   
+        
+        
+        public string CopyOperation(IEnumerable<GraphElement> elements)
+        {
+            _nodesToCopy.Clear();
+            foreach (GraphElement n in elements)
+            {
+                GraphEditorNode node = n as GraphEditorNode;
+                if(node != null)
+                {
+                    _nodesToCopy.Add(node);
+                }
+            }
+            return "Copy Nodes";
+        }
+        
+        public void PasteOperation(string operationName, string data)
+        {
+            GraphEditorIOUtils.Initialize(this, "temp");
+            
+            foreach (GraphEditorNode originalNode in _nodesToCopy)
+            {
+                var save = originalNode.ToSave();
+                save.ID = Guid.NewGuid().ToString();
+                save.NodeName = NextNodeName(originalNode.GetType());
+                save.Position -= new Vector2(2, 2);
+        
+                GraphEditorIOUtils.LoadNodes(new List<GraphEditorNodeSave>(){save});
+            }
+        }
+        
     }
 }
