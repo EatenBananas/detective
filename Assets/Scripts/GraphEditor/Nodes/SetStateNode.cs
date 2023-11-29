@@ -27,6 +27,7 @@ namespace GraphEditor.Nodes
         {
             SetBasicProperties(save);
             _stateField.value = save.State;
+            Refresh(save.State);
             _setToField.index = save.SetTo;
         }
 
@@ -76,18 +77,16 @@ namespace GraphEditor.Nodes
         private void StateValueChanged(ChangeEvent<Object> evt)
         {
             State state = (State) evt.newValue;
+            Refresh(state);
+        }
 
+        private void Refresh(State state)
+        {
             _options.Clear();
             foreach (var option in state.States)
             {
                 _options.Add(option);
             }
-            
-            Refresh();
-        }
-
-        private void Refresh()
-        {
             _setToField.choices = _options;
         }
     }

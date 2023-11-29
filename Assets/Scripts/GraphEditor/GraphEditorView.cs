@@ -38,6 +38,7 @@ namespace GraphEditor
             AddStyles();
         }
         
+        
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
         {
             List<Port> compatiblePorts = new();

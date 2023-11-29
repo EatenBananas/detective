@@ -34,6 +34,7 @@ namespace GraphEditor.Nodes
         {
             SetBasicProperties(save);
             _stateField.value = save.State;
+            Refresh(save.State);
             _equalToField.index = save.EqualTo;
             _outcomeNodeID = save.OutcomeNodeID;
         }
@@ -86,18 +87,16 @@ namespace GraphEditor.Nodes
         private void StateValueChanged(ChangeEvent<UnityEngine.Object> evt)
         {
             State state = (State) evt.newValue;
+            Refresh(state);
+        }
 
+        private void Refresh(State state)
+        {
             _options.Clear();
             foreach (var option in state.States)
             {
                 _options.Add(option);
             }
-            
-            Refresh();
-        }
-
-        private void Refresh()
-        {
             _equalToField.choices = _options;
         }
         
