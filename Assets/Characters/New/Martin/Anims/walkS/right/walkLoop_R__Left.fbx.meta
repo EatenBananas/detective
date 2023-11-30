@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: 2b748bf82de79f44fae0c1e999296b0f
+guid: ad4d7a34737e6a541b36d8b689ae5139
 ModelImporter:
-  serializedVersion: 21202
-  internalIDToNameTable:
-  - first:
-      74: 8233361321182253101
-    second: walkLoop_L_Done
+  serializedVersion: 22200
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -17,12 +14,12 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    removeConstantScaleCurves: 1
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'walkLoop_L_Done' has import animation warnings
+    animationImportWarnings: "\nClip 'walkLoop_R_>Left' has import animation warnings
       that might lower retargeting quality:\nNote: Activate translation DOF on avatar
       to improve retargeting quality.\n\t'Martin_01:LeftLeg' has translation animation
       that will be discarded.\n\t'Martin_01:RightLeg' has translation animation that
@@ -40,9 +37,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: walkLoop_L_Done
-      takeName: walkLoop_L_Done
-      internalID: 0
+      name: walkLoop_R_>Left
+      takeName: walkLoop_R_>Left
+      internalID: 5041031438154957456
       firstFrame: 1
       lastFrame: 34
       wrapMode: 0
@@ -76,6 +73,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -103,6 +101,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -1125,6 +1124,8 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
