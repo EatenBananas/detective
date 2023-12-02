@@ -21,7 +21,6 @@ namespace GraphEditor
         public string GroupID { get; set; }
         protected abstract VisualElement GetDataContainer();
         public abstract GraphEditorNodeSave ToSave();
-
         public abstract InteractionElement ToInteraction();
         
         private readonly bool _showInputPort;
@@ -31,6 +30,8 @@ namespace GraphEditor
         private TextField _descriptionTextField;
         public Port InputPort { get; private set; }
         private Port _outputPort;
+
+        public static GraphEditorView ActiveGraphView { get; set; }
         
         protected GraphEditorNode(string nodeName, Vector2 position,
             bool showInputPort = true, bool showOutputPort = true, bool showDescription = true)
@@ -173,6 +174,11 @@ namespace GraphEditor
 
             element.NextElement = nextInteraction;
 
+        }
+
+        public override Port InstantiatePort(Orientation orientation, Direction direction, Port.Capacity capacity, Type type)
+        {
+            return GraphEditorPort.Create<Edge>(orientation, direction, capacity, type, ActiveGraphView);
         }
     }
 }

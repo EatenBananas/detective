@@ -1,5 +1,7 @@
 using System;
+using System.IO;
 using GraphEditor.Utils;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -15,7 +17,7 @@ namespace GraphEditor
         
         [MenuItem("Window/Graph Editor")]
         public static void Open()
-        {
+        { 
             GetWindow<GraphEditorWindow>("Graph Editor");
         }
 
@@ -23,8 +25,18 @@ namespace GraphEditor
         {
             AddGraphView();
             AddToolbar();
+
+            rootVisualElement.RegisterCallback<KeyDownEvent>(OnKeyDown);
         }
-        
+
+        private void OnKeyDown(KeyDownEvent evt)
+        {
+            if (evt.ctrlKey && evt.keyCode == KeyCode.S)
+            {
+                Save();
+            }
+        }
+
         private void AddGraphView()
         {
             _graphEditorView = new GraphEditorView(this);
@@ -61,7 +73,7 @@ namespace GraphEditor
             {
                 text = "Clear"
             };
-            
+
             toolbar.Add(_fileNameTextField);
             toolbar.Add(saveButton);
             toolbar.Add(loadButton);
@@ -78,15 +90,40 @@ namespace GraphEditor
                     "Invalid file name", "File name can't be empty", "ok");
                 return;
             }
-            
+
+            EditorUtility.DisplayProgressBar("Saving graph", "Saving...", 0);
             GraphEditorIOUtils.Initialize(_graphEditorView, _fileNameTextField.value);
             GraphEditorIOUtils.Save();
+            EditorUtility.ClearProgressBar();
         }
 
         private void Load()
         {
+            string asset = EditorUtility.OpenFilePanel("Graphs", "Assets/Editor/GraphEditor/Graphs", "asset");
+
+            if (string.IsNullOrEmpty(asset))
+            {
+                return;
+            }
+            
+            asset = Path.GetFileNameWithoutExtension(asset);
+            
+            if (asset.EndsWith("Graph"))
+            {
+                asset = asset.Remove(asset.Length - 5);
+            }
+
+            _fileNameTextField.value = asset;
+            _graphEditorView.ClearGraph();
             GraphEditorIOUtils.Initialize(_graphEditorView, _fileNameTextField.value);
             GraphEditorIOUtils.Load();
         }
+        
+        // auto-save
+        private void OnDisable()
+        {
+            Save();
+        }
+        
     }
 }

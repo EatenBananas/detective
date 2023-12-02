@@ -14,8 +14,8 @@ namespace GraphEditor.Nodes
     public class ChoiceNode : GraphEditorNode
     {
         private VisualElement _dataContainer;
-        private readonly List<Choice> _options = new();
-        private readonly Dictionary<Choice, Port> _ports = new();
+        private readonly List<OptionSave> _options = new();
+        private readonly Dictionary<OptionSave, Port> _ports = new();
         private Label _label;
         private IntegerField _optionsCount;
 
@@ -105,8 +105,6 @@ namespace GraphEditor.Nodes
                 Debug.LogError("Wrong interaction type, Choice expected");
                 return;
             }
-
-            // todo: this naming is hella confusing
             
             choice.Options = new List<Option>();
 
@@ -135,7 +133,7 @@ namespace GraphEditor.Nodes
 
             while (_options.Count < count)
             {
-                _options.Add(new Choice());
+                _options.Add(new OptionSave());
             }
 
             RefreshOptions();

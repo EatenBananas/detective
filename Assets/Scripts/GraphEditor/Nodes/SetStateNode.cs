@@ -5,6 +5,7 @@ using Interactions;
 using Interactions.Elements;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -27,6 +28,7 @@ namespace GraphEditor.Nodes
         {
             SetBasicProperties(save);
             _stateField.value = save.State;
+            Refresh(save.State);
             _setToField.index = save.SetTo;
         }
 
@@ -76,18 +78,20 @@ namespace GraphEditor.Nodes
         private void StateValueChanged(ChangeEvent<Object> evt)
         {
             State state = (State) evt.newValue;
+            Refresh(state);
+        }
 
+        private void Refresh(State state)
+        {
             _options.Clear();
+            
+            if (state == null)
+                return;
+            
             foreach (var option in state.States)
             {
                 _options.Add(option);
             }
-            
-            Refresh();
-        }
-
-        private void Refresh()
-        {
             _setToField.choices = _options;
         }
     }
