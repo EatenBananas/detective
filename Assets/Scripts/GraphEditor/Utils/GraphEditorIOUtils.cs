@@ -192,7 +192,7 @@ namespace GraphEditor.Utils
             }
         }
         
-        private static void LoadNodes(List<GraphEditorNodeSave> saveNodes)
+        public static void LoadNodes(List<GraphEditorNodeSave> saveNodes)
         {
             foreach (var saveNode in saveNodes)
             {
@@ -317,6 +317,9 @@ namespace GraphEditor.Utils
         {
             DirectoryInfo directoryInfo = new($"Assets/Resources/Interactions/{_graphFileName}");
 
+            if (!directoryInfo.Exists)
+                return;
+                
             foreach (var fileInfo in directoryInfo.GetFiles())
             {
                 if (fileInfo.Extension == ".asset")

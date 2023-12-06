@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Interactions;
-using Player.Movement;
+// using Player.Movement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,8 +14,9 @@ namespace SceneObjects
         private Dictionary<SceneReference, Vector3> _sceneLocations = new();
         private Dictionary<SceneReference, GameObject> _photos = new();
 
+        // TODO: add method for teleport player
         // temp shit
-        [field: SerializeField] private PlayerMovement _playerMovement;
+        // [field: SerializeField] private PlayerMovement _playerMovement;
         
         private void Awake()
         {
@@ -59,7 +60,7 @@ namespace SceneObjects
                 return;
             }
 
-            _playerMovement.TeleportPlayer(_sceneLocations[location]);
+            // _playerMovement.TeleportPlayer(_sceneLocations[location]);
         }
 
         public void UpdatePhoto(SceneReference photo, bool visible)

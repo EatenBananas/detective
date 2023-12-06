@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using CameraSystem.CameraRotationAroundPlayer;
 using UnityEngine;
 using Zenject;
 
@@ -90,7 +89,7 @@ namespace GameManagers
         #region Private fields
 
         [Inject] private PlayerSystem.Player _player;
-        [Inject] private CameraController _cameraController;
+        [Inject] private Camera _camera;
         
         private GameObject _lookingAtPlayerFromCameraCenter;
         private GameObject[] _lookingAtPlayerFromCameraCenterArray;
@@ -107,8 +106,8 @@ namespace GameManagers
 
         private void UpdateLookingAtPlayerFromCameraCenter()
         {
-            var origin = _cameraController.Camera.transform.position;
-            var direction = _player.PlayerTransform.position - origin;
+            var origin = _camera.transform.position;
+            var direction = _player.transform.position - origin;
             var maxDistance = direction.magnitude;
             var ray = new Ray(origin, direction);
 
@@ -120,8 +119,8 @@ namespace GameManagers
         
         private void UpdateLookingAtPlayerFromCameraCenterArray()
         {
-            var origin = _cameraController.Camera.transform.position;
-            var direction = _player.PlayerTransform.position - origin;
+            var origin = _camera.transform.position;
+            var direction = _player.transform.position - origin;
             var maxDistance = direction.magnitude;
             var ray = new Ray(origin, direction);
 
@@ -135,7 +134,7 @@ namespace GameManagers
     
         private void UpdateLookingAtObjectBehindTheMouse()
         {
-            var ray = _cameraController.Camera.ScreenPointToRay(Input.mousePosition);
+            var ray = _camera.ScreenPointToRay(Input.mousePosition);
         
             Physics.Raycast(ray, out var hit, Mathf.Infinity);
             

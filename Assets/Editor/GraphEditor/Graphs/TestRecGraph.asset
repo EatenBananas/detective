@@ -14,20 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FileName>k__BackingField: TestRec
   <Nodes>k__BackingField:
-  - rid: 5206900309667610631
-  - rid: 5206900309667610632
-  - rid: 5206900309667610633
-  - rid: 5206900309667610634
+  - rid: 5206900708040245502
+  - rid: 5206900708040245503
+  - rid: 5206900708040245504
+  - rid: 5206900708040245505
+  - rid: 5206900708040245506
+  - rid: 5206900708040245507
+  - rid: 5206900708040245508
+  - rid: 5206900708040245509
+  - rid: 5206900708040245510
+  - rid: 5206900708040245511
+  - rid: 5206900708040245512
+  - rid: 5206900708040245513
   <Groups>k__BackingField:
   - <GroupName>k__BackingField: Reception_Test
     <ID>k__BackingField: 96e6a8f6-d0c0-485f-af5c-64dc7803c9a0
-    <Position>k__BackingField: {x: 16, y: -41.6}
+    <Position>k__BackingField: {x: 16.000004, y: -41.600002}
   <OldNodeNames>k__BackingField: []
   <OldGroupNames>k__BackingField: []
   references:
     version: 2
     RefIds:
-    - rid: 5206900309667610631
+    - rid: 5206900708040245502
       type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Dialogue_1
@@ -38,7 +46,7 @@ MonoBehaviour:
         <Description>k__BackingField: Description
         <DialogueText>k__BackingField: Akcja wygenerowana z nowego edytora!
         <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 768f78a989a203e419d90e17f17b205f, type: 2}
-    - rid: 5206900309667610632
+    - rid: 5206900708040245503
       type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Dialogue_2
@@ -49,7 +57,7 @@ MonoBehaviour:
         <Description>k__BackingField: Description
         <DialogueText>k__BackingField: "\u015Amiga"
         <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
-    - rid: 5206900309667610633
+    - rid: 5206900708040245504
       type: {class: EquipNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Equip_1
@@ -59,7 +67,7 @@ MonoBehaviour:
         <Position>k__BackingField: {x: 1515.2, y: 18.399998}
         <Description>k__BackingField: Description
         <Item>k__BackingField: {fileID: 11400000, guid: a82406aa6bed72a4d863792452badac6, type: 2}
-    - rid: 5206900309667610634
+    - rid: 5206900708040245505
       type: {class: CameraChangeNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: CameraChange_1
@@ -69,3 +77,88 @@ MonoBehaviour:
         <Position>k__BackingField: {x: 41.600002, y: 18.399998}
         <Description>k__BackingField: Description
         <Camera>k__BackingField: {fileID: 11400000, guid: 061d8fdf04ef3534fba46019bfbe6ad2, type: 2}
+    - rid: 5206900708040245506
+      type: {class: SetStateNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: SetState_1
+        <ID>k__BackingField: 3f43c00e-673b-496f-9bd5-9b0d530bb928
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 1045.6, y: 399.19998}
+        <Description>k__BackingField: Description
+        <State>k__BackingField: {fileID: 11400000, guid: bc9db2bf0a3d4054b95e112b24efa775, type: 2}
+        <SetTo>k__BackingField: 1
+    - rid: 5206900708040245507
+      type: {class: CommentNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Comment_1
+        <ID>k__BackingField: 3f624706-3388-49b8-aeef-356791b29946
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 256.80002, y: 598.39996}
+        <Description>k__BackingField: trest
+    - rid: 5206900708040245508
+      type: {class: ConditionNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Condition_1
+        <ID>k__BackingField: 819b3d12-87d8-4fe5-a95d-96603d61e68b
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 1168, y: 647.2}
+        <Description>k__BackingField: Description
+        <State>k__BackingField: {fileID: 11400000, guid: bc9db2bf0a3d4054b95e112b24efa775, type: 2}
+        <Outcomes>k__BackingField: []
+    - rid: 5206900708040245509
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_3
+        <ID>k__BackingField: 948c6026-23ed-4d9a-b7aa-e69c08f6a99f
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 460, y: 864.8}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: 
+        <DialogueNpc>k__BackingField: {fileID: 0}
+    - rid: 5206900708040245510
+      type: {class: SetStateNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: SetState_2
+        <ID>k__BackingField: 22c845ff-010b-488a-93f7-eecbbc68c200
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 1875.2, y: 864.8}
+        <Description>k__BackingField: Description
+        <State>k__BackingField: {fileID: 11400000, guid: bc9db2bf0a3d4054b95e112b24efa775, type: 2}
+        <SetTo>k__BackingField: 0
+    - rid: 5206900708040245511
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_4
+        <ID>k__BackingField: 885ba0fa-be8e-4b9c-bade-1bdf013d07c9
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 1691.2, y: 487.19998}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: 
+        <DialogueNpc>k__BackingField: {fileID: 0}
+    - rid: 5206900708040245512
+      type: {class: PhotoNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Photo_1
+        <ID>k__BackingField: c2d21c7c-b923-4505-93c6-2ca086c45045
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 2235.2, y: 356}
+        <Description>k__BackingField: Description
+        <Picture>k__BackingField: {fileID: 0}
+        <Visible>k__BackingField: 0
+    - rid: 5206900708040245513
+      type: {class: EquipNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Equip_2
+        <ID>k__BackingField: 26845348-46aa-4603-8a7d-ff9ffb720dfb
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 2607.2, y: 448}
+        <Description>k__BackingField: Description
+        <Item>k__BackingField: {fileID: 0}

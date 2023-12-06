@@ -2,17 +2,9 @@ using UnityEngine;
 
 namespace PlayerSystem
 {
+    [SelectionBase]
     public class Player : MonoBehaviour
     {
-        public Transform PlayerTransform
-        {
-            get
-            {
-                if (_playerTransform == null) _playerTransform = transform;
-                return _playerTransform;
-            }
-        }
-        
-        private Transform _playerTransform;
+        [field: SerializeField] public PlayerMotionMatchingMovement MotionMatchingMovement { get; private set; }
     }
 }
