@@ -1,6 +1,6 @@
 using System;
+using GameInputSystem;
 using GameManagers;
-using InputSystem;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -19,12 +19,12 @@ namespace PlayerSystem
 
         private void OnEnable()
         {
-            _inputManager.Input.Player.Move.performed += OnMovePerformed;
+            _inputManager.Input.PlayerController.Move.performed += OnMovePerformed;
         }
         
         private void OnDisable()
         {
-            _inputManager.Input.Player.Move.performed -= OnMovePerformed;
+            _inputManager.Input.PlayerController.Move.performed -= OnMovePerformed;
         }
         
         private void OnMovePerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)

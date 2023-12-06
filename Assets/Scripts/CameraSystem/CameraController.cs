@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Cinemachine;
-using InputSystem;
+using GameInputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
@@ -36,21 +36,21 @@ namespace CameraSystem
         
         private void OnEnable()
         {
-            _inputManager.Input.Camera.Map.EnableInputActionMap();
+            _inputManager.Input.CameraController.Map.EnableInputActionMap();
             
-            _inputManager.Input.Camera.Move.performed += OnPlayerMove;
-            _inputManager.Input.Camera.Rotation.started += OnPlayerStartRotatingCamera;
-            _inputManager.Input.Camera.Rotation.canceled += OnPlayerStopRotatingCamera;
-            _inputManager.Input.Camera.FindPlayer.performed += OnPlayerLookingForPlayer;
+            _inputManager.Input.CameraController.Move.performed += OnPlayerMove;
+            _inputManager.Input.CameraController.Rotation.started += OnPlayerStartRotatingCamera;
+            _inputManager.Input.CameraController.Rotation.canceled += OnPlayerStopRotatingCamera;
+            _inputManager.Input.CameraController.FindPlayer.performed += OnPlayerLookingForPlayer;
         }
         private void OnDisable()
         {
-            _inputManager.Input.Camera.Map.DisableInputActionMap();
+            _inputManager.Input.CameraController.Map.DisableInputActionMap();
             
-            _inputManager.Input.Camera.Move.performed -= OnPlayerMove;
-            _inputManager.Input.Camera.Rotation.started -= OnPlayerStartRotatingCamera;
-            _inputManager.Input.Camera.Rotation.canceled -= OnPlayerStopRotatingCamera;
-            _inputManager.Input.Camera.FindPlayer.performed -= OnPlayerLookingForPlayer;
+            _inputManager.Input.CameraController.Move.performed -= OnPlayerMove;
+            _inputManager.Input.CameraController.Rotation.started -= OnPlayerStartRotatingCamera;
+            _inputManager.Input.CameraController.Rotation.canceled -= OnPlayerStopRotatingCamera;
+            _inputManager.Input.CameraController.FindPlayer.performed -= OnPlayerLookingForPlayer;
         }
         private void Update()
         {
@@ -117,7 +117,7 @@ namespace CameraSystem
         private void CameraFreeModeMovement()
         {
             // Get input
-            var moveVector = _inputManager.Input.Camera.Move.ReadValue<Vector2>().normalized;
+            var moveVector = _inputManager.Input.CameraController.Move.ReadValue<Vector2>().normalized;
             
             // Get camera normalized direction
             var cameraTransform = _camera.transform;

@@ -2,14 +2,14 @@
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace InputSystem
+namespace GameInputSystem
 {
     public class Input : MonoBehaviour
     {
         [Inject] private InputManager _inputManager;
 
-        public Player Player => new(GetActionMap("Player"));
-        public Camera Camera => new(GetActionMap("Camera"));
+        public PlayerController PlayerController => new(GetActionMap("PlayerController"));
+        public CameraController CameraController => new(GetActionMap("CameraController"));
         public Interaction Interaction => new(GetActionMap("Interaction"));
         public Mouse Mouse => new(GetActionMap("Mouse"));
         
@@ -19,11 +19,11 @@ namespace InputSystem
         }
     }
     
-    public class Player
+    public class PlayerController
     {
         public InputActionMap Map { get; private set; }
         
-        public Player(InputActionMap map)
+        public PlayerController(InputActionMap map)
         {
             Map = map;
         }
@@ -32,11 +32,11 @@ namespace InputSystem
         public InputAction Sneak => Map.FindAction("Sneak");
     }
     
-    public class Camera
+    public class CameraController
     {
         public InputActionMap Map { get; private set; }
         
-        public Camera(InputActionMap map)
+        public CameraController(InputActionMap map)
         {
             Map = map;
         }

@@ -3,8 +3,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using Zenject;
 
-namespace InputSystem
+namespace GameInputSystem
 {
     public class InputManager : MonoBehaviour
     {
@@ -25,6 +26,13 @@ namespace InputSystem
 
         [field: SerializeField, Header("Unity Event System")] public EventSystem EventSystem { get; private set; }
         [field: SerializeField] public InputSystemUIInputModule InputSystemUIInputModule { get; private set; }
+        
+        [Inject] private Camera _camera;
+
+        private void Awake()
+        {
+            PlayerInput.camera = _camera;
+        }
     }
 
     public static class InputManagerExtensions
