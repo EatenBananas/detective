@@ -1,4 +1,5 @@
 using Equipment;
+using Interactions.Elements;
 using UnityEngine;
 
 namespace Interactions
@@ -6,7 +7,7 @@ namespace Interactions
     public class ItemInteraction : MonoBehaviour
     {
         [SerializeField] private Item _requiredItem;
-        [SerializeField] private InteractionElement _interaction;
+        [SerializeField] private StartInteraction _interaction;
         [SerializeField] private bool _removeItem = true;
 
         public void Use(Item item)
