@@ -13,7 +13,6 @@ namespace Interactions
             new Color(Color.yellow.r, Color.yellow.g, Color.yellow.b, 0.2f);
 
         [field: SerializeField] public string Text { get; private set; } = "";
-        //[field: SerializeField] public StartInteraction Interaction { get; private set; }
         [field: SerializeField] public List<PieMenuOption> Interactions { get; set; } = new List<PieMenuOption>();
         
         private void OnDrawGizmosSelected()
