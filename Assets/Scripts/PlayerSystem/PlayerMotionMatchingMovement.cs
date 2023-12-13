@@ -1,4 +1,5 @@
 using GameInputSystem;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -8,6 +9,19 @@ namespace PlayerSystem
 {
     public class PlayerMotionMatchingMovement : MonoBehaviour
     {
+        public bool IsStopped
+        {
+            get => _isStopped;
+            set
+            {
+                if (_isStopped == value) return;
+                _agent.isStopped = value;
+                _isStopped = value;
+            }
+        }
+
+        private bool _isStopped = true;
+        
         [SerializeField] private Animator _animator;
         [SerializeField] private NavMeshAgent _agent;
         
