@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222fe16d6b5b40e7a78e353ef4447148, type: 3}
+  m_Name: DrawerGraph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Drawer
+  <Nodes>k__BackingField:
+  - rid: 4011875196718022659
+  - rid: 4011875196718022660
+  - rid: 4011875196718022661
+  <Groups>k__BackingField: []
+  <OldNodeNames>k__BackingField: []
+  <OldGroupNames>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 4011875196718022659
+      type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: DrawerStart
+        <ID>k__BackingField: 13487f86-3ac1-4336-ad01-2acb26a7a3b6
+        <NextNodeID>k__BackingField: b2b3d5f3-abd5-4e07-a12e-bfcc632fa2ae
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 102.399994, y: 105.600006}
+        <Description>k__BackingField: Description
+        <Title>k__BackingField: DrawerStart
+    - rid: 4011875196718022660
+      type: {class: CameraChangeNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: CameraChange_1
+        <ID>k__BackingField: b2b3d5f3-abd5-4e07-a12e-bfcc632fa2ae
+        <NextNodeID>k__BackingField: 6e7947a5-de2f-48fa-b20b-fc87ea83bd50
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 551.2, y: 105.600006}
+        <Description>k__BackingField: Description
+        <Camera>k__BackingField: {fileID: 11400000, guid: 7d9924e122a65ba41aa8155b23aa5214, type: 2}
+    - rid: 4011875196718022661
+      type: {class: GetKeyNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: GetKey_1
+        <ID>k__BackingField: 6e7947a5-de2f-48fa-b20b-fc87ea83bd50
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 1081.6, y: 105.600006}
+        <Description>k__BackingField: Description
+        <KeyCode>k__BackingField: 27
