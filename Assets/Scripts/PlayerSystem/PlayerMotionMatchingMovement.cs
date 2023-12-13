@@ -33,8 +33,8 @@ namespace PlayerSystem
         private Vector3 _destination;
         
         private static readonly int IsWalking = Animator.StringToHash("isWalking");
-        private static readonly int Horizontal = Animator.StringToHash("horizontal");
-        private static readonly int Vertical = Animator.StringToHash("vertical");
+        private static readonly int Horizontal = Animator.StringToHash("locomotionHorizontal");
+        private static readonly int Vertical = Animator.StringToHash("locomotionVertical");
 
         #region Unity Lifecycle
 
