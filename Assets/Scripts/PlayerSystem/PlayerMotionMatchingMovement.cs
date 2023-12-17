@@ -1,5 +1,4 @@
 using GameInputSystem;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -82,11 +81,13 @@ namespace PlayerSystem
         private void OnAnimatorMove()
         {
             var animatorRootPosition = _animator.rootPosition;
+            var animatorRootRotation = _animator.rootRotation;
+            var agentTransform = _agent.transform;
+            
             animatorRootPosition.y = _agent.nextPosition.y;
             
-            var agentTransform = _agent.transform;
             agentTransform.position = animatorRootPosition;
-            agentTransform.rotation = _animator.rootRotation;
+            agentTransform.rotation = animatorRootRotation;
             
             _agent.nextPosition = animatorRootPosition;
         }
@@ -98,17 +99,23 @@ namespace PlayerSystem
             worldDeltaPosition.y = 0;
             
             var deltaX = Vector3.Dot(animatorTransform.right, worldDeltaPosition);
-            var deltaY = Vector3.Dot(_animator.transform.forward, worldDeltaPosition);
+            var deltaY = Vector3.Dot(animatorTransform.forward, worldDeltaPosition);
             var deltaPosition = new Vector2(deltaX, deltaY);
             
             var smooth = Mathf.Min(1.0f, Time.deltaTime / 0.15f);
             _smoothDeltaPosition = Vector2.Lerp(_smoothDeltaPosition, deltaPosition, smooth);
-
+            
             _velocity = _smoothDeltaPosition / Time.deltaTime;
             if (_agent.remainingDistance <= _agent.stoppingDistance)
                 _velocity = Vector2.Lerp(_velocity, Vector2.zero, _agent.remainingDistance / _agent.stoppingDistance);
-
-            var isWalking = _velocity.magnitude > 0.5f && _agent.remainingDistance > _agent.stoppingDistance;
+            
+            // var isWalking = _velocity.magnitude > 0.5f && _agent.remainingDistance > _agent.stoppingDistance;
+            var isWalking = _agent.velocity != Vector3.zero;
+            
+            if (_velocity.x > 1) _velocity.x = 1;
+            if (_velocity.x < -1) _velocity.x = -1;
+            if (_velocity.y > 1) _velocity.y = 1;
+            if (_velocity.y < -1) _velocity.y = -1;
             
             _animator.SetBool(IsWalking, isWalking);
             _animator.SetFloat(Horizontal, _velocity.x);
