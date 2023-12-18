@@ -2,6 +2,6 @@ namespace SceneObjects
 {
     public enum SceneReferenceType
     {
-        CAMERA, LOCATION, PHOTO
+        CAMERA, LOCATION, PHOTO, CUTSCENE
     }
 }
