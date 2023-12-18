@@ -1,4 +1,5 @@
 using GameInputSystem;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -8,6 +9,19 @@ namespace PlayerSystem
 {
     public class PlayerMotionMatchingMovement : MonoBehaviour
     {
+        public bool IsStopped
+        {
+            get => _isStopped;
+            set
+            {
+                if (_isStopped == value) return;
+                _agent.isStopped = value;
+                _isStopped = value;
+            }
+        }
+
+        private bool _isStopped = true;
+        
         [SerializeField] private Animator _animator;
         [SerializeField] private NavMeshAgent _agent;
         
@@ -19,8 +33,8 @@ namespace PlayerSystem
         private Vector3 _destination;
         
         private static readonly int IsWalking = Animator.StringToHash("isWalking");
-        private static readonly int Horizontal = Animator.StringToHash("horizontal");
-        private static readonly int Vertical = Animator.StringToHash("vertical");
+        private static readonly int Horizontal = Animator.StringToHash("locomotionHorizontal");
+        private static readonly int Vertical = Animator.StringToHash("locomotionVertical");
 
         #region Unity Lifecycle
 
