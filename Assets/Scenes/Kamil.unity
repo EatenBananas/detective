@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4237.8013, g: 4363.731, b: 6245.6104, a: 1}
+  m_IndirectSpecularColor: {r: 4234.1274, g: 4360.2544, b: 6242.79, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6446,31 +6446,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.0134015
+      value: -14.171251
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.100328
+      value: 4.209523
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.6968923
+      value: 2.368452
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9870502
+      value: 0.7801692
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.009976211
+      value: -0.0053855656
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.15915726
+      value: 0.62552387
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.017360864
+      value: -0.005191552
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372975484689, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12454,7 +12454,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 707852033729297139, guid: 3b6b9ad32d8274342a2a2ddc1d978270, type: 3}
       propertyPath: m_WarningMessage
-      value: 
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Portier_02:LeftHandPinky1'\n\tTransform
+        'Portier_02:RightToeBase'\n\tTransform 'Portier_02:RightHandMiddle1'\n\tTransform
+        'Portier_02:RightEye'\n\tTransform 'Portier_02:Spine1'\n\tTransform 'Portier_02:Root'\n\tTransform
+        'Portier_02:Head'\n\tTransform 'Portier_02:RightFingerBase'\n\tTransform
+        'Portier_02:RightHandPinky2'\n\tTransform 'Portier_02:LeftUpLeg'\n\tand more
+        ..."
       objectReference: {fileID: 0}
     - target: {fileID: 1674203303292150067, guid: 3b6b9ad32d8274342a2a2ddc1d978270, type: 3}
       propertyPath: m_Name
@@ -12523,7 +12530,60 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1674203303292150067, guid: 3b6b9ad32d8274342a2a2ddc1d978270, type: 3}
       insertIndex: -1
       addedObject: {fileID: 40071883}
+    - targetCorrespondingSourceObject: {fileID: 6086957757191518771, guid: 3b6b9ad32d8274342a2a2ddc1d978270, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1650405364}
   m_SourcePrefab: {fileID: 100100000, guid: 3b6b9ad32d8274342a2a2ddc1d978270, type: 3}
+--- !u!1 &1650405363 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6086957757191518771, guid: 3b6b9ad32d8274342a2a2ddc1d978270, type: 3}
+  m_PrefabInstance: {fileID: 1650405362}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1650405364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650405363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 55df68e4738b3ef4e8db4b309e6948bc, type: 2}
+    - {fileID: 11400000, guid: af8f5fcf71afc244dadc340bfb09bf6d, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1957122032}
+          m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+          m_MethodName: ShowCutsceneDialogue
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "Tw\xF3j stary pijany"
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1957122032}
+          m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+          m_MethodName: HideDialogue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!4 &1674983780 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b167777e93e5c0b48814040201a88fed, type: 3}
@@ -14328,6 +14388,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dd048f4f15146e43bc16052e3588f2a, type: 3}
+--- !u!114 &1957122032 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6973934527068256291, guid: 2dd048f4f15146e43bc16052e3588f2a, type: 3}
+  m_PrefabInstance: {fileID: 1957122031}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db10bfe958754524acba6b8de1ff000b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1958262112
 GameObject:
   m_ObjectHideFlags: 0

@@ -79,6 +79,12 @@ public class UIManager : MonoBehaviour
         _dialogueText.text = dialogueText;
     }
 
+    public void ShowCutsceneDialogue(string dialogueText)
+    {
+        _dialoguePanel.SetActive(true);
+        _dialogueText.text = dialogueText;
+    }
+
     public void HideDialogue() => _dialoguePanel.SetActive(false);
 
     public void ShowOptions(List<string> options)
