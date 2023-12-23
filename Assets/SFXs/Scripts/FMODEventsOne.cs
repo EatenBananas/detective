@@ -8,6 +8,9 @@ public class FMODEventsOne : MonoBehaviour
     [field: Header("Menu")]
     [field: SerializeField] public EventReference buttonClick { get; private set; }
 
+    [field: Header("Characters")]
+    [field: SerializeField] public EventReference walkSound { get; private set; }
+
     public static FMODEventsOne instance { get; private set; }
 
 
