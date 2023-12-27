@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222fe16d6b5b40e7a78e353ef4447148, type: 3}
+  m_Name: JerrryDialogueDayGraph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: JerrryDialogueDay
+  <Nodes>k__BackingField:
+  - rid: 6431891699824066563
+  - rid: 6431891699824066564
+  - rid: 6431891699824066565
+  <Groups>k__BackingField: []
+  <OldNodeNames>k__BackingField: []
+  <OldGroupNames>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 6431891699824066563
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_1
+        <ID>k__BackingField: bc12ae71-76ea-4c8b-90bf-4fdd1f2254c0
+        <NextNodeID>k__BackingField: 3ec26252-f5be-4b13-acad-24e67a52b3da
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 439, y: 190}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: What?
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891699824066564
+      type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Start_1
+        <ID>k__BackingField: 6a1bbfb8-2260-409f-b443-0a786e270f50
+        <NextNodeID>k__BackingField: bc12ae71-76ea-4c8b-90bf-4fdd1f2254c0
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: -170, y: 230}
+        <Description>k__BackingField: Description
+        <Title>k__BackingField: Start_1
+    - rid: 6431891699824066565
+      type: {class: ChoiceNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Choice_1
+        <ID>k__BackingField: 3ec26252-f5be-4b13-acad-24e67a52b3da
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 961, y: 190}
+        <Description>k__BackingField: Description
+        <Options>k__BackingField:
+        - <Text>k__BackingField: Do you remember me Jerry?
+          <NodeID>k__BackingField: 
+        - <Text>k__BackingField: Sorry wrong room
+          <NodeID>k__BackingField: 

@@ -1,0 +1,417 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222fe16d6b5b40e7a78e353ef4447148, type: 3}
+  m_Name: JerryNightGraph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: JerryNight
+  <Nodes>k__BackingField:
+  - rid: 6431891860027080704
+  - rid: 6431891860027080705
+  - rid: 6431891860027080706
+  - rid: 6431891860027080707
+  - rid: 6431891860027080708
+  - rid: 6431891860027080709
+  - rid: 6431891860027080710
+  - rid: 6431891860027080711
+  - rid: 6431891860027080712
+  - rid: 6431891860027080713
+  - rid: 6431891860027080714
+  - rid: 6431891860027080715
+  - rid: 6431891860027080716
+  - rid: 6431891860027080717
+  - rid: 6431891860027080718
+  - rid: 6431891860027080719
+  - rid: 6431891860027080720
+  - rid: 6431891860027080721
+  - rid: 6431891860027080722
+  - rid: 6431891860027080723
+  - rid: 6431891860027080724
+  - rid: 6431891860027080725
+  - rid: 6431891860027080726
+  - rid: 6431891860027080727
+  - rid: 6431891860027080728
+  - rid: 6431891860027080729
+  - rid: 6431891860027080730
+  - rid: 6431891860027080731
+  - rid: 6431891860027080732
+  - rid: 6431891860027080733
+  - rid: 6431891860027080734
+  <Groups>k__BackingField: []
+  <OldNodeNames>k__BackingField: []
+  <OldGroupNames>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 6431891860027080704
+      type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Start_1
+        <ID>k__BackingField: 90a8218f-960c-4125-b356-c45722f131c6
+        <NextNodeID>k__BackingField: 39510f6b-3b54-4d28-a18f-e31b37ffe05b
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: -669, y: 180}
+        <Description>k__BackingField: Description
+        <Title>k__BackingField: Start_1
+    - rid: 6431891860027080705
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_1
+        <ID>k__BackingField: 39510f6b-3b54-4d28-a18f-e31b37ffe05b
+        <NextNodeID>k__BackingField: 2fcb1b74-a323-4a27-bf52-bdde0f07dc1a
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: -293, y: 180}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: What the fuck are you doing in my room?!
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080706
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_2
+        <ID>k__BackingField: 2fcb1b74-a323-4a27-bf52-bdde0f07dc1a
+        <NextNodeID>k__BackingField: a933f57f-036e-4291-a92b-ba27858bb52a
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 243, y: 180}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: Do you remember me Jerry?
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
+    - rid: 6431891860027080707
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_3
+        <ID>k__BackingField: a933f57f-036e-4291-a92b-ba27858bb52a
+        <NextNodeID>k__BackingField: 97d15d9c-7928-46d0-ab09-cf9ca8b618a0
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 843, y: 180}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: Who the hell are you? Get the fuck out!
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080708
+      type: {class: ConditionNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Condition_2
+        <ID>k__BackingField: 97d15d9c-7928-46d0-ab09-cf9ca8b618a0
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 1363, y: 97}
+        <Description>k__BackingField: Description
+        <State>k__BackingField: {fileID: 11400000, guid: 904c5e41656e2f642a2200e8e36e3ad9, type: 2}
+        <Outcomes>k__BackingField:
+        - <Value>k__BackingField: 0
+          <NodeID>k__BackingField: 84b96d7c-b63d-402d-9032-8d03a2e66180
+        - <Value>k__BackingField: 1
+          <NodeID>k__BackingField: 704d7a01-854e-44fa-89b7-edd9596d3360
+    - rid: 6431891860027080709
+      type: {class: ChoiceNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Choice_3
+        <ID>k__BackingField: 704d7a01-854e-44fa-89b7-edd9596d3360
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 1839, y: 526}
+        <Description>k__BackingField: Description
+        <Options>k__BackingField:
+        - <Text>k__BackingField: Don't act like you have power.
+          <NodeID>k__BackingField: ba3fa1a4-63f1-4dae-874c-814b84980a39
+        - <Text>k__BackingField: Shu't up or I'll shoot you.
+          <NodeID>k__BackingField: c223e9d5-6559-4d21-a85f-119fb80c4de5
+        - <Text>k__BackingField: (Attack Jerry).
+          <NodeID>k__BackingField: 66e29041-8198-47b3-b4d7-16d86156f7e8
+    - rid: 6431891860027080710
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_8
+        <ID>k__BackingField: 66e29041-8198-47b3-b4d7-16d86156f7e8
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 2388, y: 466}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: Maybe this will recover your memory.
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
+    - rid: 6431891860027080711
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_4
+        <ID>k__BackingField: c223e9d5-6559-4d21-a85f-119fb80c4de5
+        <NextNodeID>k__BackingField: 03a3c47f-1f2d-4b1f-ba55-0c7827809f26
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 2388, y: 152}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: Do you even know who I am?
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080712
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_6
+        <ID>k__BackingField: b6a6d26c-4cca-4dc2-98f3-7f1a2ba5f36c
+        <NextNodeID>k__BackingField: f7934937-0836-44a5-b37e-f06d57b55985
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 3476, y: 152}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: And even if you will, my people will find
+          you
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080713
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_5
+        <ID>k__BackingField: 03a3c47f-1f2d-4b1f-ba55-0c7827809f26
+        <NextNodeID>k__BackingField: b6a6d26c-4cca-4dc2-98f3-7f1a2ba5f36c
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 2920, y: 152}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: If you'll hurt me, you will not leave this
+          building alive.
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080714
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_7
+        <ID>k__BackingField: f7934937-0836-44a5-b37e-f06d57b55985
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 4011, y: 152}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: I told you to shut up.
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
+    - rid: 6431891860027080715
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_17
+        <ID>k__BackingField: 5b2a924d-a13a-4896-b706-8c4f6f899e23
+        <NextNodeID>k__BackingField: 816154df-6dbb-40e0-9a37-8d8c33f90caf
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 3736, y: 766}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: I will kill you!
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080716
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_14
+        <ID>k__BackingField: ba3fa1a4-63f1-4dae-874c-814b84980a39
+        <NextNodeID>k__BackingField: 76714ffa-114b-4f45-8937-c31f238c8219
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 2388, y: 766}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: What? My friends will destroy you!
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080717
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_16
+        <ID>k__BackingField: f7fde161-9e8b-4bc0-ad90-95be55c164ee
+        <NextNodeID>k__BackingField: 5b2a924d-a13a-4896-b706-8c4f6f899e23
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 3325, y: 766}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: They treat you like a dog
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
+    - rid: 6431891860027080718
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_15
+        <ID>k__BackingField: 76714ffa-114b-4f45-8937-c31f238c8219
+        <NextNodeID>k__BackingField: f7fde161-9e8b-4bc0-ad90-95be55c164ee
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 2847, y: 766}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: I've seen your letters. You have no friends
+          here.
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
+    - rid: 6431891860027080719
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_18
+        <ID>k__BackingField: 816154df-6dbb-40e0-9a37-8d8c33f90caf
+        <NextNodeID>k__BackingField: 3a9f7d6d-91fb-4d55-86c7-dcf56d0fac46
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 4151, y: 766}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: With that toy gun i found in your jacket?
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
+    - rid: 6431891860027080720
+      type: {class: ChoiceNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Choice_2
+        <ID>k__BackingField: 84b96d7c-b63d-402d-9032-8d03a2e66180
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 1888, y: -5}
+        <Description>k__BackingField: Description
+        <Options>k__BackingField:
+        - <Text>k__BackingField: Shu't up or I'll shoot you.
+          <NodeID>k__BackingField: c223e9d5-6559-4d21-a85f-119fb80c4de5
+        - <Text>k__BackingField: (Attack Jerry)
+          <NodeID>k__BackingField: 66e29041-8198-47b3-b4d7-16d86156f7e8
+    - rid: 6431891860027080721
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_20
+        <ID>k__BackingField: dd271c45-347a-4935-80ef-b34602aa85f6
+        <NextNodeID>k__BackingField: f4d21cc0-f2ff-498a-ade4-6274139e71de
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 5169, y: 766}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: So will be you.
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
+    - rid: 6431891860027080722
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_19
+        <ID>k__BackingField: 3a9f7d6d-91fb-4d55-86c7-dcf56d0fac46
+        <NextNodeID>k__BackingField: dd271c45-347a-4935-80ef-b34602aa85f6
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 4657, y: 766}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: You were supposed to be dead!
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080723
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_9
+        <ID>k__BackingField: f4d21cc0-f2ff-498a-ade4-6274139e71de
+        <NextNodeID>k__BackingField: 588ac9d5-b2f8-4f43-84bd-9d2eec3f62b7
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 5620, y: 766}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: No! Please!
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080724
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_10
+        <ID>k__BackingField: 588ac9d5-b2f8-4f43-84bd-9d2eec3f62b7
+        <NextNodeID>k__BackingField: b38d3b6f-c074-48c8-9666-0d7324907208
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 6050, y: 766}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: I will tell you everything!
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080725
+      type: {class: ChoiceNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Choice_1
+        <ID>k__BackingField: b38d3b6f-c074-48c8-9666-0d7324907208
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 6559, y: 672}
+        <Description>k__BackingField: Description
+        <Options>k__BackingField:
+        - <Text>k__BackingField: I don't need your information
+          <NodeID>k__BackingField: 
+        - <Text>k__BackingField: Tell me what you know then
+          <NodeID>k__BackingField: 104368fb-f37f-4a05-a9af-76aea3aad07e
+        - <Text>k__BackingField: Too late for that. Goodbye Jerry.
+          <NodeID>k__BackingField: 
+    - rid: 6431891860027080726
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_11
+        <ID>k__BackingField: 104368fb-f37f-4a05-a9af-76aea3aad07e
+        <NextNodeID>k__BackingField: d4869609-7498-475b-825d-11699fe4d8a4
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 6984, y: 829}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: You want to know where is von Koch right?
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080727
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_12
+        <ID>k__BackingField: d4869609-7498-475b-825d-11699fe4d8a4
+        <NextNodeID>k__BackingField: 8278986c-6529-47de-b2f5-e88f6f4a5f30
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 7442, y: 829}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: I'm sure you want it.
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080728
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_13
+        <ID>k__BackingField: 8278986c-6529-47de-b2f5-e88f6f4a5f30
+        <NextNodeID>k__BackingField: 7795377a-d5e5-41b1-894f-968846bb7006
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 7860, y: 829}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: He is still in Berlin in the court.
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080729
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_21
+        <ID>k__BackingField: 7795377a-d5e5-41b1-894f-968846bb7006
+        <NextNodeID>k__BackingField: a0c583a0-6fe6-4951-8daa-7890e3569c74
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 8399, y: 829}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: Now leave me please.
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080730
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_22
+        <ID>k__BackingField: a0c583a0-6fe6-4951-8daa-7890e3569c74
+        <NextNodeID>k__BackingField: 3ebc0e08-34f6-4403-85a9-47a8814b528c
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 8867, y: 829}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: Even better, I'll leave. Take this room.
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080731
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_23
+        <ID>k__BackingField: 3ebc0e08-34f6-4403-85a9-47a8814b528c
+        <NextNodeID>k__BackingField: a706856f-b00c-4cd1-b585-165767b9327a
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 9463, y: 829}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: You will never see me again, please
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
+    - rid: 6431891860027080732
+      type: {class: ChoiceNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Choice_4
+        <ID>k__BackingField: a706856f-b00c-4cd1-b585-165767b9327a
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 10046, y: 770}
+        <Description>k__BackingField: Description
+        <Options>k__BackingField:
+        - <Text>k__BackingField: (Let him go)
+          <NodeID>k__BackingField: 9dc794af-f2fa-41f3-af66-6a87c85c80df
+        - <Text>k__BackingField: (Kill Jerry )
+          <NodeID>k__BackingField: a4cacac0-5f77-41a2-a273-dd644c0db7b4
+    - rid: 6431891860027080733
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_24
+        <ID>k__BackingField: 9dc794af-f2fa-41f3-af66-6a87c85c80df
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 10441, y: 739}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: There was enough blood spilled thanks to you.
+          Go away.
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
+    - rid: 6431891860027080734
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_25
+        <ID>k__BackingField: a4cacac0-5f77-41a2-a273-dd644c0db7b4
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 10441, y: 1003}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: You don't deserve to live.
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
