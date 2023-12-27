@@ -1,9 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Interactions;
+using Unity.VisualScripting;
 // using Player.Movement;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 namespace SceneObjects
@@ -13,6 +16,7 @@ namespace SceneObjects
         public static SceneObjectManager Instance { get; private set; }
         private Dictionary<SceneReference, Vector3> _sceneLocations = new();
         private Dictionary<SceneReference, GameObject> _photos = new();
+        private Dictionary<SceneReference, PlayableDirector> _cutscenes = new();
 
         // TODO: add method for teleport player
         // temp shit
@@ -41,6 +45,12 @@ namespace SceneObjects
                 {
                     _photos.Add(key, sceneObject.gameObject);
                     sceneObject.SetActive(false);
+                    break;
+                }
+                case SceneReferenceType.CUTSCENE:
+                {
+                    _cutscenes.Add(key, sceneObject.gameObject.GetComponent<PlayableDirector>());
+                    sceneObject.gameObject.SetActive(false);
                     break;
                 }
                 default:
@@ -72,6 +82,15 @@ namespace SceneObjects
             }
             
             _photos[photo].SetActive(visible);
+        }
+
+        public void PlayCutscene(SceneReference cutscene)
+        {
+            var clip = _cutscenes[cutscene];
+            clip.gameObject.SetActive(true);
+            clip.Play();
+            clip.stopped += director => InteractionManager.Instance.CompleteElement();
+            clip.stopped += director => clip.gameObject.SetActive(false);
         }
     }
 }

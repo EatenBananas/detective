@@ -14,16 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FileName>k__BackingField: Drawer
   <Nodes>k__BackingField:
-  - rid: 4011875196718022659
-  - rid: 4011875196718022660
-  - rid: 4011875196718022661
+  - rid: 4011875364163026961
+  - rid: 4011875364163026962
+  - rid: 4011875364163026963
+  - rid: 4011875364163026964
+  - rid: 4011875364163026965
   <Groups>k__BackingField: []
   <OldNodeNames>k__BackingField: []
   <OldGroupNames>k__BackingField: []
   references:
     version: 2
     RefIds:
-    - rid: 4011875196718022659
+    - rid: 4011875364163026961
       type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: DrawerStart
@@ -33,7 +35,7 @@ MonoBehaviour:
         <Position>k__BackingField: {x: 102.399994, y: 105.600006}
         <Description>k__BackingField: Description
         <Title>k__BackingField: DrawerStart
-    - rid: 4011875196718022660
+    - rid: 4011875364163026962
       type: {class: CameraChangeNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: CameraChange_1
@@ -43,7 +45,7 @@ MonoBehaviour:
         <Position>k__BackingField: {x: 551.2, y: 105.600006}
         <Description>k__BackingField: Description
         <Camera>k__BackingField: {fileID: 11400000, guid: 7d9924e122a65ba41aa8155b23aa5214, type: 2}
-    - rid: 4011875196718022661
+    - rid: 4011875364163026963
       type: {class: GetKeyNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: GetKey_1
@@ -53,3 +55,23 @@ MonoBehaviour:
         <Position>k__BackingField: {x: 1081.6, y: 105.600006}
         <Description>k__BackingField: Description
         <KeyCode>k__BackingField: 27
+    - rid: 4011875364163026964
+      type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: CutsceneTest
+        <ID>k__BackingField: ca9e9a1b-5227-4cda-8857-3e14df6c65b8
+        <NextNodeID>k__BackingField: 3ebcdd55-726a-43f6-8d81-53eb8ca25d6b
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 102.399994, y: 356}
+        <Description>k__BackingField: Description
+        <Title>k__BackingField: CutsceneTest
+    - rid: 4011875364163026965
+      type: {class: CutsceneNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Cutscene_1
+        <ID>k__BackingField: 3ebcdd55-726a-43f6-8d81-53eb8ca25d6b
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 549.60004, y: 354.4}
+        <Description>k__BackingField: Description
+        <Cutscene>k__BackingField: {fileID: 11400000, guid: 95a8c23f8b092f644a035140f7cc15d2, type: 2}
