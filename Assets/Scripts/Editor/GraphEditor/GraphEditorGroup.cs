@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+
+using System;
 using GraphEditor.Saves;
 using UnityEditor.Experimental.GraphView;
 
@@ -20,3 +22,5 @@ namespace GraphEditor
         }
     }
 }
+
+#endif
