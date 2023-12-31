@@ -1,6 +1,6 @@
-using System.Threading.Tasks;
 using GameInputSystem;
-using Sirenix.OdinInspector;
+using ModestTree;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -20,18 +20,22 @@ namespace PlayerSystem
                 _isStopped = value;
             }
         }
+        public Vector2 Velocity
+        {
+            get => _velocity;
+            private set => _velocity = value.normalized;
+        }
 
-        private bool _isStopped = true;
-        
         [SerializeField] private Animator _animator;
         [SerializeField] private NavMeshAgent _agent;
         
         [Inject] private InputManager _inputManager;
         [Inject] private Camera _camera;
-        
-        private Vector2 _smoothDeltaPosition = Vector2.zero;
-        private Vector2 _velocity = Vector2.zero;
+
+        private Vector2 _smoothDeltaPosition;
+        private Vector2 _velocity;
         private Vector3 _destination;
+        private bool _isStopped = true;
         
         private static readonly int IsMoving = Animator.StringToHash("isMoving");
         private static readonly int LocomotionHorizontal = Animator.StringToHash("locomotionHorizontal");
@@ -94,44 +98,47 @@ namespace PlayerSystem
             _agent.nextPosition = animatorRootPosition;
         }
 
+        private void SynchronizeAnimatorWithAgent()
+        {
+            if (_agent.path.corners.Length < 2) return;
+            
+            var animatorTransform = _animator.transform;
+            var directionFromAnimatorToFirstCornerOfAgentPath = _agent.path.corners[1] - animatorTransform.position;
+            directionFromAnimatorToFirstCornerOfAgentPath.y = 0;
+            
+            var deltaX = Vector3.Dot(animatorTransform.right, directionFromAnimatorToFirstCornerOfAgentPath);
+            var deltaY = Vector3.Dot(animatorTransform.forward, directionFromAnimatorToFirstCornerOfAgentPath);
+            var deltaPosition = new Vector2(deltaX, deltaY);
+            
+            var smooth = Mathf.Min(1.0f, Time.deltaTime / 0.15f);
+            _smoothDeltaPosition = Vector2.Lerp(_smoothDeltaPosition, deltaPosition, smooth);
+            
+            Velocity = deltaPosition / Time.deltaTime;
+            if (_agent.remainingDistance <= _agent.stoppingDistance)
+                Velocity = Vector2.Lerp(Velocity, Vector2.zero, _agent.remainingDistance / _agent.stoppingDistance);
+            
+            CheckIfIsMoving();
+            SetLocomotionDirection(Velocity);
+            
+            var deltaMagnitude = directionFromAnimatorToFirstCornerOfAgentPath.magnitude;
+            if (deltaMagnitude > _agent.radius / 2)
+                _animator.transform.position = Vector3.Lerp(_animator.rootPosition, _agent.path.corners[0], smooth);
+        }
+
         private void SetLocomotionDirection(Vector2 direction)
         {
             _animator.SetFloat(LocomotionHorizontal, direction.x);
             _animator.SetFloat(LocomotionVertical, direction.y);
         }
         
-        private void SynchronizeAnimatorWithAgent()
+        private void CheckIfIsMoving()
         {
-            var animatorTransform = _animator.transform;
-            var worldDeltaPosition = _agent.path.corners[0] - animatorTransform.position;
-            worldDeltaPosition.y = 0;
+            var isMoving = _agent.velocity.magnitude > 0.1f && _agent.remainingDistance > _agent.radius;
             
-            var deltaX = Vector3.Dot(animatorTransform.right, worldDeltaPosition);
-            var deltaY = Vector3.Dot(animatorTransform.forward, worldDeltaPosition);
-            var deltaPosition = new Vector2(deltaX, deltaY);
-            
-            var smooth = Mathf.Min(1.0f, Time.deltaTime / 0.15f);
-            _smoothDeltaPosition = Vector2.Lerp(_smoothDeltaPosition, deltaPosition, smooth);
-            
-            _velocity = _smoothDeltaPosition / Time.deltaTime;
-            if (_agent.remainingDistance <= _agent.stoppingDistance)
-                _velocity = Vector2.Lerp(_velocity, Vector2.zero, _agent.remainingDistance / _agent.stoppingDistance);
-            
-            var isWalking = _velocity.magnitude > 0.5f && _agent.remainingDistance > _agent.stoppingDistance;
-            
-            _animator.SetBool(IsMoving, isWalking);
-            _animator.SetFloat(LocomotionHorizontal, _velocity.x);
-            _animator.SetFloat(LocomotionVertical, _velocity.y);
-            
-            var deltaMagnitude = worldDeltaPosition.magnitude;
-            if (deltaMagnitude > _agent.radius / 2)
-                _animator.transform.position = Vector3.Lerp(_animator.rootPosition, _agent.path.corners[0], smooth);
+            _animator.SetBool(IsMoving, isMoving);
         }
 
-        public void LegToStopWalk(string legName)
-        {
-            
-        }
+        public void LegToStopWalk(string legName) {  }
         
         #region Debug
         
@@ -139,16 +146,19 @@ namespace PlayerSystem
         {
             // Draw point where user clicked
             Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(_destination, 0.1f);
+            Gizmos.DrawSphere(_destination, 0.2f);
+            Handles.Label(_destination, "Destination");
             
             // Draw agent destination
             Gizmos.color = Color.green;
-            Gizmos.DrawSphere(_agent.destination, 0.1f);
+            Gizmos.DrawSphere(_agent.destination, 0.2f);
+            Handles.Label(_agent.destination, "Agent Destination");
 
             foreach (var corner in _agent.path.corners)
             {
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawSphere(corner, 0.5f);
+                Gizmos.DrawSphere(corner, 0.1f);
+                Handles.Label(corner, _agent.path.corners.IndexOf(corner).ToString());
             }
         }
         
