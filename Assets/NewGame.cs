@@ -15,6 +15,6 @@ public class NewGame : MonoBehaviour
 
     private static void CreateNewGame()
     {
-        SceneManager.LoadScene("_Main");
+        SceneManager.LoadScene("Kamil");
     }
 }

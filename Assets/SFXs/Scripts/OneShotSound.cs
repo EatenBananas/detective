@@ -20,5 +20,4 @@ public class OneShotSound : MonoBehaviour
     {
         RuntimeManager.PlayOneShot(sound, worldPos);
     }
-
 }

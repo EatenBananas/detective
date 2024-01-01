@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using GameInputSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -7,7 +8,7 @@ using Camera = UnityEngine.Camera;
 
 namespace PlayerSystem
 {
-    public class PlayerMotionMatchingMovement : MonoBehaviour
+    public class PlayerMotionMatchingMovement : MonoBehaviour   
     {
         public bool IsStopped
         {
@@ -32,9 +33,9 @@ namespace PlayerSystem
         private Vector2 _velocity = Vector2.zero;
         private Vector3 _destination;
         
-        private static readonly int IsWalking = Animator.StringToHash("isWalking");
-        private static readonly int Horizontal = Animator.StringToHash("locomotionHorizontal");
-        private static readonly int Vertical = Animator.StringToHash("locomotionVertical");
+        private static readonly int IsMoving = Animator.StringToHash("isMoving");
+        private static readonly int LocomotionHorizontal = Animator.StringToHash("locomotionHorizontal");
+        private static readonly int LocomotionVertical = Animator.StringToHash("locomotionVertical");
 
         #region Unity Lifecycle
 
@@ -82,41 +83,54 @@ namespace PlayerSystem
         private void OnAnimatorMove()
         {
             var animatorRootPosition = _animator.rootPosition;
+            var animatorRootRotation = _animator.rootRotation;
+            var agentTransform = _agent.transform;
+            
             animatorRootPosition.y = _agent.nextPosition.y;
             
-            var agentTransform = _agent.transform;
             agentTransform.position = animatorRootPosition;
-            agentTransform.rotation = _animator.rootRotation;
+            agentTransform.rotation = animatorRootRotation;
             
             _agent.nextPosition = animatorRootPosition;
+        }
+
+        private void SetLocomotionDirection(Vector2 direction)
+        {
+            _animator.SetFloat(LocomotionHorizontal, direction.x);
+            _animator.SetFloat(LocomotionVertical, direction.y);
         }
         
         private void SynchronizeAnimatorWithAgent()
         {
             var animatorTransform = _animator.transform;
-            var worldDeltaPosition = _agent.nextPosition - animatorTransform.position;
+            var worldDeltaPosition = _agent.path.corners[0] - animatorTransform.position;
             worldDeltaPosition.y = 0;
             
             var deltaX = Vector3.Dot(animatorTransform.right, worldDeltaPosition);
-            var deltaY = Vector3.Dot(_animator.transform.forward, worldDeltaPosition);
+            var deltaY = Vector3.Dot(animatorTransform.forward, worldDeltaPosition);
             var deltaPosition = new Vector2(deltaX, deltaY);
             
             var smooth = Mathf.Min(1.0f, Time.deltaTime / 0.15f);
             _smoothDeltaPosition = Vector2.Lerp(_smoothDeltaPosition, deltaPosition, smooth);
-
+            
             _velocity = _smoothDeltaPosition / Time.deltaTime;
             if (_agent.remainingDistance <= _agent.stoppingDistance)
                 _velocity = Vector2.Lerp(_velocity, Vector2.zero, _agent.remainingDistance / _agent.stoppingDistance);
-
+            
             var isWalking = _velocity.magnitude > 0.5f && _agent.remainingDistance > _agent.stoppingDistance;
             
-            _animator.SetBool(IsWalking, isWalking);
-            _animator.SetFloat(Horizontal, _velocity.x);
-            _animator.SetFloat(Vertical, _velocity.y);
+            _animator.SetBool(IsMoving, isWalking);
+            _animator.SetFloat(LocomotionHorizontal, _velocity.x);
+            _animator.SetFloat(LocomotionVertical, _velocity.y);
             
             var deltaMagnitude = worldDeltaPosition.magnitude;
             if (deltaMagnitude > _agent.radius / 2)
-                _animator.transform.position = Vector3.Lerp(_animator.rootPosition, _agent.nextPosition, smooth);
+                _animator.transform.position = Vector3.Lerp(_animator.rootPosition, _agent.path.corners[0], smooth);
+        }
+
+        public void LegToStopWalk(string legName)
+        {
+            
         }
         
         #region Debug
@@ -130,6 +144,12 @@ namespace PlayerSystem
             // Draw agent destination
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(_agent.destination, 0.1f);
+
+            foreach (var corner in _agent.path.corners)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawSphere(corner, 0.5f);
+            }
         }
         
         #endregion
