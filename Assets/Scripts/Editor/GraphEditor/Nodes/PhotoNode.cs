@@ -60,6 +60,7 @@ namespace GraphEditor.Nodes
             var photo = ScriptableObject.CreateInstance<Photo>();
 
             photo.Picture = _photoField.value as SceneReference;
+            photo.Visible = _visibleToggle.value;
 
             return photo;
         }
