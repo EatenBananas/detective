@@ -32,13 +32,7 @@ namespace PlayerSystem
                 _isStopped = value;
             }
         }
-        public Vector2 Velocity
-        {
-            get => _velocity;
-            private set => _velocity = value.normalized;
-        }
-
-        private bool _isMoving => _agent.velocity.magnitude > 0.1f;
+        private bool IsAgentMoving => _agent.velocity.magnitude > 0.1f;
 
         [SerializeField] private Animator _animator;
         [SerializeField] private NavMeshAgent _agent;
@@ -57,6 +51,7 @@ namespace PlayerSystem
         private static readonly int IsMoving = Animator.StringToHash("isMoving");
         private static readonly int LocomotionHorizontal = Animator.StringToHash("locomotionHorizontal");
         private static readonly int LocomotionVertical = Animator.StringToHash("locomotionVertical");
+        private static readonly int IsLeftFoot = Animator.StringToHash("isLeftFoot");
 
         #region Unity Lifecycle
 
@@ -121,13 +116,13 @@ namespace PlayerSystem
 
         private void HandleLocomotion()
         {
-            if (_isMoving)
+            if (IsAgentMoving)
             {
-                _animator.SetBool(IsMoving, _isMoving);
+                _animator.SetBool(IsMoving, IsAgentMoving);
             }
             else
             {
-                _animator.SetBool(IsMoving, _isMoving);
+                _animator.SetBool(IsMoving, IsAgentMoving);
                 return;
             }
             
@@ -208,8 +203,19 @@ namespace PlayerSystem
             _locomotionState = (LocomotionState)Enum.Parse(typeof(LocomotionState), state);
         }
         
-        private void LegToStopWalk()
+        private void LegToStopWalk(string upperLeg)
         {
+            switch (upperLeg)
+            {
+                case "Left":
+                    _animator.SetBool(IsLeftFoot, true);
+                    break;
+                case "Right":
+                    _animator.SetBool(IsLeftFoot, false);
+                    break;
+                default:
+                    return;
+            }
         }
 
         #region Debug
