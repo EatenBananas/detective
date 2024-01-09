@@ -1,6 +1,7 @@
-using System.Threading.Tasks;
+using System;
 using GameInputSystem;
-using Sirenix.OdinInspector;
+using ModestTree;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -8,6 +9,17 @@ using Camera = UnityEngine.Camera;
 
 namespace PlayerSystem
 {
+    public enum LocomotionState
+    {
+        None,
+        StartingStart,
+        StartingEnd,
+        WalkingStart,
+        WalkingEnd,
+        StoppingStart,
+        StoppingEnd,
+    }
+    
     public class PlayerMotionMatchingMovement : MonoBehaviour   
     {
         public bool IsStopped
@@ -20,22 +32,26 @@ namespace PlayerSystem
                 _isStopped = value;
             }
         }
+        private bool IsAgentMoving => _agent.velocity.magnitude > 0.1f;
 
-        private bool _isStopped = true;
-        
         [SerializeField] private Animator _animator;
         [SerializeField] private NavMeshAgent _agent;
         
         [Inject] private InputManager _inputManager;
         [Inject] private Camera _camera;
-        
-        private Vector2 _smoothDeltaPosition = Vector2.zero;
-        private Vector2 _velocity = Vector2.zero;
+
+        private Vector2 _smoothDeltaPosition;
+        private Vector2 _velocity;
         private Vector3 _destination;
+        private bool _isStopped = true;
+        private LocomotionState _locomotionState = LocomotionState.None;
+        private bool _doOnceLocomotionStart;
+        private bool _doOnceLocomotionEnd;
         
         private static readonly int IsMoving = Animator.StringToHash("isMoving");
         private static readonly int LocomotionHorizontal = Animator.StringToHash("locomotionHorizontal");
         private static readonly int LocomotionVertical = Animator.StringToHash("locomotionVertical");
+        private static readonly int IsLeftFoot = Animator.StringToHash("isLeftFoot");
 
         #region Unity Lifecycle
 
@@ -64,7 +80,7 @@ namespace PlayerSystem
         
         private void Update()
         {
-            SynchronizeAnimatorWithAgent();
+            HandleLocomotion();
         }
 
         #endregion
@@ -78,6 +94,9 @@ namespace PlayerSystem
             
             _destination = hit.point;
             _agent.SetDestination(_destination);
+            
+            _doOnceLocomotionStart = false;
+            _doOnceLocomotionEnd = false;
         }
 
         private void OnAnimatorMove()
@@ -94,61 +113,136 @@ namespace PlayerSystem
             _agent.nextPosition = animatorRootPosition;
         }
 
+
+        private void HandleLocomotion()
+        {
+            if (IsAgentMoving)
+            {
+                _animator.SetBool(IsMoving, IsAgentMoving);
+            }
+            else
+            {
+                _animator.SetBool(IsMoving, IsAgentMoving);
+                return;
+            }
+            
+            switch (_locomotionState)
+            {
+                case LocomotionState.None:
+                    break;
+                case LocomotionState.StartingStart:
+                    LocomotionStart();
+                    break;
+                case LocomotionState.StartingEnd:
+                    break;
+                case LocomotionState.WalkingStart:
+                    LocomotionIn();
+                    break;
+                case LocomotionState.WalkingEnd:
+                    break;
+                case LocomotionState.StoppingStart:
+                    LocomotionEnd();
+                    break;
+                case LocomotionState.StoppingEnd:
+                    break;
+                default:
+                    return;
+            }
+        }
+        private void LocomotionStart()
+        {
+            if (_doOnceLocomotionStart) return;
+            if (_agent.path.corners.Length < 2) return;
+            
+            var locomotionDirection = CalculateLocomotionDirection(_agent.nextPosition);
+
+            SetLocomotionDirection(locomotionDirection);
+            _doOnceLocomotionStart = true;
+        }
+        private void LocomotionIn()
+        {
+            if (_agent.path.corners.Length < 2) return;
+            
+            var locomotionDirection = CalculateLocomotionDirection(_agent.nextPosition);
+
+            SetLocomotionDirection(locomotionDirection);
+        }
+        private void LocomotionEnd()
+        {
+            if (_doOnceLocomotionEnd) return;
+            if (_agent.path.corners.Length < 2) return;
+            
+            var locomotionDirection = CalculateLocomotionDirection(_agent.nextPosition);
+            
+            SetLocomotionDirection(locomotionDirection);
+            _doOnceLocomotionEnd = true;
+        }
+        
+
+        private Vector2 CalculateLocomotionDirection(Vector3 targetPosition)
+        {
+            var animatorTransform = _animator.transform;
+            var directionFromAnimatorToTargetPosition = targetPosition - animatorTransform.position;
+            directionFromAnimatorToTargetPosition.y = 0;
+            
+            var deltaX = Vector3.Dot(animatorTransform.right, directionFromAnimatorToTargetPosition);
+            var deltaY = Vector3.Dot(animatorTransform.forward, directionFromAnimatorToTargetPosition);
+            var deltaPosition = new Vector2(deltaX, deltaY);
+            
+            return deltaPosition.normalized;
+        }
+        
         private void SetLocomotionDirection(Vector2 direction)
         {
             _animator.SetFloat(LocomotionHorizontal, direction.x);
             _animator.SetFloat(LocomotionVertical, direction.y);
         }
-        
-        private void SynchronizeAnimatorWithAgent()
+
+        private void OnLocomotionStateChange(string state)
         {
-            var animatorTransform = _animator.transform;
-            var worldDeltaPosition = _agent.path.corners[0] - animatorTransform.position;
-            worldDeltaPosition.y = 0;
-            
-            var deltaX = Vector3.Dot(animatorTransform.right, worldDeltaPosition);
-            var deltaY = Vector3.Dot(animatorTransform.forward, worldDeltaPosition);
-            var deltaPosition = new Vector2(deltaX, deltaY);
-            
-            var smooth = Mathf.Min(1.0f, Time.deltaTime / 0.15f);
-            _smoothDeltaPosition = Vector2.Lerp(_smoothDeltaPosition, deltaPosition, smooth);
-            
-            _velocity = _smoothDeltaPosition / Time.deltaTime;
-            if (_agent.remainingDistance <= _agent.stoppingDistance)
-                _velocity = Vector2.Lerp(_velocity, Vector2.zero, _agent.remainingDistance / _agent.stoppingDistance);
-            
-            var isWalking = _velocity.magnitude > 0.5f && _agent.remainingDistance > _agent.stoppingDistance;
-            
-            _animator.SetBool(IsMoving, isWalking);
-            _animator.SetFloat(LocomotionHorizontal, _velocity.x);
-            _animator.SetFloat(LocomotionVertical, _velocity.y);
-            
-            var deltaMagnitude = worldDeltaPosition.magnitude;
-            if (deltaMagnitude > _agent.radius / 2)
-                _animator.transform.position = Vector3.Lerp(_animator.rootPosition, _agent.path.corners[0], smooth);
+            _locomotionState = (LocomotionState)Enum.Parse(typeof(LocomotionState), state);
+        }
+        
+        private void LegToStopWalk(string upperLeg)
+        {
+            switch (upperLeg)
+            {
+                case "Left":
+                    _animator.SetBool(IsLeftFoot, true);
+                    break;
+                case "Right":
+                    _animator.SetBool(IsLeftFoot, false);
+                    break;
+                default:
+                    return;
+            }
         }
 
-        public void LegToStopWalk(string legName)
-        {
-            
-        }
-        
         #region Debug
         
         private void OnDrawGizmos()
         {
             // Draw point where user clicked
             Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(_destination, 0.1f);
+            Gizmos.DrawSphere(_destination, 0.2f);
+            Handles.Label(_destination, "Destination");
             
             // Draw agent destination
             Gizmos.color = Color.green;
-            Gizmos.DrawSphere(_agent.destination, 0.1f);
-
+            Gizmos.DrawSphere(_agent.destination, 0.2f);
+            Handles.Label(_agent.destination, "Agent Destination");
+            
+            // Draw agent next position
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(_agent.nextPosition, 0.2f);
+            Handles.Label(_agent.nextPosition, "Agent Next Position");
+            
+            // Draw agent path
             foreach (var corner in _agent.path.corners)
             {
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawSphere(corner, 0.5f);
+                Gizmos.DrawSphere(corner, 0.1f);
+                Handles.Label(corner, _agent.path.corners.IndexOf(corner).ToString());
             }
         }
         
