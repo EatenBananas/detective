@@ -1,11 +1,10 @@
 using System;
-using GameInputSystem;
 using ModestTree;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
-using Zenject;
-using Camera = UnityEngine.Camera;
 
 namespace PlayerSystem
 {
@@ -20,30 +19,27 @@ namespace PlayerSystem
         StoppingEnd,
     }
     
-    public class PlayerMotionMatchingMovement : MonoBehaviour   
+    public class HumanoidMovement : MonoBehaviour   
     {
-        public bool IsStopped
+        public bool CamPlayerMove
         {
-            get => _isStopped;
+            get => _camPlayerMove;
             set
             {
-                if (_isStopped == value) return;
+                if (_camPlayerMove == value) return;
                 _agent.isStopped = value;
-                _isStopped = value;
+                _camPlayerMove = value;
             }
         }
-        private bool IsAgentMoving => _agent.velocity.magnitude > 0.1f;
+        public bool IsAgentMoving => _agent.velocity.magnitude > 0.1f;
+        public NavMeshAgent Agent => _agent;
 
         [SerializeField] private Animator _animator;
         [SerializeField] private NavMeshAgent _agent;
-        
-        [Inject] private InputManager _inputManager;
-        [Inject] private Camera _camera;
 
         private Vector2 _smoothDeltaPosition;
         private Vector2 _velocity;
-        private Vector3 _destination;
-        private bool _isStopped = true;
+        private bool _camPlayerMove;
         private LocomotionState _locomotionState = LocomotionState.None;
         private bool _doOnceLocomotionStart;
         private bool _doOnceLocomotionEnd;
@@ -54,22 +50,6 @@ namespace PlayerSystem
         private static readonly int IsLeftFoot = Animator.StringToHash("isLeftFoot");
 
         #region Unity Lifecycle
-
-        private void OnEnable()
-        {
-            _inputManager.Input.PlayerController.Move.performed += OnMovePerformed;
-            
-            _inputManager.Input.PlayerController.Move.EnableInputAction();
-            _inputManager.Input.Mouse.Position.EnableInputAction();
-        }
-
-        private void OnDisable()
-        {
-            _inputManager.Input.PlayerController.Move.performed -= OnMovePerformed;
-            
-            _inputManager.Input.PlayerController.Move.DisableInputAction();
-            _inputManager.Input.Mouse.Position.DisableInputAction();
-        }
 
         private void Awake()
         {
@@ -85,15 +65,9 @@ namespace PlayerSystem
 
         #endregion
         
-        private void OnMovePerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+        public void SetMovementDestination(Vector3 destination)
         {
-            var mousePosition = _inputManager.Input.Mouse.Position.ReadValue<Vector2>();
-            var ray = _camera.ScreenPointToRay(mousePosition);
-
-            if (!Physics.Raycast(ray, out var hit)) return;
-            
-            _destination = hit.point;
-            _agent.SetDestination(_destination);
+            _agent.SetDestination(destination);
             
             _doOnceLocomotionStart = false;
             _doOnceLocomotionEnd = false;
@@ -116,15 +90,8 @@ namespace PlayerSystem
 
         private void HandleLocomotion()
         {
-            if (IsAgentMoving)
-            {
-                _animator.SetBool(IsMoving, IsAgentMoving);
-            }
-            else
-            {
-                _animator.SetBool(IsMoving, IsAgentMoving);
-                return;
-            }
+            _animator.SetBool(IsMoving, IsAgentMoving);
+            if (!IsAgentMoving) return;
             
             switch (_locomotionState)
             {
@@ -217,26 +184,17 @@ namespace PlayerSystem
                     return;
             }
         }
+        
+        public void StopPlayer()
+        {
+            _agent.velocity = Vector3.zero;
+            _agent.SetDestination(_agent.transform.position);
+        }
 
         #region Debug
         
         private void OnDrawGizmos()
         {
-            // Draw point where user clicked
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(_destination, 0.2f);
-            Handles.Label(_destination, "Destination");
-            
-            // Draw agent destination
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(_agent.destination, 0.2f);
-            Handles.Label(_agent.destination, "Agent Destination");
-            
-            // Draw agent next position
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(_agent.nextPosition, 0.2f);
-            Handles.Label(_agent.nextPosition, "Agent Next Position");
-            
             // Draw agent path
             foreach (var corner in _agent.path.corners)
             {

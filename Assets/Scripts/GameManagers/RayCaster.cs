@@ -5,7 +5,7 @@ using Zenject;
 
 namespace GameManagers
 {
-    public class Raycaster : MonoBehaviour
+    public class RayCaster : MonoBehaviour
     {
         #region Events
 

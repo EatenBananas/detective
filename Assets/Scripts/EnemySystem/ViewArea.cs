@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Enemy
+namespace EnemySystem
 {
     public class ViewArea : MonoBehaviour
     {
@@ -14,7 +14,7 @@ namespace Enemy
         public float Angle => _angle;
         public Transform EnemyEye => _enemyEye;
 
-        [SerializeField] private float _radius;
+        [SerializeField, Range(0f, 100f)] private float _radius;
         [SerializeField, Range(0f, 360f)] private float _angle;
         [SerializeField] private LayerMask _victimMask;
         [SerializeField] private LayerMask _obstructionMask;

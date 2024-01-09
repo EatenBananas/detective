@@ -8,18 +8,18 @@ namespace CutoutObjectSystem
     {
         [SerializeField] private LayerMask _wallLayerMask;
 
-        [Inject] private Raycaster _raycaster;
+        [Inject] private RayCaster _rayCaster;
         
         private Renderer _lastRenderer;
 
         private void OnEnable()
         {
-            _raycaster.OnLookingAtPlayerFromCameraCenterChange += HideWall;
+            _rayCaster.OnLookingAtPlayerFromCameraCenterChange += HideWall;
         }
 
         private void OnDisable()
         {
-            _raycaster.OnLookingAtPlayerFromCameraCenterChange -= HideWall;
+            _rayCaster.OnLookingAtPlayerFromCameraCenterChange -= HideWall;
         }
 
         private void HideWall(GameObject wall)
