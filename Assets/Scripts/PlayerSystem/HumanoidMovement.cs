@@ -1,7 +1,5 @@
 using System;
 using ModestTree;
-using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
