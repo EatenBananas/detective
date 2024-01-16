@@ -19,16 +19,6 @@ namespace PlayerSystem
     
     public class HumanoidMovement : MonoBehaviour   
     {
-        public bool CamPlayerMove
-        {
-            get => _camPlayerMove;
-            set
-            {
-                if (_camPlayerMove == value) return;
-                _agent.isStopped = value;
-                _camPlayerMove = value;
-            }
-        }
         public bool IsAgentMoving => _agent.velocity.magnitude > 0.1f;
         public NavMeshAgent Agent => _agent;
 
@@ -37,7 +27,6 @@ namespace PlayerSystem
 
         private Vector2 _smoothDeltaPosition;
         private Vector2 _velocity;
-        private bool _camPlayerMove;
         private LocomotionState _locomotionState = LocomotionState.None;
         private bool _doOnceLocomotionStart;
         private bool _doOnceLocomotionEnd;
@@ -56,10 +45,8 @@ namespace PlayerSystem
             _agent.updateRotation = false;
         }
         
-        private void Update()
-        {
+        private void Update() => 
             HandleLocomotion();
-        }
 
         #endregion
         
@@ -181,12 +168,6 @@ namespace PlayerSystem
                 default:
                     return;
             }
-        }
-        
-        public void StopPlayer()
-        {
-            _agent.velocity = Vector3.zero;
-            _agent.SetDestination(_agent.transform.position);
         }
 
         #region Debug
