@@ -10,7 +10,7 @@ namespace PlayerSystem
         [field: SerializeField] public HumanoidMovement Movement { get; private set; }
         
         [Button]
-        public void Teleport(Vector3 position, bool resetPlayerDestination = false)
+        public void Teleport(Vector3 position, bool resetPlayerDestination = true)
         {
             if (resetPlayerDestination)
                 Movement.Agent.ResetPath();
