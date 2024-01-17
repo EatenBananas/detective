@@ -188,8 +188,8 @@ namespace EnemySystem
             return closestIndex;
         }
 
-        #region Debug
-
+#region Debug
+#if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
             DrawWaypoints();
@@ -215,7 +215,7 @@ namespace EnemySystem
                 Gizmos.DrawLine(waypointPosition, _waypoints[GetNextWaypointIndex(i)].Point.position);
             }
         }
-
-        #endregion
+#endif
+#endregion
     }
 }

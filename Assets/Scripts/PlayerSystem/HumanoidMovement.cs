@@ -171,7 +171,7 @@ namespace PlayerSystem
         }
 
         #region Debug
-        
+        #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             // Draw agent path
@@ -182,7 +182,7 @@ namespace PlayerSystem
                 Handles.Label(corner, _agent.path.corners.IndexOf(corner).ToString());
             }
         }
-        
+        #endif
         #endregion
     }
 }
