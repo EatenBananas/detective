@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using System;
 using System.IO;
 using GraphEditor.Utils;
@@ -128,4 +127,3 @@ namespace GraphEditor
         
     }
 }
-#endif
