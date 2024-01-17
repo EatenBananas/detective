@@ -1,4 +1,5 @@
-﻿using GraphEditor.Saves;
+﻿#if UNITY_EDITOR
+using GraphEditor.Saves;
 using Interactions;
 using Interactions.Elements;
 using SceneObjects;
@@ -59,3 +60,4 @@ namespace GraphEditor.Nodes
         }
     }
 }
+#endif

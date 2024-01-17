@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using Equipment;
 using GraphEditor.Nodes;
 using UnityEngine;
@@ -12,3 +13,4 @@ namespace GraphEditor.Saves
         public override GraphEditorNode ToNode() => new EquipNode(this);
     }
 }
+#endif

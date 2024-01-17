@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using GraphEditor.Nodes;
 using SceneObjects;
@@ -14,3 +15,4 @@ namespace GraphEditor.Saves
         public override GraphEditorNode ToNode() => new ConditionNode(this);
     }
 }
+#endif

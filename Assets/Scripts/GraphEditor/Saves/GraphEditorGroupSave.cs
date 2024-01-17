@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using UnityEngine;
 
 namespace GraphEditor.Saves
@@ -11,3 +12,4 @@ namespace GraphEditor.Saves
         [field:SerializeField] public Vector2 Position { get; set; }
     }
 }
+#endif

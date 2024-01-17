@@ -1,4 +1,5 @@
-﻿using GraphEditor.Nodes;
+﻿#if UNITY_EDITOR
+using GraphEditor.Nodes;
 
 namespace GraphEditor.Saves
 {
@@ -8,3 +9,4 @@ namespace GraphEditor.Saves
         public override GraphEditorNode ToNode() => new CommentNode(this);
     }
 }
+#endif

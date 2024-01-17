@@ -1,4 +1,5 @@
-﻿using GraphEditor.Nodes;
+﻿#if UNITY_EDITOR
+using GraphEditor.Nodes;
 using SceneObjects;
 using UnityEngine;
 
@@ -10,3 +11,4 @@ namespace GraphEditor.Saves
         public override GraphEditorNode ToNode() => new CameraChangeNode(this);
     }
 }
+#endif

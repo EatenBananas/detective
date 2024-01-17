@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using GraphEditor.Nodes;
@@ -455,3 +456,4 @@ namespace GraphEditor
         
     }
 }
+#endif

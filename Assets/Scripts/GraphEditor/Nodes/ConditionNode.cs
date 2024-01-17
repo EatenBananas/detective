@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using GraphEditor.Saves;
@@ -8,6 +9,7 @@ using Interactions.Elements;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
+
 using UnityEngine;
 using UnityEngine.UIElements;
 using Utils;
@@ -206,3 +208,4 @@ namespace GraphEditor.Nodes
         }
     }
 }
+#endif

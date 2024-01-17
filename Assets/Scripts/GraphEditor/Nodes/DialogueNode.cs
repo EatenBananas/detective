@@ -1,4 +1,5 @@
-﻿using GraphEditor.Saves;
+﻿#if UNITY_EDITOR
+using GraphEditor.Saves;
 using Interactions;
 using Interactions.Elements;
 using UnityEditor.UIElements;
@@ -72,3 +73,4 @@ namespace GraphEditor.Nodes
         }
     }
 }
+#endif
