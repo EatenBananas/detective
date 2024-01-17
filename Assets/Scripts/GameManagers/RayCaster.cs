@@ -15,7 +15,7 @@ namespace GameManagers
         public Action<GameObject> OnLookingAtPlayerFromCameraCenterChange { get; set; }
         
         /// <summary>
-        /// Invoked when the GameObject that is hit first by a raycast from the camera center to the player changes.
+        /// Invoked when the GameObject that is hit first by a ray cast from the camera center to the player changes.
         /// </summary>
         public Action<GameObject[]> OnLookingAtPlayerFromCameraCenterChangeArray { get; set; }
     
@@ -72,17 +72,17 @@ namespace GameManagers
         /// <summary>
         /// Returns the RaycastHit that is hit first by a raycast from the camera center to the player.
         /// </summary>
-        public RaycastHit LookingAtPlayerFromCameraCenterRaycastHit { get; private set; }
+        public RaycastHit LookingAtPlayerFromCameraCenterRayCastHit { get; private set; }
         
         /// <summary>
         /// Returns the array of RaycastHit that is hit first by a raycast from the camera center to the player.
         /// </summary>
-        public RaycastHit[] LookingAtPlayerFromCameraCenterArrayRaycastHit { get; private set; }
+        public RaycastHit[] LookingAtPlayerFromCameraCenterArrayRayCastHit { get; private set; }
     
         /// <summary>
         /// Returns the RaycastHit that is behind the mouse cursor.
         /// </summary>
-        public RaycastHit LookingAtObjectBehindTheMouseRaycastHit { get; private set; }
+        public RaycastHit LookingAtObjectBehindTheMouseRayCastHit { get; private set; }
 
         #endregion
 
@@ -113,8 +113,10 @@ namespace GameManagers
 
             Physics.Raycast(ray, out var hit, maxDistance);
 
-            LookingAtPlayerFromCameraCenterRaycastHit = hit;
-            if (hit.transform != null) LookingAtPlayerFromCameraCenter = hit.transform.gameObject;
+            LookingAtPlayerFromCameraCenterRayCastHit = hit;
+            
+            if (hit.transform is not null) 
+                LookingAtPlayerFromCameraCenter = hit.transform.gameObject;
         }
         
         private void UpdateLookingAtPlayerFromCameraCenterArray()
@@ -127,7 +129,7 @@ namespace GameManagers
             var hit = new RaycastHit[] { };
             Physics.SphereCastNonAlloc(ray, 0.5f, hit, maxDistance);
 
-            LookingAtPlayerFromCameraCenterArrayRaycastHit = hit;
+            LookingAtPlayerFromCameraCenterArrayRayCastHit = hit;
             if (hit.Length != 0)
                 LookingAtPlayerFromCameraCenterArray = hit.Select(x => x.transform.gameObject).ToArray();
         }
@@ -138,8 +140,10 @@ namespace GameManagers
         
             Physics.Raycast(ray, out var hit, Mathf.Infinity);
             
-            LookingAtObjectBehindTheMouseRaycastHit = hit;
-            if (hit.transform != null) LookingAtObjectBehindTheMouse = hit.transform.gameObject;
+            LookingAtObjectBehindTheMouseRayCastHit = hit;
+            
+            if (hit.transform is not null) 
+                LookingAtObjectBehindTheMouse = hit.transform.gameObject;
         }
     }
 }
