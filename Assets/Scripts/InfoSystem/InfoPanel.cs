@@ -19,6 +19,7 @@ namespace InfoSystem
         [Inject] private Camera _camera;
         
         private Vector3 _initialScale;
+        private IInfo _currentInfo;
 
         private void Awake() => _initialScale = transform.localScale;
 
