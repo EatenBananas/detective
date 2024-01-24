@@ -17,7 +17,7 @@ public class State : ScriptableObject
 
     public int CurrentState { get; set; }
 
-    private void OnEnable()
+    public void ResetState()
     {
         CurrentState = InitialState;
     }
