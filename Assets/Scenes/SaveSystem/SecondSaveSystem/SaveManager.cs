@@ -32,7 +32,7 @@ namespace Scenes.SaveSystem.SecondSaveSystem
         public static async void BackgroundLoad() => 
             await Save.LoadData(SelectedSaveFile.FilePath);
 
-        private static Dictionary<string, object> GetLatestData()d
+        private static Dictionary<string, object> GetLatestData()
         {
             var saveData = new Dictionary<string, object>();
 
