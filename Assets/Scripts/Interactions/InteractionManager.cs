@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Interactions.Elements;
+using PlayerSystem;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace Interactions
     {
         // todo: replace with zenject
         public static InteractionManager Instance { get; private set; }
+
+        [field: SerializeField] private Player _player;
         
         private Interactable _interactable;
         private InteractionElement _interaction;
@@ -47,6 +50,8 @@ namespace Interactions
                 if (_interactable != null && _interaction == null)
                 {
                     Debug.Log($"Entering {_interactable.name}");
+                    Debug.Log($"Locking player...");
+                    _player.LockPlayer(true);
                     UIManager.Instance.ShowPieMenu(_interactable.Interactions);
                 }
             }
@@ -125,6 +130,9 @@ namespace Interactions
                 {
                     UIManager.Instance.ShowInteractableText(_interactable.Text);
                 }
+                
+                Debug.Log("Unlocking player...");
+                _player.UnlockPlayer();
             }
         }
 
