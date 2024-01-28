@@ -60,6 +60,8 @@ public class UIManager : MonoBehaviour
         
         _cursorIcon.gameObject.SetActive(false);
         _foldEqButton.onClick.AddListener(FoldEqButtonClicked);
+
+        FoldEqButtonClicked(); // hide on start
     }
     
     public void ShowInteractableText(string text)
@@ -162,6 +164,11 @@ public class UIManager : MonoBehaviour
         _foldEqIcon.SetActive(!_eqFolded);
         _unfoldEqIcon.SetActive(_eqFolded);
 
+        // also move interactable text
+        position = _interactableText.gameObject.transform.position;
+        position = new Vector3(position.x, position.y - offset, position.z);
+        _interactableText.gameObject.transform.position = position;
+        
         _eqFolded = !_eqFolded;
     }
 }
