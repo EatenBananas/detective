@@ -15,7 +15,8 @@ namespace PlayerSystem
             if (resetPlayerDestination)
                 Movement.Agent.ResetPath();
             
-            transform.position = position;
+            //transform.position = position;
+            Movement.Agent.Warp(position);
         }
 
         [Button]
