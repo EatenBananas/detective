@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222fe16d6b5b40e7a78e353ef4447148, type: 3}
+  m_Name: MailboxGraph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Mailbox
+  <Nodes>k__BackingField:
+  - rid: 7332137923203301473
+  - rid: 7332137923203301474
+  - rid: 7332137923203301475
+  <Groups>k__BackingField: []
+  <OldNodeNames>k__BackingField: []
+  <OldGroupNames>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7332137923203301473
+      type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: MailboxInspect
+        <ID>k__BackingField: 2f797a10-b69c-4191-90a9-e60d2c2bd460
+        <NextNodeID>k__BackingField: 8bc9badc-baf9-4d19-9e5c-a5e30ed91d73
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: -321.59998, y: -357.6}
+        <Description>k__BackingField: Description
+        <Title>k__BackingField: MailboxInspect
+    - rid: 7332137923203301474
+      type: {class: CameraChangeNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: CameraChange_1
+        <ID>k__BackingField: 8bc9badc-baf9-4d19-9e5c-a5e30ed91d73
+        <NextNodeID>k__BackingField: 7acdca14-d934-414e-99ff-18e8f08489e0
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 56, y: -357.6}
+        <Description>k__BackingField: Description
+        <Camera>k__BackingField: {fileID: 11400000, guid: af895624db1068c488cff8f9455adef8, type: 2}
+    - rid: 7332137923203301475
+      type: {class: GetKeyNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: GetKey_1
+        <ID>k__BackingField: 7acdca14-d934-414e-99ff-18e8f08489e0
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 555.2, y: -356}
+        <Description>k__BackingField: Description
+        <KeyCode>k__BackingField: 27

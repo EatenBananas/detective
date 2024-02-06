@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Interactions.Elements;
+using PlayerSystem;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace Interactions
     {
         // todo: replace with zenject
         public static InteractionManager Instance { get; private set; }
+
+        [field: SerializeField] private Player _player;
         
         private Interactable _interactable;
         private InteractionElement _interaction;
@@ -21,10 +24,23 @@ namespace Interactions
 
         private List<Option> _activeOptions;
         private bool _listenForOptions = false;
+
+        [SerializeField] private StartInteraction _startInteraction;
+        [SerializeField] private float _startDelay = 1f;
         
         private void Start()
         {
             Instance = this;
+            StartCoroutine(LateStart());
+        }
+
+        private IEnumerator LateStart()
+        {
+            yield return new WaitForSeconds(_startDelay);
+            if (_startInteraction != null)
+            {
+                StartInteraction(_startInteraction);
+            }
         }
         
         public void Enter(Interactable interactable)
@@ -47,6 +63,8 @@ namespace Interactions
                 if (_interactable != null && _interaction == null)
                 {
                     Debug.Log($"Entering {_interactable.name}");
+                    Debug.Log($"Locking player...");
+                    _player.LockPlayer(true);
                     UIManager.Instance.ShowPieMenu(_interactable.Interactions);
                 }
             }
@@ -125,6 +143,9 @@ namespace Interactions
                 {
                     UIManager.Instance.ShowInteractableText(_interactable.Text);
                 }
+                
+                Debug.Log("Unlocking player...");
+                _player.UnlockPlayer();
             }
         }
 
@@ -140,5 +161,6 @@ namespace Interactions
             _listenForOptions = true;
             _activeOptions = options;
         }
+        
     }
 }

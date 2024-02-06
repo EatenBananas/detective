@@ -13,6 +13,7 @@ namespace GraphEditor.Nodes
         private VisualElement _dataContainer;
         private TextField _dialogueTextTextField;
         private ObjectField _dialogueNpcObjectField;
+        private TextField _dialoguePathTextField;
 
         public DialogueNode(string nodeName, Vector2 position) : base(nodeName, position)
         {
@@ -24,6 +25,7 @@ namespace GraphEditor.Nodes
             SetBasicProperties(save);
             _dialogueNpcObjectField.value = save.DialogueNpc;
             _dialogueTextTextField.value = save.DialogueText;
+            _dialoguePathTextField.value = save.DialoguePath;
         }
 
         private void InitializeDataContainer()
@@ -37,15 +39,23 @@ namespace GraphEditor.Nodes
                 label = "NPC"
             };
             
+            _dialoguePathTextField = new TextField()
+            {
+                label = "Path"
+            };
+            _dialoguePathTextField.AddToClassList("ge__textfield");
+            
             _dialogueTextTextField = new TextField()
             {
                 label = "Text",
                 multiline = true
             };
             _dialogueTextTextField.AddToClassList("ge__textfield");
-            
+
+
             _dataContainer.Add(_dialogueNpcObjectField);
             _dataContainer.Add(_dialogueTextTextField);
+            _dataContainer.Add(_dialoguePathTextField);
         }
 
         protected override VisualElement GetDataContainer() => _dataContainer;
@@ -57,6 +67,7 @@ namespace GraphEditor.Nodes
 
             save.DialogueNpc = _dialogueNpcObjectField.value as DialogueNpc;
             save.DialogueText = _dialogueTextTextField.value;
+            save.DialoguePath = _dialoguePathTextField.value;
             
             return save;
         }
@@ -67,6 +78,7 @@ namespace GraphEditor.Nodes
             
             dialogue.DialogueNpc = _dialogueNpcObjectField.value as DialogueNpc;
             dialogue.DialogueText = _dialogueTextTextField.value;
+            dialogue.DialoguePath = _dialoguePathTextField.value;
 
             return dialogue;
 
