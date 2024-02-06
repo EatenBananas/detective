@@ -24,10 +24,18 @@ namespace Interactions
 
         private List<Option> _activeOptions;
         private bool _listenForOptions = false;
+
+        [SerializeField] private StartInteraction _startInteraction;
         
         private void Start()
         {
             Instance = this;
+
+            if (_startInteraction != null)
+            {
+                StartInteraction(_startInteraction);
+            }
+            
         }
         
         public void Enter(Interactable interactable)

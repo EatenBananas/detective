@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222fe16d6b5b40e7a78e353ef4447148, type: 3}
+  m_Name: LevelStartGraph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: LevelStart
+  <Nodes>k__BackingField:
+  - rid: 3446154370399862786
+  - rid: 3446154370399862787
+  <Groups>k__BackingField: []
+  <OldNodeNames>k__BackingField: []
+  <OldGroupNames>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3446154370399862786
+      type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: LevelStart
+        <ID>k__BackingField: 1ff4e0a6-706d-4bb5-9638-95c5ae2e403f
+        <NextNodeID>k__BackingField: 078f0762-f8be-4c96-aba2-863ee22aa700
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 199.2, y: 120}
+        <Description>k__BackingField: Description
+        <Title>k__BackingField: LevelStart
+    - rid: 3446154370399862787
+      type: {class: CutsceneNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Cutscene_1
+        <ID>k__BackingField: 078f0762-f8be-4c96-aba2-863ee22aa700
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 626.4, y: 120}
+        <Description>k__BackingField: Description
+        <Cutscene>k__BackingField: {fileID: 11400000, guid: 54e27797dac1f884483c88d018f18a15, type: 2}
