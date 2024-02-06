@@ -26,16 +26,21 @@ namespace Interactions
         private bool _listenForOptions = false;
 
         [SerializeField] private StartInteraction _startInteraction;
+        [SerializeField] private float _startDelay = 1f;
         
         private void Start()
         {
             Instance = this;
+            StartCoroutine(LateStart());
+        }
 
+        private IEnumerator LateStart()
+        {
+            yield return new WaitForSeconds(_startDelay);
             if (_startInteraction != null)
             {
                 StartInteraction(_startInteraction);
             }
-            
         }
         
         public void Enter(Interactable interactable)
