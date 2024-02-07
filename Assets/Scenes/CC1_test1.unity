@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2158.5266, g: 2261.8967, b: 3283.3052, a: 1}
+  m_IndirectSpecularColor: {r: 2154.8254, g: 2258.7756, b: 3280.8325, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 3bf1a79c7bd2d0c49bef4f56d84e9515, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: f2183a7137a49554884a9b7ed3e9b629, type: 2}
 --- !u!1 &3980187
 GameObject:
   m_ObjectHideFlags: 0
@@ -15906,7 +15906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8150963245857804813, guid: 6e1b44c007e43b748b43f8cd449358a7, type: 3}
       propertyPath: m_SceneBindings.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8150963245857804813, guid: 6e1b44c007e43b748b43f8cd449358a7, type: 3}
       propertyPath: m_SceneBindings.Array.data[8].key
@@ -15916,6 +15916,10 @@ PrefabInstance:
       propertyPath: m_SceneBindings.Array.data[10].key
       value: 
       objectReference: {fileID: -8123668382943217141, guid: 89e6339de5ff4ed4aa8afb6c63d40b4c, type: 2}
+    - target: {fileID: 8150963245857804813, guid: 6e1b44c007e43b748b43f8cd449358a7, type: 3}
+      propertyPath: m_SceneBindings.Array.data[11].key
+      value: 
+      objectReference: {fileID: 5835045317672325564, guid: 89e6339de5ff4ed4aa8afb6c63d40b4c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

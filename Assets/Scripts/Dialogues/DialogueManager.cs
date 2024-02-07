@@ -37,6 +37,7 @@ public class DialogueManager : MonoBehaviour
         {
             StudioEventEmitter emitter = gameObject.AddComponent<StudioEventEmitter>();
             emitter.EventReference = EventReference.Find($"event:/{path}");
+            //emitter.EventReference = FMODUnity.RuntimeManager.PathToEventReference("event:/{path}");
             emitter.Play();
 
             while (emitter.IsPlaying())
