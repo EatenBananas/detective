@@ -70,11 +70,7 @@ namespace Interactions
             }
             else if (_listenForKey && Input.GetKeyDown(_keyCode))
             {
-                // temp here
-                UIManager.Instance.HideDialogue();
-                UIManager.Instance.HideOptions();
-
-                CompleteElement();
+                CloseButtonPressed();
             }
             else if (_listenForOptions)
             {
@@ -88,6 +84,16 @@ namespace Interactions
                     ChooseOption(3);
             }
             
+        }
+
+        public void CloseButtonPressed()
+        {
+            // temp here
+            UIManager.Instance.HideDialogue();
+            UIManager.Instance.HideOptions();
+            UIManager.Instance.CloseButton(false);
+            
+            CompleteElement();
         }
 
         private void ChooseOption(int selection)
@@ -153,6 +159,7 @@ namespace Interactions
         public void ListenForKey(KeyCode keyCode = KeyCode.Escape)
         {
             _listenForKey = true;
+            UIManager.Instance.CloseButton(true);
             _keyCode = keyCode;
         }
 

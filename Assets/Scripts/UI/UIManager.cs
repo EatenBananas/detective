@@ -38,6 +38,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private PieMenu _pieMenu;
 
     [Header("Esc menu")] [SerializeField] private GameObject _escapeMenu;
+    [Header("Other")] [SerializeField] private Button _closeButton;
     
     private bool _eqFolded = false;
     
@@ -65,6 +66,8 @@ public class UIManager : MonoBehaviour
 
         FoldEqButtonClicked(); // hide on start
         _escapeMenu.SetActive(false);
+        _closeButton.gameObject.SetActive(false);
+        _closeButton.onClick.AddListener(InteractionManager.Instance.CloseButtonPressed);
     }
 
     private void Update()
@@ -181,5 +184,10 @@ public class UIManager : MonoBehaviour
         _interactableText.gameObject.transform.position = position;
         
         _eqFolded = !_eqFolded;
+    }
+
+    public void CloseButton(bool active)
+    {
+        _closeButton.gameObject.SetActive(active);
     }
 }
