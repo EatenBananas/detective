@@ -37,6 +37,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _pieMenuPanel;
     [SerializeField] private PieMenu _pieMenu;
 
+    [Header("Esc menu")] [SerializeField] private GameObject _escapeMenu;
+    
     private bool _eqFolded = false;
     
     private void Awake()
@@ -62,8 +64,17 @@ public class UIManager : MonoBehaviour
         _foldEqButton.onClick.AddListener(FoldEqButtonClicked);
 
         FoldEqButtonClicked(); // hide on start
+        _escapeMenu.SetActive(false);
     }
-    
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _escapeMenu.SetActive(true);
+        }
+    }
+
     public void ShowInteractableText(string text)
     {
         _interactableText.text = text;
