@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e0b89af67c19c994fa38e5a10c1dcd48
+guid: e8374fbac485d174eb942a2b98674a1b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -17,7 +17,9 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Inbetween bone
+      rotation in copied configuration does not match rotation in animation file:\n\t'JerryT_03:LeftFingerBase'
+      : rotation error = 18.698393 deg\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'working' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
@@ -27,7 +29,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -39,8 +41,8 @@ ModelImporter:
       name: working
       takeName: working
       internalID: -3406108324312276562
-      firstFrame: 1
-      lastFrame: 3050
+      firstFrame: 0
+      lastFrame: 1525
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -63,7 +65,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0.59999996
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -1127,11 +1129,11 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: e0b89af67c19c994fa38e5a10c1dcd48, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
