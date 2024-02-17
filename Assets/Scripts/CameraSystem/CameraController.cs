@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cinemachine;
 using GameInputSystem;
@@ -9,18 +10,53 @@ using Camera = UnityEngine.Camera;
 
 namespace CameraSystem
 {
+    public enum CameraMode
+    {
+        Free,
+        FollowTarget
+    }
+    
     public class CameraController : MonoBehaviour
     {
+        public CameraMode CameraMode
+        {
+            get => _cameraMode;
+            set => _cameraMode = value;
+        }
+
+        public Transform FollowTarget
+        {
+            get => _followTarget;
+            set
+            {
+                _followTarget = value;
+                _vCam.Follow = _followTarget;
+            }
+        }
+        
+        public Transform LookAtTarget
+        {
+            get => _lookAtTarget;
+            set
+            {
+                _lookAtTarget = value;
+                _vCam.LookAt = _lookAtTarget;
+            }
+        }
+        
         #region Inspector Fields
-        
+     
+        [SerializeField] private CameraMode _cameraMode;
+        [SerializeField] private Transform _followTarget;
+        [SerializeField] private Transform _lookAtTarget;
         [SerializeField] private float _cameraSpeed = 10f;
+        [SerializeField] private bool _followPlayerOnStart;
         
-        [Header("FreeMode")]
-        [SerializeField] private CinemachineVirtualCamera _freeVCam;
+        [Header("Cinemachine")]
+        [SerializeField] private CinemachineVirtualCamera _vCam;
         [SerializeField] private CinemachineInputProvider _freeVCamInputProvider;
-        
-        [Header("FollowTargetMode")]
-        [SerializeField] private CinemachineVirtualCamera _followTargetVCam;
+        [SerializeField] private Transform _defFollowTarget;
+        [SerializeField] private Transform _defLookAtTarget;
 
         #endregion
         
@@ -33,15 +69,41 @@ namespace CameraSystem
         #endregion
 
         #region Unity Lifecycle
-        
+
+        private void Awake()
+        {
+            switch (CameraMode)
+            {
+                case CameraMode.Free:
+                    FollowTarget = _defFollowTarget;
+                    LookAtTarget = _defLookAtTarget;
+                    break;
+                case CameraMode.FollowTarget:
+                    FollowTarget = _followTarget;
+                    LookAtTarget = _lookAtTarget;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            if (_followPlayerOnStart)
+            {
+                CameraMode = CameraMode.FollowTarget;
+                var playerTransform = _player.transform;
+                FollowTarget = playerTransform;
+                LookAtTarget = playerTransform;
+                MoveCameraToPosition(playerTransform.position);
+            }
+        }
+
         private void OnEnable()
         {
             _inputManager.Input.CameraController.Map.EnableInputActionMap();
             
-            _inputManager.Input.CameraController.Move.performed += OnPlayerMove;
-            _inputManager.Input.CameraController.Rotation.started += OnPlayerStartRotatingCamera;
-            _inputManager.Input.CameraController.Rotation.canceled += OnPlayerStopRotatingCamera;
-            _inputManager.Input.CameraController.FindPlayer.performed += OnPlayerLookingForPlayer;
+            _inputManager.Input.CameraController.Move.performed += OnMove;
+            _inputManager.Input.CameraController.Rotation.started += OnRotationStart;
+            _inputManager.Input.CameraController.Rotation.canceled += OnRotationCancel;
+            _inputManager.Input.CameraController.FindPlayer.performed += OnFindPlayer;
             _inputManager.Input.CameraController.Zoom.performed += OnZoom;
             
             ResetFieldOfView();
@@ -51,10 +113,10 @@ namespace CameraSystem
         {
             _inputManager.Input.CameraController.Map.DisableInputActionMap();
             
-            _inputManager.Input.CameraController.Move.performed -= OnPlayerMove;
-            _inputManager.Input.CameraController.Rotation.started -= OnPlayerStartRotatingCamera;
-            _inputManager.Input.CameraController.Rotation.canceled -= OnPlayerStopRotatingCamera;
-            _inputManager.Input.CameraController.FindPlayer.performed -= OnPlayerLookingForPlayer;
+            _inputManager.Input.CameraController.Move.performed -= OnMove;
+            _inputManager.Input.CameraController.Rotation.started -= OnRotationStart;
+            _inputManager.Input.CameraController.Rotation.canceled -= OnRotationCancel;
+            _inputManager.Input.CameraController.FindPlayer.performed -= OnFindPlayer;
             _inputManager.Input.CameraController.Zoom.performed -= OnZoom;
             
             ResetFieldOfView();
@@ -62,43 +124,62 @@ namespace CameraSystem
         
         private void Update()
         {
-            if (_freeVCam.Priority >= 1)
-                CameraFreeModeMovement();
+            switch (CameraMode)
+            {
+                case CameraMode.Free:
+                    CameraFreeModeMovement();
+                    break;
+                case CameraMode.FollowTarget:
+                    _defFollowTarget.position = FollowTarget.position;
+                    _defLookAtTarget.position = LookAtTarget.position;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
         
         #endregion
         
         #region Input Interactions
 
-        private void OnPlayerMove(InputAction.CallbackContext context)
+        private void OnMove(InputAction.CallbackContext context)
         {
-            EnableVCam(_freeVCam);
+            FollowTarget = _defFollowTarget;
+            LookAtTarget = _defLookAtTarget;
+            
+            CameraMode = CameraMode.Free;
         }
         
-        private void OnPlayerLookingForPlayer(InputAction.CallbackContext context)
+        private void OnFindPlayer(InputAction.CallbackContext context)
         {
             switch (context.interaction)
             {
                 case TapInteraction:
                     // Only move camera to player
+                    CameraMode = CameraMode.Free;
+                    FollowTarget = _defFollowTarget;
+                    LookAtTarget = _defLookAtTarget;
                     MoveCameraToPosition(_player.transform.position);
                     break;
                 case MultiTapInteraction:
                     // Bind camera to player
+                    CameraMode = CameraMode.FollowTarget;
                     var playerTransform = _player.transform;
-                    FollowTarget(playerTransform, playerTransform);
+                    FollowTarget = playerTransform;
+                    LookAtTarget = playerTransform;
+                    MoveCameraToPosition(playerTransform.position);
                     break;
             }
         }
         
-        private void OnPlayerStartRotatingCamera(InputAction.CallbackContext context)
+        private void OnRotationStart(InputAction.CallbackContext context)
         {
             _freeVCamInputProvider.enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
         
-        private void OnPlayerStopRotatingCamera(InputAction.CallbackContext context)
+        private void OnRotationCancel(InputAction.CallbackContext context)
         {
             _freeVCamInputProvider.enabled = false;
             Cursor.lockState = CursorLockMode.None;
@@ -106,21 +187,6 @@ namespace CameraSystem
         }
 
         #endregion
-        
-        private void FollowTarget(Transform followTarget, Transform lookAtTarget)
-        {
-            EnableVCam(_followTargetVCam);
-            _followTargetVCam.Follow = followTarget;
-            _followTargetVCam.LookAt = lookAtTarget;
-        }
-        
-        private void EnableVCam(CinemachineVirtualCamera vCamToEnable)
-        {
-            var allVCams = GetAllVCams();
-
-            foreach (var virtualCamera in allVCams) 
-                virtualCamera.Priority = virtualCamera == vCamToEnable ? 1 : 0;
-        }
 
         private void CameraFreeModeMovement()
         {
@@ -153,30 +219,19 @@ namespace CameraSystem
         private void OnZoom(InputAction.CallbackContext context)
         {
             var zoomValue = context.ReadValue<Vector2>().y;
+            
             var isZoomUp = zoomValue > 0;
             var isZoomDown = zoomValue < 0;
 
-            var allVCams = GetAllVCams();
-
             if (isZoomUp)
-                allVCams.ForEach(vCam => vCam.m_Lens.FieldOfView = Mathf.Clamp(vCam.m_Lens.FieldOfView - 5, 30, 100));
+                _vCam.m_Lens.FieldOfView = Mathf.Clamp(_vCam.m_Lens.FieldOfView - 5, 30, 100);
             else if (isZoomDown)
-                allVCams.ForEach(vCam => vCam.m_Lens.FieldOfView = Mathf.Clamp(vCam.m_Lens.FieldOfView + 5, 30, 100));
-        }
-        
-        private List<CinemachineVirtualCamera> GetAllVCams()
-        {
-            return new List<CinemachineVirtualCamera>
-            {
-                _freeVCam,
-                _followTargetVCam
-            };
+                _vCam.m_Lens.FieldOfView = Mathf.Clamp(_vCam.m_Lens.FieldOfView + 5, 30, 100);
         }
         
         private void ResetFieldOfView()
         {
-            var allVCams = GetAllVCams();
-            allVCams.ForEach(vCam => vCam.m_Lens.FieldOfView = 60);
+            _vCam.m_Lens.FieldOfView = 60;
         }
     }
 }
