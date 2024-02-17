@@ -29,15 +29,24 @@ public class DialogueManager : MonoBehaviour
     {
         yield return new WaitForSeconds(_beforePause);
 
-        if (string.IsNullOrEmpty(path))
-        {
-            yield return new WaitForSeconds(_emergencyPause);
-        }
-        else
-        {
+        // if (string.IsNullOrEmpty(path))
+        // {
+        //     yield return new WaitForSeconds(_emergencyPause);
+        // }
+        // else
+        // {
             StudioEventEmitter emitter = gameObject.AddComponent<StudioEventEmitter>();
             //emitter.EventReference = EventReference.Find($"event:/{path}");
-            emitter.EventReference = FMODUnity.RuntimeManager.PathToEventReference($"event:/{path}");
+            RuntimeManager.StudioSystem.getEvent($"event:/{path}", out var description);
+            if (description.isValid())
+            {
+                emitter.EventReference = RuntimeManager.PathToEventReference($"event:/{path}");
+            }
+            else
+            {
+                emitter.EventReference = RuntimeManager.PathToEventReference("event:/Portier/designer");
+            }
+            
             emitter.Play();
 
             while (emitter.IsPlaying())
@@ -46,7 +55,7 @@ public class DialogueManager : MonoBehaviour
             }
         
             Destroy(emitter);
-        }
+        // }
         
         UIManager.Instance.HideDialogue();
         InteractionManager.Instance.CompleteElement();
