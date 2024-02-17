@@ -25,7 +25,7 @@ namespace InteractionSystem
 
         private void OnLookingAtObjectBehindTheMouseChange(GameObject obj)
         {
-            if (obj.TryGetComponent(out IInteraction interaction)) StartInteraction(interaction);
+            if (obj != null && obj.TryGetComponent(out IInteraction interaction)) StartInteraction(interaction);
             else EndInteraction();
         }
         

@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using ToolTipSystem;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using Zenject;
 
 namespace GameManagers
@@ -12,17 +16,17 @@ namespace GameManagers
         /// <summary>
         /// Invoked when the GameObject that is hit first by a raycast from the camera center to the player changes.
         /// </summary>
-        public Action<GameObject> OnLookingAtPlayerFromCameraCenterChange { get; set; }
-        
+        public event Action<GameObject> OnLookingAtPlayerFromCameraCenterChange;
+
         /// <summary>
         /// Invoked when the GameObject that is hit first by a ray cast from the camera center to the player changes.
         /// </summary>
-        public Action<GameObject[]> OnLookingAtPlayerFromCameraCenterChangeArray { get; set; }
-    
+        public event Action<GameObject[]> OnLookingAtPlayerFromCameraCenterChangeArray;
+
         /// <summary>
         /// Invoked when the GameObject that is behind the mouse cursor changes.
         /// </summary>
-        public Action<GameObject> OnLookingAtObjectBehindTheMouseChange { get; set; }
+        public event Action<GameObject> OnLookingAtObjectBehindTheMouseChange;
 
         #endregion
 
@@ -41,6 +45,7 @@ namespace GameManagers
                 OnLookingAtPlayerFromCameraCenterChange?.Invoke(_lookingAtPlayerFromCameraCenter);
             }
         }
+        
         /// <summary>
         /// Returns the array of GameObjects that is hit first by a raycast from the camera center to the player.
         /// </summary>
@@ -114,9 +119,7 @@ namespace GameManagers
             Physics.Raycast(ray, out var hit, maxDistance);
 
             LookingAtPlayerFromCameraCenterRayCastHit = hit;
-            
-            if (hit.transform is not null) 
-                LookingAtPlayerFromCameraCenter = hit.transform.gameObject;
+            LookingAtPlayerFromCameraCenter = hit.transform == null ? null : hit.transform.gameObject;
         }
         
         private void UpdateLookingAtPlayerFromCameraCenterArray()
@@ -130,20 +133,40 @@ namespace GameManagers
             Physics.SphereCastNonAlloc(ray, 0.5f, hit, maxDistance);
 
             LookingAtPlayerFromCameraCenterArrayRayCastHit = hit;
-            if (hit.Length != 0)
-                LookingAtPlayerFromCameraCenterArray = hit.Select(x => x.transform.gameObject).ToArray();
+            LookingAtPlayerFromCameraCenterArray = hit.Select(x => x.transform.gameObject).ToArray();
         }
     
         private void UpdateLookingAtObjectBehindTheMouse()
         {
-            var ray = _camera.ScreenPointToRay(Input.mousePosition);
-        
+            var hitWorldSpace = new List<GameObject>();
+            var hitScreenSpace = new List<GameObject>();
+            
+            // Get hit objects from world space
+            var ray = _camera.ScreenPointToRay(Mouse.current.position.value);
             Physics.Raycast(ray, out var hit, Mathf.Infinity);
             
+            hitWorldSpace.Add(hit.transform == null ? null : hit.transform.gameObject);
+            
+            
+            // Get hit objects from UI
+            var pointer = new PointerEventData(EventSystem.current)
+            {
+                position = Mouse.current.position.value
+            };
+            
+            var results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointer, results);
+
+            hitScreenSpace.AddRange(results.Where(result => result.gameObject is not null)
+                .Select(result => result.gameObject));
+            
+            
+            // Set
             LookingAtObjectBehindTheMouseRayCastHit = hit;
             
-            if (hit.transform is not null) 
-                LookingAtObjectBehindTheMouse = hit.transform.gameObject;
+            LookingAtObjectBehindTheMouse = hitScreenSpace.Count > 0
+                ? hitScreenSpace.FirstOrDefault(go => go is not null)
+                : hitWorldSpace.FirstOrDefault(go => go is not null);
         }
     }
 }

@@ -44,6 +44,7 @@ namespace GameInputSystem
         public InputAction Move => Map.FindAction("Move");
         public InputAction Rotation => Map.FindAction("Rotation");
         public InputAction FindPlayer => Map.FindAction("FindPlayer");
+        public InputAction Zoom => Map.FindAction("Zoom");
     }
 
     public class Interaction

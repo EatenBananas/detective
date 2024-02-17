@@ -42,7 +42,11 @@ namespace CameraSystem
             _inputManager.Input.CameraController.Rotation.started += OnPlayerStartRotatingCamera;
             _inputManager.Input.CameraController.Rotation.canceled += OnPlayerStopRotatingCamera;
             _inputManager.Input.CameraController.FindPlayer.performed += OnPlayerLookingForPlayer;
+            _inputManager.Input.CameraController.Zoom.performed += OnZoom;
+            
+            ResetFieldOfView();
         }
+        
         private void OnDisable()
         {
             _inputManager.Input.CameraController.Map.DisableInputActionMap();
@@ -51,7 +55,11 @@ namespace CameraSystem
             _inputManager.Input.CameraController.Rotation.started -= OnPlayerStartRotatingCamera;
             _inputManager.Input.CameraController.Rotation.canceled -= OnPlayerStopRotatingCamera;
             _inputManager.Input.CameraController.FindPlayer.performed -= OnPlayerLookingForPlayer;
+            _inputManager.Input.CameraController.Zoom.performed -= OnZoom;
+            
+            ResetFieldOfView();
         }
+        
         private void Update()
         {
             if (_freeVCam.Priority >= 1)
@@ -66,6 +74,7 @@ namespace CameraSystem
         {
             EnableVCam(_freeVCam);
         }
+        
         private void OnPlayerLookingForPlayer(InputAction.CallbackContext context)
         {
             switch (context.interaction)
@@ -81,12 +90,14 @@ namespace CameraSystem
                     break;
             }
         }
+        
         private void OnPlayerStartRotatingCamera(InputAction.CallbackContext context)
         {
             _freeVCamInputProvider.enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+        
         private void OnPlayerStopRotatingCamera(InputAction.CallbackContext context)
         {
             _freeVCamInputProvider.enabled = false;
@@ -102,13 +113,10 @@ namespace CameraSystem
             _followTargetVCam.Follow = followTarget;
             _followTargetVCam.LookAt = lookAtTarget;
         }
+        
         private void EnableVCam(CinemachineVirtualCamera vCamToEnable)
         {
-            var allVCams = new List<CinemachineVirtualCamera>
-            {
-                _freeVCam,
-                _followTargetVCam
-            };
+            var allVCams = GetAllVCams();
 
             foreach (var virtualCamera in allVCams) 
                 virtualCamera.Priority = virtualCamera == vCamToEnable ? 1 : 0;
@@ -136,9 +144,39 @@ namespace CameraSystem
             var cameraMovement = (forwardRelative + rightRelative) * (_cameraSpeed * Time.deltaTime);
             transform.Translate(cameraMovement, Space.World);
         }
+        
         private void MoveCameraToPosition(Vector3 newCameraPosition)
         {
             transform.position = newCameraPosition;
+        }
+
+        private void OnZoom(InputAction.CallbackContext context)
+        {
+            var zoomValue = context.ReadValue<Vector2>().y;
+            var isZoomUp = zoomValue > 0;
+            var isZoomDown = zoomValue < 0;
+
+            var allVCams = GetAllVCams();
+
+            if (isZoomUp)
+                allVCams.ForEach(vCam => vCam.m_Lens.FieldOfView = Mathf.Clamp(vCam.m_Lens.FieldOfView - 5, 30, 100));
+            else if (isZoomDown)
+                allVCams.ForEach(vCam => vCam.m_Lens.FieldOfView = Mathf.Clamp(vCam.m_Lens.FieldOfView + 5, 30, 100));
+        }
+        
+        private List<CinemachineVirtualCamera> GetAllVCams()
+        {
+            return new List<CinemachineVirtualCamera>
+            {
+                _freeVCam,
+                _followTargetVCam
+            };
+        }
+        
+        private void ResetFieldOfView()
+        {
+            var allVCams = GetAllVCams();
+            allVCams.ForEach(vCam => vCam.m_Lens.FieldOfView = 60);
         }
     }
 }

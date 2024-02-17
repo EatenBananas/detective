@@ -1,4 +1,5 @@
-﻿using GameInputSystem;
+﻿using System;
+using GameInputSystem;
 using UnityEngine;
 using Zenject;
 using static UnityEngine.InputSystem.InputAction;
@@ -7,6 +8,8 @@ namespace PlayerSystem
 {
     public class PlayerInput : MonoBehaviour
     {
+        public event Action<RaycastHit> OnMove; 
+        
         [Inject] private Player _player;
         [Inject] private InputManager _inputManager;
         [Inject] private Camera _camera;
@@ -25,14 +28,14 @@ namespace PlayerSystem
         
         private void OnMovePerformed(CallbackContext context)
         {
-            Debug.Log($"OnMovePerformed");
-            
             var mousePosition = _inputManager.Input.Mouse.Position.ReadValue<Vector2>();
             var ray = _camera.ScreenPointToRay(mousePosition);
 
             if (!Physics.Raycast(ray, out var hit)) return;
             
             _player.Movement.SetMovementDestination(hit.point);
+            
+            OnMove?.Invoke(hit);
         }
         
         public void EnableInput()

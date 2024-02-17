@@ -14,28 +14,12 @@ namespace InteractionSystem
 
         public bool CanInteract() => _canInteract;
 
-        public void OnEnter()
-        {
-            Debug.Log($"OnMouseEnter: {gameObject.name}", this);
-            OnMouseEnterEvent?.Invoke();
-        }
+        public void OnEnter() => OnMouseEnterEvent?.Invoke();
 
-        public void OnStay()
-        {
-            Debug.Log($"OnMouseStay: {gameObject.name}", this);
-            OnMouseStayEvent?.Invoke();
-        }
+        public void OnStay() => OnMouseStayEvent?.Invoke();
 
-        public void OnDown()
-        {
-            Debug.Log($"OnMouseDown: {gameObject.name}", this);
-            OnMouseDownEvent?.Invoke();
-        }
+        public void OnDown() => OnMouseDownEvent?.Invoke();
 
-        public void OnExit()
-        {
-            Debug.Log($"OnMouseExit: {gameObject.name}", this);
-            OnMouseExitEvent?.Invoke();
-        }
+        public void OnExit() => OnMouseExitEvent?.Invoke();
     }
 }

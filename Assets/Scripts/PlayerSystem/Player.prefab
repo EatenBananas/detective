@@ -459,7 +459,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 668959854493483407}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3862,6 +3862,7 @@ GameObject:
   - component: {fileID: 4430882984301536182}
   - component: {fileID: 5913668462422607744}
   - component: {fileID: 6971734468310684659}
+  - component: {fileID: 167908264438229058}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3958,7 +3959,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe7e3f86be54cdc48a6c5c6ab4219a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Agent>k__BackingField: {fileID: 8402416479754447201}
   <Input>k__BackingField: {fileID: 5913668462422607744}
   <Movement>k__BackingField: {fileID: 6971734468310684659}
 --- !u!114 &5913668462422607744
@@ -3987,6 +3987,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 4030695426714895985}
   _agent: {fileID: 8402416479754447201}
+--- !u!114 &167908264438229058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818416342922032594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113da002e02775548968c0df49eecdcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clickEffectPrefab: {fileID: 5993039236007497177, guid: 6d7d3d98b17745445ace6a4076e2284d, type: 3}
 --- !u!1 &8822311755059975422
 GameObject:
   m_ObjectHideFlags: 0

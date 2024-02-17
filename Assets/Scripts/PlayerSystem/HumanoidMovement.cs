@@ -21,6 +21,7 @@ namespace PlayerSystem
     {
         public bool IsAgentMoving => _agent.velocity.magnitude > 0.1f;
         public NavMeshAgent Agent => _agent;
+        public Animator Animator => _animator;
 
         [SerializeField] private Animator _animator;
         [SerializeField] private NavMeshAgent _agent;
@@ -42,11 +43,14 @@ namespace PlayerSystem
         {
             _animator.applyRootMotion = true;
             _agent.updatePosition = false;
-            _agent.updateRotation = false;
+            _agent.updateRotation = true;
         }
-        
-        private void Update() => 
-            HandleLocomotion();
+
+        private void Update()
+        {
+            // HandleLocomotion();
+            HandleSimpleLocomotion();
+        }
 
         #endregion
         
@@ -73,6 +77,18 @@ namespace PlayerSystem
         }
 
 
+        private void HandleSimpleLocomotion()
+        {
+            _animator.SetBool(IsMoving, IsAgentMoving);
+            
+            if (!IsAgentMoving) return;
+            
+            var locomotionDirection = CalculateLocomotionDirection(_agent.nextPosition);
+
+            SetLocomotionDirection(locomotionDirection);
+        }
+        
+        
         private void HandleLocomotion()
         {
             _animator.SetBool(IsMoving, IsAgentMoving);
