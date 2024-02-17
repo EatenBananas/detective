@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222fe16d6b5b40e7a78e353ef4447148, type: 3}
+  m_Name: StarisDownGraph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: StarisDown
+  <Nodes>k__BackingField:
+  - rid: 3446154480851091482
+  - rid: 3446154480851091483
+  <Groups>k__BackingField: []
+  <OldNodeNames>k__BackingField: []
+  <OldGroupNames>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3446154480851091482
+      type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: StairsDown
+        <ID>k__BackingField: 830b0d69-59a8-4388-8eb4-4b6d2ff719be
+        <NextNodeID>k__BackingField: ba03d9e5-4d01-4c14-9e8e-0512c96079e9
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 177.59999, y: 112}
+        <Description>k__BackingField: Description
+        <Title>k__BackingField: StairsDown
+    - rid: 3446154480851091483
+      type: {class: TeleportNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Teleport_1
+        <ID>k__BackingField: ba03d9e5-4d01-4c14-9e8e-0512c96079e9
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 611.2, y: 112}
+        <Description>k__BackingField: Description
+        <Location>k__BackingField: {fileID: 11400000, guid: f24c2d80d79ac3a4bb3f18bc7f0ca455, type: 2}
