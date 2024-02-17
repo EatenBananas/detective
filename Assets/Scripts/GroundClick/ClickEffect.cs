@@ -1,3 +1,4 @@
+using ObjectPoolingSystem;
 using PlayerSystem;
 using UnityEngine;
 using Zenject;
@@ -9,6 +10,7 @@ namespace GroundClick
         [SerializeField] private ParticleSystem _clickEffectPrefab;
         
         [Inject] private Player _player;
+        [Inject] private ObjectPoolingManager _objectPoolingManager;
 
         private void OnEnable()
         {
@@ -22,7 +24,9 @@ namespace GroundClick
         
         private void OnPlayerMove(RaycastHit hit)
         {
-            Instantiate(_clickEffectPrefab, hit.point, Quaternion.identity);
+            var clickEffect = _objectPoolingManager.GetFromPool(_clickEffectPrefab.gameObject);
+            clickEffect.transform.position = hit.point;
+            clickEffect.SetActive(true);
         }
     }
 }

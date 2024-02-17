@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -6,8 +7,8 @@ namespace ObjectPoolingSystem
 {
     public class ObjectPoolingManager : SerializedMonoBehaviour
     {
-        [ShowInInspector] public Dictionary<GameObject, int> PoolStructure { get; private set; } = new();
-        [ShowInInspector] public Dictionary<GameObject, List<ObjectClone>> PooledObjects { get; private set; } = new();
+        [ShowInInspector] public Dictionary<GameObject, int> PoolStructure;
+        [ShowInInspector] public Dictionary<GameObject, List<ObjectClone>> PooledObjects;
         
         [Button]
         private void ResetPool()
@@ -30,8 +31,8 @@ namespace ObjectPoolingSystem
         {
             PooledObjects.Clear();
             
-            foreach (Transform t in transform) 
-                DestroyImmediate(t.gameObject);
+            for(var i = transform.childCount - 1; i >= 0; i--) 
+                DestroyImmediate(transform.GetChild(i).gameObject);
         }
 
         private static List<ObjectClone> CreateObjects(GameObject prefab, int amount, Transform parent)
@@ -58,7 +59,7 @@ namespace ObjectPoolingSystem
             return clone.GetComponent<ObjectClone>();
         }
 
-        public void ReturnToPool<T>(T obj) where T : MonoBehaviour
+        public void ReturnToPool(ObjectClone obj)
         {
             if (!PooledObjects.ContainsKey(obj.gameObject)) return;
             if (!obj.TryGetComponent(out ObjectClone clone)) return;
@@ -70,28 +71,20 @@ namespace ObjectPoolingSystem
                 clone.gameObject.SetActive(false);
         }
         
-        public T GetFromPool<T>(T prefab) where T : MonoBehaviour
+        public GameObject GetFromPool(GameObject prefab)
         {
-            var lookingFor = prefab.gameObject;
+            if (!PooledObjects.ContainsKey(prefab)) return null;
             
-            if (!PooledObjects.ContainsKey(lookingFor)) return null;
+            var findObjects = PooledObjects[prefab];
             
-            var findObjects = PooledObjects[lookingFor];
-            
-            foreach (var obj in findObjects)
-            {
-                if (obj.gameObject.activeSelf) continue;
-                
-                obj.gameObject.SetActive(true);
+            foreach (var obj in findObjects.Where(obj => !obj.gameObject.activeSelf))
+                return obj.gameObject;
 
-                return obj.GetComponent<T>();
-            }
+            var newObject = CreateObject(prefab, transform);
+            
+            PooledObjects[prefab].Add(newObject.GetComponent<ObjectClone>());
 
-            var newObject = CreateObject(lookingFor, transform);
-            
-            PooledObjects[lookingFor].Add(newObject.GetComponent<ObjectClone>());
-            
-            return newObject.GetComponent<T>();
+            return newObject.gameObject;
         }
     }
 }
