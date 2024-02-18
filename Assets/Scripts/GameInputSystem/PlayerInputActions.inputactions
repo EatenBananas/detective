@@ -6,12 +6,21 @@
             "id": "62de46b0-ea04-4123-8230-68da2ff54011",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "Walk",
                     "type": "Button",
                     "id": "beb68787-fac7-49e1-afaa-6951f419585a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "dc833046-274a-4574-9259-d4f5b56290c0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "MultiTap",
                     "initialStateCheck": false
                 },
                 {
@@ -32,7 +41,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -44,6 +53,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Sneak",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0bc7db4a-b85b-4404-8b37-b61e7a118e1a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -602,7 +622,7 @@
                     "id": "42c56bb8-6775-4359-81ca-92ec64fd327f",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "MultiTap,Tap",
                     "initialStateCheck": false
                 },
                 {
@@ -686,7 +706,7 @@
                     "name": "",
                     "id": "4c224f34-c39a-47ec-807f-fe3b870587e8",
                     "path": "<Keyboard>/space",
-                    "interactions": "Tap,MultiTap",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "FindPlayer",

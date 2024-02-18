@@ -24,7 +24,7 @@ namespace AnimationInteractions
         {
             _canPlayAnimation = false;
             
-            _inputManager.Input.PlayerController.Move.DisableInputAction();
+            _inputManager.Input.PlayerController.Walk.DisableInputAction();
             
             _player.Movement.SetMovementDestination(_startPoint.position);
 
@@ -32,7 +32,7 @@ namespace AnimationInteractions
             
             _player.Movement.Animator.Play(_animationName);
             
-            _inputManager.Input.PlayerController.Move.EnableInputAction();
+            _inputManager.Input.PlayerController.Walk.EnableInputAction();
 
             _canPlayAnimation = true;
         }
