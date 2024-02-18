@@ -154,8 +154,9 @@ public class UIManager : MonoBehaviour
         EquipmentManager.Instance.ReloadEquipment();
     }
 
-    public void ShowPieMenu(List<PieMenuOption> options)
+    public void ShowPieMenu(List<PieMenuOption> options, Transform position)
     {
+        _pieMenu.SetPosition(position);
         _pieMenu.Show(options);
         _pieMenuPanel.SetActive(true);
         HideEquipment();

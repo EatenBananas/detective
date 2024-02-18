@@ -65,7 +65,7 @@ namespace Interactions
                     Debug.Log($"Entering {_interactable.name}");
                     Debug.Log($"Locking player...");
                     _player.LockPlayer(true);
-                    UIManager.Instance.ShowPieMenu(_interactable.Interactions);
+                    UIManager.Instance.ShowPieMenu(_interactable.Interactions, _interactable.gameObject.transform);
                 }
             }
             else if (_listenForKey && Input.GetKeyDown(_keyCode))

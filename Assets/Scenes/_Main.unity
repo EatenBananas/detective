@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2158.5266, g: 2261.8967, b: 3283.3052, a: 1}
+  m_IndirectSpecularColor: {r: 2157.9436, g: 2259.3362, b: 3116.813, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1262,6 +1262,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 6115f59a53cb2cc43a0c1cbf5c830805, type: 3}
+    - target: {fileID: 1024609360747187608, guid: 72c9eea3087505b4796ae2df810c70ec, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.325
+      objectReference: {fileID: 0}
+    - target: {fileID: 1024609360747187608, guid: 72c9eea3087505b4796ae2df810c70ec, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.325
+      objectReference: {fileID: 0}
+    - target: {fileID: 1024609360747187608, guid: 72c9eea3087505b4796ae2df810c70ec, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1024609360747187609, guid: 72c9eea3087505b4796ae2df810c70ec, type: 3}
       propertyPath: _radius
       value: 325
@@ -4615,7 +4627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372975484689, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.38268343
+      value: 0.38268346
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372975484689, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalRotation.y
@@ -4623,7 +4635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372975484689, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000029802322
+      value: 0.000000014901161
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5634,11 +5646,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 1216051611
-      Data2: 1130827215
-      Data3: 172844694
-      Data4: 1474910369
-    Path: event:/Portier/2
+      Data1: 444358334
+      Data2: 1212068875
+      Data3: -1802387577
+      Data4: -1935721286
+    Path: event:/Portier/designer
   Event: 
   PlayEvent: 0
   StopEvent: 0

@@ -23,6 +23,13 @@ namespace UI
         [SerializeField] private Image _tinyCircle;
         [SerializeField] private float _tinyCircleRadius = 60f;
 
+        private Transform _target;
+        
+        public void SetPosition(Transform position)
+        {
+            _target = position;
+        }
+        
         public void Show(List<PieMenuOption> options)
         {
             _options = options;
@@ -112,12 +119,20 @@ namespace UI
         private void Update()
         {
             var mousePos = Input.mousePosition;
-            var angleInRadians = Mathf.Atan2(mousePos.y - Screen.height / 2f, mousePos.x - Screen.width / 2f);
+            Vector3 objectPos = gameObject.transform.position;//Camera.main.WorldToScreenPoint(gameObject.transform.position);
+
+             float angleInRadians = Mathf.Atan2(mousePos.y - objectPos.y, mousePos.x - objectPos.x);
+
             
             float x = _tinyCircleRadius * Mathf.Cos(angleInRadians);
             float y = _tinyCircleRadius * Mathf.Sin(angleInRadians);
 
             _tinyCircle.rectTransform.localPosition = new Vector3(x, y, 0f);
+
+            if (_target != null)
+            {
+                gameObject.transform.position = Camera.main.WorldToScreenPoint(_target.position);
+            }
         }
 
         private void Select(StartInteraction interaction)
