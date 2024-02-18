@@ -1676,40 +1676,104 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 8233361321182253101, guid: 17f77f018d554cc43bb4f60f3199e00b, type: 3}
-    m_Threshold: 0.104166664
+    m_Threshold: 0.025462963
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: vertical
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -8982212927557593617, guid: 91b5ffbdecdf27847bcb6ec3fefd6bf7, type: 3}
-    m_Threshold: 0.20833333
-    m_Position: {x: -1, y: 0}
+    m_Motion: {fileID: -6449806710640149139, guid: 57eca898a3e41f9448abb984409161e7, type: 3}
+    m_Threshold: 0.050925925
+    m_Position: {x: 0, y: -1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: vertical
     m_Mirror: 0
   - serializedVersion: 2
+    m_Motion: {fileID: -4505303732373725554, guid: f47f84de75e926e4f837b663ed362266, type: 3}
+    m_Threshold: 0.07638889
+    m_Position: {x: 0, y: 2}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: locomotionHorizontal
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -7669633765516742741, guid: 2a8428868da819947993e357c38e3e1e, type: 3}
+    m_Threshold: 0.10185185
+    m_Position: {x: 0, y: -2}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: locomotionHorizontal
+    m_Mirror: 0
+  - serializedVersion: 2
     m_Motion: {fileID: 60098651115285055, guid: 5c72fe3eb1bafd943a51cecb04eb65f7, type: 3}
-    m_Threshold: 0.3125
+    m_Threshold: 0.1273148
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: vertical
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -6449806710640149139, guid: 57eca898a3e41f9448abb984409161e7, type: 3}
-    m_Threshold: 0.41666666
-    m_Position: {x: 0, y: -1}
+    m_Motion: {fileID: -3662356153511370852, guid: b6e1f008d93e5d84dbb0324ff7a669cb, type: 3}
+    m_Threshold: 0.15277778
+    m_Position: {x: 1.41, y: 1.41}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: locomotionHorizontal
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7733746656009716862, guid: b03ab5d7b915e0d48837240ebd4f43a0, type: 3}
+    m_Threshold: 0.17824073
+    m_Position: {x: 1.41, y: -1.41}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: locomotionHorizontal
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 3763230759513329857, guid: 05e16364dbfb5f44e84c6df0d0049dbd, type: 3}
+    m_Threshold: 0.2037037
+    m_Position: {x: 2, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: locomotionHorizontal
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -8982212927557593617, guid: 91b5ffbdecdf27847bcb6ec3fefd6bf7, type: 3}
+    m_Threshold: 0.22916666
+    m_Position: {x: -1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: vertical
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -5902729183880134126, guid: 82f77c1a2d4ae5640ae939fced9d2b94, type: 3}
+    m_Threshold: 0.2546296
+    m_Position: {x: -1.41, y: 1.41}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: locomotionHorizontal
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 8318609249647458181, guid: 3e6d437029b853445927bf4f3daac83c, type: 3}
+    m_Threshold: 0.2800926
+    m_Position: {x: -1.41, y: -1.41}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: locomotionHorizontal
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -3088295657699836889, guid: 7910b5927bd3ead48872a5174d1292ca, type: 3}
+    m_Threshold: 0.30555555
+    m_Position: {x: -2, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: locomotionHorizontal
+    m_Mirror: 0
   m_BlendParameter: locomotionHorizontal
   m_BlendParameterY: locomotionVertical
   m_MinThreshold: 0
-  m_MaxThreshold: 0.41666666
+  m_MaxThreshold: 0.30555555
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 2

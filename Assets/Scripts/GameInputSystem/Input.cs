@@ -28,7 +28,8 @@ namespace GameInputSystem
             Map = map;
         }
         
-        public InputAction Move => Map.FindAction("Move");
+        public InputAction Walk => Map.FindAction("Walk");
+        public InputAction Sprint => Map.FindAction("Sprint");
         public InputAction Sneak => Map.FindAction("Sneak");
     }
     

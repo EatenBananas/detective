@@ -6,36 +6,24 @@ using UnityEngine.AI;
 
 namespace PlayerSystem
 {
-    public enum LocomotionState
-    {
-        None,
-        StartingStart,
-        StartingEnd,
-        WalkingStart,
-        WalkingEnd,
-        StoppingStart,
-        StoppingEnd,
-    }
-    
     public class HumanoidMovement : MonoBehaviour   
     {
         public bool IsAgentMoving => _agent.velocity.magnitude > 0.1f;
         public NavMeshAgent Agent => _agent;
         public Animator Animator => _animator;
 
+        public bool IsRunning;
+        
         [SerializeField] private Animator _animator;
         [SerializeField] private NavMeshAgent _agent;
 
         private Vector2 _smoothDeltaPosition;
         private Vector2 _velocity;
-        private LocomotionState _locomotionState = LocomotionState.None;
-        private bool _doOnceLocomotionStart;
-        private bool _doOnceLocomotionEnd;
         
-        private static readonly int IsMoving = Animator.StringToHash("isMoving");
-        private static readonly int LocomotionHorizontal = Animator.StringToHash("locomotionHorizontal");
-        private static readonly int LocomotionVertical = Animator.StringToHash("locomotionVertical");
-        private static readonly int IsLeftFoot = Animator.StringToHash("isLeftFoot");
+        private static readonly int _isMoving = Animator.StringToHash("isMoving");
+        private static readonly int _locomotionHorizontal = Animator.StringToHash("locomotionHorizontal");
+        private static readonly int _locomotionVertical = Animator.StringToHash("locomotionVertical");
+        private static readonly int _isLeftFoot = Animator.StringToHash("isLeftFoot");
 
         #region Unity Lifecycle
 
@@ -57,9 +45,6 @@ namespace PlayerSystem
         public void SetMovementDestination(Vector3 destination)
         {
             _agent.SetDestination(destination);
-            
-            _doOnceLocomotionStart = false;
-            _doOnceLocomotionEnd = false;
         }
 
         private void OnAnimatorMove()
@@ -75,11 +60,10 @@ namespace PlayerSystem
             
             _agent.nextPosition = animatorRootPosition;
         }
-
-
+        
         private void HandleSimpleLocomotion()
         {
-            _animator.SetBool(IsMoving, IsAgentMoving);
+            _animator.SetBool(_isMoving, IsAgentMoving);
             
             if (!IsAgentMoving) return;
             
@@ -87,65 +71,6 @@ namespace PlayerSystem
 
             SetLocomotionDirection(locomotionDirection);
         }
-        
-        
-        private void HandleLocomotion()
-        {
-            _animator.SetBool(IsMoving, IsAgentMoving);
-            if (!IsAgentMoving) return;
-            
-            switch (_locomotionState)
-            {
-                case LocomotionState.None:
-                    break;
-                case LocomotionState.StartingStart:
-                    LocomotionStart();
-                    break;
-                case LocomotionState.StartingEnd:
-                    break;
-                case LocomotionState.WalkingStart:
-                    LocomotionIn();
-                    break;
-                case LocomotionState.WalkingEnd:
-                    break;
-                case LocomotionState.StoppingStart:
-                    LocomotionEnd();
-                    break;
-                case LocomotionState.StoppingEnd:
-                    break;
-                default:
-                    return;
-            }
-        }
-        private void LocomotionStart()
-        {
-            if (_doOnceLocomotionStart) return;
-            if (_agent.path.corners.Length < 2) return;
-            
-            var locomotionDirection = CalculateLocomotionDirection(_agent.nextPosition);
-
-            SetLocomotionDirection(locomotionDirection);
-            _doOnceLocomotionStart = true;
-        }
-        private void LocomotionIn()
-        {
-            if (_agent.path.corners.Length < 2) return;
-            
-            var locomotionDirection = CalculateLocomotionDirection(_agent.nextPosition);
-
-            SetLocomotionDirection(locomotionDirection);
-        }
-        private void LocomotionEnd()
-        {
-            if (_doOnceLocomotionEnd) return;
-            if (_agent.path.corners.Length < 2) return;
-            
-            var locomotionDirection = CalculateLocomotionDirection(_agent.nextPosition);
-            
-            SetLocomotionDirection(locomotionDirection);
-            _doOnceLocomotionEnd = true;
-        }
-        
 
         private Vector2 CalculateLocomotionDirection(Vector3 targetPosition)
         {
@@ -162,13 +87,15 @@ namespace PlayerSystem
         
         private void SetLocomotionDirection(Vector2 direction)
         {
-            _animator.SetFloat(LocomotionHorizontal, direction.x);
-            _animator.SetFloat(LocomotionVertical, direction.y);
+            if (IsRunning) direction *= 2;
+            
+            _animator.SetFloat(_locomotionHorizontal, direction.x);
+            _animator.SetFloat(_locomotionVertical, direction.y);
         }
 
         private void OnLocomotionStateChange(string state)
         {
-            _locomotionState = (LocomotionState)Enum.Parse(typeof(LocomotionState), state);
+            
         }
         
         private void LegToStopWalk(string upperLeg)
@@ -176,10 +103,10 @@ namespace PlayerSystem
             switch (upperLeg)
             {
                 case "Left":
-                    _animator.SetBool(IsLeftFoot, true);
+                    _animator.SetBool(_isLeftFoot, true);
                     break;
                 case "Right":
-                    _animator.SetBool(IsLeftFoot, false);
+                    _animator.SetBool(_isLeftFoot, false);
                     break;
                 default:
                     return;

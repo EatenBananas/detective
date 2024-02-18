@@ -22,7 +22,7 @@ namespace AnimationInteractions
 
         private async void HandleInteraction()
         {
-            _inputManager.Input.PlayerController.Move.DisableInputAction();
+            _inputManager.Input.PlayerController.Walk.DisableInputAction();
             
             _canPlayAnimation = false;
             
@@ -38,7 +38,7 @@ namespace AnimationInteractions
             
             InitCancel();
             
-            _inputManager.Input.PlayerController.Move.EnableInputAction();
+            _inputManager.Input.PlayerController.Walk.EnableInputAction();
         }
 
         private void Cancel(CallbackContext callbackContext)
@@ -50,12 +50,12 @@ namespace AnimationInteractions
 
         private void InitCancel()
         {
-            _inputManager.Input.PlayerController.Move.performed += Cancel;
+            _inputManager.Input.PlayerController.Walk.performed += Cancel;
         }
 
         private void DeInitCancel()
         {
-            _inputManager.Input.PlayerController.Move.performed -= Cancel;
+            _inputManager.Input.PlayerController.Walk.performed -= Cancel;
         }
 
         #region IToolTip
