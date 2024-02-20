@@ -58,7 +58,7 @@ namespace Interactions
         public void Update()
         {
             // todo: input handling logic should be moved somewhere else
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 if (_interactable != null && _interaction == null)
                 {

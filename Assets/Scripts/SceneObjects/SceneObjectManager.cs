@@ -20,6 +20,8 @@ namespace SceneObjects
         private Dictionary<SceneReference, PlayableDirector> _cutscenes = new();
         
         [field: SerializeField] private Player _playerMovement;
+
+        private PlayableDirector _activeCutscene;
         
         private void Awake()
         {
@@ -85,11 +87,27 @@ namespace SceneObjects
 
         public void PlayCutscene(SceneReference cutscene)
         {
+            if (_activeCutscene != null)
+            {
+                _activeCutscene.Stop();
+                _activeCutscene.gameObject.SetActive(false);
+                _activeCutscene = null;
+            }
+            
             var clip = _cutscenes[cutscene];
             clip.gameObject.SetActive(true);
             clip.Play();
-            clip.stopped += director => InteractionManager.Instance.CompleteElement();
-            clip.stopped += director => clip.gameObject.SetActive(false);
+
+            if (clip.extrapolationMode == DirectorWrapMode.Loop)
+            {
+                _activeCutscene = clip;
+                InteractionManager.Instance.CompleteElement();
+            }
+            else
+            {
+                clip.stopped += director => clip.gameObject.SetActive(false);
+                clip.stopped += director => InteractionManager.Instance.CompleteElement();
+            }
         }
     }
 }
