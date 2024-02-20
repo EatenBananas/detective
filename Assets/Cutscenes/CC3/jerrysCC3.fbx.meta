@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5fc27cda42c850c43865d4d761bb8d2f
+guid: dd984886be0c25d439c60ec2ee416c99
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -19,7 +19,17 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Jerry_Noticed_MartinV1_001_FBX' has import
+      animation warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'JerryT_03:LeftLeg' has translation
+      animation that will be discarded.\n\t'JerryT_03:RightLeg' has translation animation
+      that will be discarded.\n\t'JerryT_03:RightForeArm' has translation animation
+      that will be discarded.\n\nClip 'Jerry_Noticed_MartinV2_001_FBX' has import
+      animation warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'JerryT_03:LeftLeg' has translation
+      animation that will be discarded.\n\t'JerryT_03:RightLeg' has translation animation
+      that will be discarded.\n\t'JerryT_03:RightForeArm' has translation animation
+      that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -33,11 +43,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: DoorCycle_Jerry_001_FBX
-      takeName: OpenDoor_Jerry_001_FBX
-      internalID: 4250097941592639984
-      firstFrame: 1132
-      lastFrame: 1480
+      name: Jerry_Noticed_MartinV1_001_FBX
+      takeName: Jerry_Noticed_MartinV1_001_FBX
+      internalID: -2755068436158889247
+      firstFrame: 1946
+      lastFrame: 2176
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -60,13 +70,13 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1946
     - serializedVersion: 16
-      name: OpenDoor_Jerry
-      takeName: OpenDoor_Jerry_001_FBX
-      internalID: -3203974161757798595
-      firstFrame: 1132
-      lastFrame: 1480
+      name: Jerry_Noticed_MartinV2_001_FBX
+      takeName: Jerry_Noticed_MartinV2_001_FBX
+      internalID: -2689935540918642033
+      firstFrame: 3300
+      lastFrame: 3560
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -89,65 +99,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: CloseDoors_Jerry
-      takeName: OpenDoor_Jerry_001_FBX
-      internalID: 1801181346764545477
-      firstFrame: 1380
-      lastFrame: 1480
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 1
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: OpenedLoop
-      takeName: OpenDoor_Jerry_001_FBX
-      internalID: 8685547800078558861
-      firstFrame: 1350
-      lastFrame: 1380
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 1
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 3300
     isReadable: 0
   meshes:
     lODScreenPercentages: []
