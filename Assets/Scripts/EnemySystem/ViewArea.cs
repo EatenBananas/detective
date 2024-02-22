@@ -23,8 +23,6 @@ namespace EnemySystem
         private void Update()
         {
             FindVictim();
-
-            Debug.Log(CanSeeVictim ? "Enemy detect victim" : "Enemy can't see eny victim");
         }
 
         private void FindVictim()

@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using InteractionSystem;
 using PlayerSystem;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEditor;
 using UnityEngine;
 using static UnityEngine.Vector3;
@@ -15,12 +17,9 @@ namespace EnemySystem
         InstantlyGoToNextWaypoint,
         WalkTo,
         Wait,
-        NOT_IMPLEMENTED_LookAt,
-        NOT_IMPLEMENTED_PlayAnimation,
-        NOT_IMPLEMENTED_PlaySound,
-        NOT_IMPLEMENTED_SpawnObject,
-        NOT_IMPLEMENTED_DestroyObject,
-        NOT_IMPLEMENTED_DestroySelf,
+        PlayAnimation,
+        SetAnimationTrigger,
+        ResetAnimationTrigger
     }
     
     [Serializable]
@@ -34,20 +33,21 @@ namespace EnemySystem
         [ShowIf("ActionType", WaypointActionType.Wait)]
         public float WaitTime;
 
-        [ShowIf("ActionType", WaypointActionType.NOT_IMPLEMENTED_LookAt)]
-        public Transform LookAtTarget;
+        [ShowIf(nameof(canShowAnimator))]
+        public Animator Animator;
+        
+        [ShowIf("ActionType", WaypointActionType.PlayAnimation)]
+        public string AnimationName;
 
-        [ShowIf("ActionType", WaypointActionType.NOT_IMPLEMENTED_PlayAnimation)]
-        public AnimationClip Animation;
+        [ShowIf(nameof(canShowTriggerName))]
+        public string TriggerName;
 
-        [ShowIf("ActionType", WaypointActionType.NOT_IMPLEMENTED_PlaySound)]
-        public AudioClip Sound;
 
-        [ShowIf("ActionType", WaypointActionType.NOT_IMPLEMENTED_SpawnObject)]
-        public GameObject ObjectPrefab;
-
-        [ShowIf("ActionType", WaypointActionType.NOT_IMPLEMENTED_DestroyObject)]
-        public GameObject ObjectToDestroy;
+        private bool canShowAnimator => ActionType is WaypointActionType.PlayAnimation
+            or WaypointActionType.SetAnimationTrigger or WaypointActionType.ResetAnimationTrigger;
+        
+        private bool canShowTriggerName => ActionType is WaypointActionType.SetAnimationTrigger
+            or WaypointActionType.ResetAnimationTrigger;
     }
 
     [Serializable]
@@ -62,9 +62,9 @@ namespace EnemySystem
     {
         [SerializeField] private HumanoidMovement _movement;
         [SerializeField] private float _distanceToSwitchWaypoint;
+        [SerializeField] private bool _looping;
         [SerializeField] private List<Waypoint> _waypoints;
 
-        private int _currentWaypointIndex;
         private bool _isActionPending;
 
         #region Unity Lifecycle
@@ -92,33 +92,27 @@ namespace EnemySystem
 
         private void Start()
         {
-            _currentWaypointIndex = GetClosestWaypointIndex();
             InitWalking();
         }
 
-        
         #endregion
 
         private async void InitWalking()
         {
-            while (_waypoints.Count > 0) 
-                await WalkingLoop();
+            await WalkingLoop();
+            
+            if (_looping) InitWalking();
         }
         
         private async Task WalkingLoop()
         {
-            if (_waypoints.Count == 0) return;
-
-            if (_movement.Agent.path.corners[0] != _waypoints[_currentWaypointIndex].Point.position)
+            foreach (var waypoint in _waypoints)
             {
-                await WalkTo(_waypoints[_currentWaypointIndex].Point.position);
-                
-                if (_waypoints[_currentWaypointIndex].WaypointActions.Count > 0)
-                    foreach (var action in _waypoints[_currentWaypointIndex].WaypointActions) 
-                        await DoWaypointAction(_waypoints[_currentWaypointIndex], action);
+                await WalkTo(waypoint.Point.position);
+
+                foreach (var action in waypoint.WaypointActions) 
+                    await DoWaypointAction(waypoint, action);
             }
-            
-            _currentWaypointIndex = GetNextWaypointIndex(_currentWaypointIndex);
         }
         
         private async Task WalkTo(Vector3 destination)
@@ -131,7 +125,7 @@ namespace EnemySystem
                                       _distanceToSwitchWaypoint;
 
                 await Task.Delay(100);
-
+                
                 if (isOnDestination) break;
             }
         }
@@ -143,29 +137,33 @@ namespace EnemySystem
             switch (action.ActionType)
             {
                 case WaypointActionType.InstantlyGoToNextWaypoint:
-                    _isActionPending = false;
                     break;
                 
                 case WaypointActionType.WalkTo:
-                    var destinationPosition = action.Destination.position;
-                    await WalkTo(destinationPosition);
-                    var agentPosition = _movement.Agent.transform.position;
-                    var distanceToDestination = Distance(agentPosition, destinationPosition);
-                    await Task.Run(() => { while (distanceToDestination > _distanceToSwitchWaypoint) { } });
-                    _isActionPending = false;
+                    await WalkTo(action.Destination.position);
                     break;
                 
                 case WaypointActionType.Wait:
                     await Task.Delay(TimeSpan.FromSeconds(action.WaitTime));
-                    _isActionPending = false;
+                    break;
+
+                case WaypointActionType.PlayAnimation:
+                    action.Animator.Play(action.AnimationName);
+                    break;
+                
+                case WaypointActionType.SetAnimationTrigger:
+                    action.Animator.SetTrigger(action.TriggerName);
+                    break;
+                
+                case WaypointActionType.ResetAnimationTrigger:
+                    action.Animator.ResetTrigger(action.TriggerName);
                     break;
                 
                 default:
-                    _isActionPending = false;
-                    break;
+                    throw new ArgumentOutOfRangeException();
             }
             
-            await Task.Run(() => { while (_isActionPending) { } });
+            _isActionPending = false;
         }
         
         private int GetNextWaypointIndex(int currentWaypointIndex) => (currentWaypointIndex + 1) % _waypoints.Count;
