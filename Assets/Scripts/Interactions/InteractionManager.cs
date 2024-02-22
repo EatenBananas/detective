@@ -58,14 +58,14 @@ namespace Interactions
         public void Update()
         {
             // todo: input handling logic should be moved somewhere else
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 if (_interactable != null && _interaction == null)
                 {
                     Debug.Log($"Entering {_interactable.name}");
                     Debug.Log($"Locking player...");
                     _player.LockPlayer(true);
-                    UIManager.Instance.ShowPieMenu(_interactable.Interactions);
+                    UIManager.Instance.ShowPieMenu(_interactable.Interactions, _interactable.gameObject.transform);
                 }
             }
             else if (_listenForKey && Input.GetKeyDown(_keyCode))
