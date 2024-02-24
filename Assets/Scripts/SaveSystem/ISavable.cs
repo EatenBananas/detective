@@ -1,4 +1,4 @@
-﻿namespace Scenes.SaveSystem
+﻿namespace SaveSystem
 {
     public interface ISavable
     {
@@ -6,11 +6,6 @@
         /// The key is used to identify the savable object.
         /// </summary>
         public string Key { get; }
-        
-        /// <summary>
-        /// The value is the data that will be saved.
-        /// </summary>
-        public object Value { get; }
         
         /// <summary>
         /// The default value is the value that will be used if key is not found in the save file.
