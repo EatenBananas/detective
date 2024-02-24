@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2157.9358, g: 2261.297, b: 3282.9653, a: 1}
+  m_IndirectSpecularColor: {r: 2155.76, g: 2259.4885, b: 3281.4575, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3674,7 +3674,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &818516632
 Transform:
   m_ObjectHideFlags: 0
@@ -4443,47 +4443,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644995, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: field of view
-      value: 45
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644995, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: far clip plane
-      value: 5000
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644995, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: near clip plane
-      value: 0.1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644995, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: orthographic size
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.227711
+      value: -0.0000002384188
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3375223
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -58.092525
+      value: -3.0000005
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.91818076
+      value: 0.9238796
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.020334829
+      value: 0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.39397594
+      value: 0.000000059604645
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.03624306
+      value: -0.000000029802322
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372389644999, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8577,7 +8577,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8614424173028425293, guid: 322d1f5f6970bf741aac9ef69984f8a0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -10372,6 +10373,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1055765107, guid: 2dd048f4f15146e43bc16052e3588f2a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1055765109, guid: 2dd048f4f15146e43bc16052e3588f2a, type: 3}
       propertyPath: _player
       value: 
@@ -10568,6 +10573,10 @@ PrefabInstance:
       propertyPath: _startInteraction
       value: 
       objectReference: {fileID: 11400000, guid: efd3417d919c4f341b40fcb9c3f80f18, type: 2}
+    - target: {fileID: 6973934528010205323, guid: 2dd048f4f15146e43bc16052e3588f2a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

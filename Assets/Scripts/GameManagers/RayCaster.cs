@@ -93,7 +93,7 @@ namespace GameManagers
 
         #region Private fields
 
-        [Inject] private PlayerSystem.Player _player;
+        [InjectOptional] private PlayerSystem.Player _player;
         [Inject] private Camera _camera;
         
         private GameObject _lookingAtPlayerFromCameraCenter;
@@ -111,6 +111,8 @@ namespace GameManagers
 
         private void UpdateLookingAtPlayerFromCameraCenter()
         {
+            if (_player == null) return;
+            
             var origin = _camera.transform.position;
             var direction = _player.transform.position - origin;
             var maxDistance = direction.magnitude;
@@ -124,6 +126,8 @@ namespace GameManagers
         
         private void UpdateLookingAtPlayerFromCameraCenterArray()
         {
+            if (_player == null) return;
+            
             var origin = _camera.transform.position;
             var direction = _player.transform.position - origin;
             var maxDistance = direction.magnitude;

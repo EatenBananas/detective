@@ -114831,6 +114831,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1747908889598580036}
+  - component: {fileID: 8614424173028425293}
   - component: {fileID: 5940031313031887134}
   m_Layer: 0
   m_Name: LoadingManager
@@ -114855,6 +114856,24 @@ Transform:
   - {fileID: 2929173019295494612}
   m_Father: {fileID: 8297752402844272587}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8614424173028425293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6920999711554247742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 5940031313031887134}
+  _identifier: 
+  _useSceneContext: 0
+  _context: {fileID: 0}
+  _bindType: 0
 --- !u!114 &5940031313031887134
 MonoBehaviour:
   m_ObjectHideFlags: 0
