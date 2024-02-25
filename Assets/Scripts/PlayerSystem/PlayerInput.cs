@@ -1,6 +1,7 @@
 ﻿using System;
 using GameInputSystem;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem.Interactions;
 using Zenject;
 using static UnityEngine.InputSystem.InputAction;
@@ -52,7 +53,10 @@ namespace PlayerSystem
 
             if (!Physics.Raycast(ray, out var hit)) return;
             
-            _player.Movement.SetMovementDestination(hit.point);
+            // Check if point is on navmesh
+            if (!NavMesh.SamplePosition(hit.point, out var navMeshHit, 1f, NavMesh.AllAreas)) return;
+            
+            _player.Movement.SetMovementDestination(navMeshHit.position);
             
             OnMove?.Invoke(hit);
         }
@@ -60,13 +64,13 @@ namespace PlayerSystem
         public void EnableInput()
         {
             _inputManager.Input.Mouse.Position.EnableInputAction();
-            _inputManager.Input.PlayerController.Walk.EnableInputAction();
+            _inputManager.Input.PlayerController.Map.EnableInputActionMap();
         }
 
         public void DisableInput()
         {
             _inputManager.Input.Mouse.Position.DisableInputAction();
-            _inputManager.Input.PlayerController.Walk.DisableInputAction();
+            _inputManager.Input.PlayerController.Map.DisableInputActionMap();
         }
     }
 }

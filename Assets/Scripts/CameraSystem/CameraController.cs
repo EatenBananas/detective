@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using GameInputSystem;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 using Zenject;
@@ -206,9 +207,14 @@ namespace CameraSystem
             var forwardRelative = moveVector.y * forward;
             var rightRelative = moveVector.x * right;
             
-            // Camera movement
-            var cameraMovement = (forwardRelative + rightRelative) * (_cameraSpeed * Time.deltaTime);
-            transform.Translate(cameraMovement, Space.World);
+            
+            var moveDirection = (forwardRelative + rightRelative) * (_cameraSpeed * Time.deltaTime);
+            
+            var newCamPos = transform.position + moveDirection;
+            
+            NavMesh.SamplePosition(newCamPos, out var hit, 1f, NavMesh.AllAreas);
+            
+            MoveCameraToPosition(hit.position);
         }
         
         private void MoveCameraToPosition(Vector3 newCameraPosition)

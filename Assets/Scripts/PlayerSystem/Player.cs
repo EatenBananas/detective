@@ -13,6 +13,11 @@ namespace PlayerSystem
         
         [Inject] CameraController _cameraController;
         
+        public void LookAt(Vector3 position)
+        {
+            transform.LookAt(position);
+        }
+        
         [Button]
         public void Teleport(Vector3 position, bool resetPlayerDestination = true)
         {
