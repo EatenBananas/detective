@@ -14,10 +14,5 @@ namespace ObjectPoolingSystem
             if (!IsInPool)
                 _objectPoolingManager.ReturnToPool(this);
         }
-
-        private void OnDestroy()
-        {
-            Debug.Log($"[OBJECT-POOLING] {gameObject.name} has been destroyed. This is not recommended.");
-        }
     }
 }

@@ -43,7 +43,8 @@ namespace AnimationInteractions.Desk
             if (other.TryGetComponent(out Player player))
             {
                 // Play sit animation
-                player.LookAt(_lookAtPoint.position);
+                var playerTransform = player.transform;
+                playerTransform.forward = _lookAtPoint.position - playerTransform.position;
                 player.Movement.Animator.SetBool(_animIsSitting, true);
             }
             

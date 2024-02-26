@@ -18,6 +18,7 @@ namespace PlayerSystem
 
         private void OnEnable()
         {
+            _inputManager.Input.PlayerController.Sneak.performed += OnSneak;
             _inputManager.Input.PlayerController.Walk.performed += OnWalk;
             _inputManager.Input.PlayerController.Sprint.performed += OnSprint;
             
@@ -26,26 +27,43 @@ namespace PlayerSystem
         
         private void OnDisable()
         {
+            _inputManager.Input.PlayerController.Sneak.performed -= OnSneak;
             _inputManager.Input.PlayerController.Walk.performed -= OnWalk;
             _inputManager.Input.PlayerController.Sprint.performed -= OnSprint;
             
             DisableInput();
         }
-        
-        private void OnSprint(CallbackContext context)
+
+        private void OnSneak(CallbackContext context)
         {
-            _player.Movement.IsRunning = true;
-            
-            PerformLocomotion();
+            _player.Movement.IsCrouching = !_player.Movement.IsCrouching;
+            _player.Movement.IsWalking = !_player.Movement.IsCrouching;
+            _player.Movement.IsRunning = false;
         }
-        
+
         private void OnWalk(CallbackContext context)
         {
+            if (_player.Movement.IsCrouching)
+            {
+                PerformLocomotion();
+                return;
+            }
+            
+            _player.Movement.IsWalking = true;
             _player.Movement.IsRunning = false;
             
             PerformLocomotion();
         }
-        
+
+        private void OnSprint(CallbackContext context)
+        {
+            _player.Movement.IsWalking = true;
+            _player.Movement.IsCrouching = false;
+            _player.Movement.IsRunning = true;
+            
+            PerformLocomotion();
+        }
+
         private void PerformLocomotion()
         {
             var mousePosition = _inputManager.Input.Mouse.Position.ReadValue<Vector2>();
@@ -60,7 +78,7 @@ namespace PlayerSystem
             
             OnMove?.Invoke(hit);
         }
-        
+
         public void EnableInput()
         {
             _inputManager.Input.Mouse.Position.EnableInputAction();
