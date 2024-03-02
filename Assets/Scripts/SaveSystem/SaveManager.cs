@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Scenes.SaveSystem
+namespace SaveSystem
 {
     public static class SaveManager
     {
@@ -32,7 +32,7 @@ namespace Scenes.SaveSystem
                     return _saveFilePath;
                 }
                 
-                var saveFileName = $"{Guid.NewGuid()}.json";
+                var saveFileName = $"Save.json";
 
                 _saveFilePath = $"{SaveFolderPath}/{saveFileName}";
                 
@@ -70,9 +70,9 @@ namespace Scenes.SaveSystem
             foreach (var savableObject in savableObjects)
                 SaveFile.DeleteKey(savableObject.Key, SaveFilePath);
         }
-        
-        private static List<ISavable> GetSavableObjects() => 
-            Object.FindObjectsOfType<MonoBehaviour>(true).OfType<ISavable>().ToList();
+
+        private static List<ISavable> GetSavableObjects() =>
+            Object.FindObjectsOfType<MonoBehaviour>().OfType<ISavable>().ToList();
 
         private static List<ISavable> SortSavableObjects(IEnumerable<ISavable> savableObjects) =>
             savableObjects.OrderBy(savableObject => savableObject.Priority).ToList();

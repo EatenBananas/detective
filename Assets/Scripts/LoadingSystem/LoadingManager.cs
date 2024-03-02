@@ -12,9 +12,9 @@ namespace LoadingSystem
     {
         public static LoadingManager I { get; private set; }
         
-        public event Action DoBefore;
-        public event Action DoOnLoading;
-        public event Action DoAfter;
+        public Action DoBefore {get; set;}
+        public Action DoOnLoading {get; set;}
+        public Action DoAfter {get; set;}
 
         private const int MIN_LOADING_TIME = 3000;
         private const int PROGRESS_CHECK_DELAY = 100;
@@ -45,15 +45,15 @@ namespace LoadingSystem
             await AddScene(_loadingScreenSceneName);
             await HideCover(_coverImage);
 
-            WaitForAction(DoBefore);
+            await WaitForAction(DoBefore);
 
             await RemoveScene(currentSceneName);
 
-            WaitForAction(DoOnLoading);
+            await WaitForAction(DoOnLoading);
 
             await AddScene(sceneName);
 
-            WaitForAction(DoAfter);
+            await WaitForAction(DoAfter);
 
             DoBefore = null;
             DoOnLoading = null;
@@ -83,22 +83,24 @@ namespace LoadingSystem
 
         private static async Task RemoveScene(string sceneName)
         {
-            var scene = SceneManager.UnloadSceneAsync(sceneName);
+            var asyncOperation = SceneManager.UnloadSceneAsync(sceneName);
 
-            while (scene.progress < 0.9f)
+            while (asyncOperation.progress < 0.9f)
                 await Task.Delay(PROGRESS_CHECK_DELAY);
 
-            while (!scene.isDone)
+            while (!asyncOperation.isDone)
                 await Task.Delay(PROGRESS_CHECK_DELAY);
         }
 
-        private static void WaitForAction(Action action)
+        private static async Task WaitForAction(Action action)
         {
             if (action == null) return;
             
             var task = new Task(action);
             task.Start(TaskScheduler.FromCurrentSynchronizationContext());
             task.Wait();
+            
+            await Task.CompletedTask;
         }
 
         private async Task ShowCover(Image image)
