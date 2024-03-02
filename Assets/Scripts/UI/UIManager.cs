@@ -90,6 +90,11 @@ public class UIManager : MonoBehaviour
 
     public void ShowDialogue(DialogueNpc dialogueNpc, string dialogueText)
     {
+        if (PlayerPrefs.GetInt("subtitles", 1) == 0)
+        {
+            return;
+        }
+        
         _dialoguePanel.SetActive(true);
         _dialogueNpcName.text = dialogueNpc.NpcName;
         _dialogueText.text = dialogueText;

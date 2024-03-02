@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using Interactions.Elements;
 using PlayerSystem;
 using TMPro;
@@ -26,12 +27,29 @@ namespace Interactions
         private bool _listenForOptions = false;
 
         [SerializeField] private StartInteraction _startInteraction;
-        [SerializeField] private float _startDelay = 1f;
+        [SerializeField] private float _startDelay = 0.1f;
         
         private void Start()
         {
             Instance = this;
             StartCoroutine(LateStart());
+
+            FMODUnity.RuntimeManager.StudioSystem.getBankList(out var banks);
+            foreach (var bank in banks)
+            {
+                bank.getPath(out var path);
+                Debug.Log(path);
+                bank.getBusList(out var buses);
+
+                foreach (var bus in buses)
+                {
+                    bus.getPath(out var path2);
+                    Debug.Log(path2);
+                }
+
+                Debug.Log("---");
+                
+            }
         }
 
         private IEnumerator LateStart()
