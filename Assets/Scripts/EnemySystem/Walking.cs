@@ -19,7 +19,8 @@ namespace EnemySystem
         Wait,
         PlayAnimation,
         SetAnimationTrigger,
-        ResetAnimationTrigger
+        ResetAnimationTrigger,
+        SetAnimationBool
     }
     
     [Serializable]
@@ -36,15 +37,19 @@ namespace EnemySystem
         [ShowIf(nameof(canShowAnimator))]
         public Animator Animator;
         
-        [ShowIf("ActionType", WaypointActionType.PlayAnimation)]
+        [ShowIf(nameof(canShowAnimationName))]
         public string AnimationName;
 
-        [ShowIf(nameof(canShowTriggerName))]
-        public string TriggerName;
+        [ShowIf("ActionType", WaypointActionType.SetAnimationBool)]
+        public bool AnimationBool;
 
+        private bool canShowAnimationName => ActionType is WaypointActionType.PlayAnimation
+            or WaypointActionType.SetAnimationTrigger
+            or WaypointActionType.ResetAnimationTrigger or WaypointActionType.SetAnimationBool;
 
         private bool canShowAnimator => ActionType is WaypointActionType.PlayAnimation
-            or WaypointActionType.SetAnimationTrigger or WaypointActionType.ResetAnimationTrigger;
+            or WaypointActionType.SetAnimationTrigger or WaypointActionType.ResetAnimationTrigger
+            or WaypointActionType.SetAnimationBool;
         
         private bool canShowTriggerName => ActionType is WaypointActionType.SetAnimationTrigger
             or WaypointActionType.ResetAnimationTrigger;
@@ -152,11 +157,15 @@ namespace EnemySystem
                     break;
                 
                 case WaypointActionType.SetAnimationTrigger:
-                    action.Animator.SetTrigger(action.TriggerName);
+                    action.Animator.SetTrigger(action.AnimationName);
                     break;
                 
                 case WaypointActionType.ResetAnimationTrigger:
-                    action.Animator.ResetTrigger(action.TriggerName);
+                    action.Animator.ResetTrigger(action.AnimationName);
+                    break;
+                
+                case WaypointActionType.SetAnimationBool:
+                    action.Animator.SetBool(action.AnimationName, action.AnimationBool);
                     break;
                 
                 default:
