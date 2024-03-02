@@ -25,8 +25,16 @@ namespace InteractionSystem
 
         private void OnLookingAtObjectBehindTheMouseChange(GameObject obj)
         {
-            if (obj != null && obj.TryGetComponent(out IInteraction interaction)) StartInteraction(interaction);
-            else EndInteraction();
+            if (obj != null && obj.TryGetComponent(out IInteraction interaction))
+            {
+                _inputManager.Input.PlayerController.Map.DisableInputActionMap();
+                StartInteraction(interaction);
+            }
+            else
+            {
+                EndInteraction();
+                _inputManager.Input.PlayerController.Map.EnableInputActionMap();
+            }
         }
         
         private async void StartInteraction(IInteraction interaction)
@@ -57,7 +65,10 @@ namespace InteractionSystem
             interaction.OnExit();
         }
 
-        private void EndInteraction() => _currentInteraction = null;
+        private void EndInteraction()
+        {
+            _currentInteraction = null;
+        }
 
         private void Interact(CallbackContext callbackContext)
         {

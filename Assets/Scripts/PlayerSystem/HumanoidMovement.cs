@@ -1,4 +1,3 @@
-using System;
 using ModestTree;
 using UnityEditor;
 using UnityEngine;
@@ -12,6 +11,8 @@ namespace PlayerSystem
         public NavMeshAgent Agent => _agent;
         public Animator Animator => _animator;
 
+        public bool IsWalking;
+        public bool IsCrouching;
         public bool IsRunning;
         
         [SerializeField] private Animator _animator;
@@ -20,10 +21,10 @@ namespace PlayerSystem
         private Vector2 _smoothDeltaPosition;
         private Vector2 _velocity;
         
-        private static readonly int _isMoving = Animator.StringToHash("isMoving");
-        private static readonly int _locomotionHorizontal = Animator.StringToHash("locomotionHorizontal");
-        private static readonly int _locomotionVertical = Animator.StringToHash("locomotionVertical");
-        private static readonly int _isLeftFoot = Animator.StringToHash("isLeftFoot");
+        private static readonly int _animIsMoving = Animator.StringToHash("isMoving");
+        private static readonly int _animIsCrouching = Animator.StringToHash("isCrouching");
+        private static readonly int _animLocomotionHorizontal = Animator.StringToHash("locomotionHorizontal");
+        private static readonly int _animLocomotionVertical = Animator.StringToHash("locomotionVertical");
 
         #region Unity Lifecycle
 
@@ -36,7 +37,6 @@ namespace PlayerSystem
 
         private void Update()
         {
-            // HandleLocomotion();
             HandleSimpleLocomotion();
         }
 
@@ -63,12 +63,15 @@ namespace PlayerSystem
         
         private void HandleSimpleLocomotion()
         {
-            _animator.SetBool(_isMoving, IsAgentMoving);
-            
-            if (!IsAgentMoving) return;
+            _animator.SetBool(_animIsMoving, IsWalking);
+            _animator.SetBool(_animIsCrouching, IsCrouching);
             
             var locomotionDirection = CalculateLocomotionDirection(_agent.nextPosition);
 
+            if (IsRunning) locomotionDirection *= 2;
+            if (!IsAgentMoving && IsCrouching) locomotionDirection = Vector2.zero;
+            if (!IsAgentMoving && IsWalking) locomotionDirection = Vector2.zero;
+            
             SetLocomotionDirection(locomotionDirection);
         }
 
@@ -87,10 +90,8 @@ namespace PlayerSystem
         
         private void SetLocomotionDirection(Vector2 direction)
         {
-            if (IsRunning) direction *= 2;
-            
-            _animator.SetFloat(_locomotionHorizontal, direction.x);
-            _animator.SetFloat(_locomotionVertical, direction.y);
+            _animator.SetFloat(_animLocomotionHorizontal, direction.x);
+            _animator.SetFloat(_animLocomotionVertical, direction.y);
         }
 
         private void OnLocomotionStateChange(string state)
@@ -100,17 +101,7 @@ namespace PlayerSystem
         
         private void LegToStopWalk(string upperLeg)
         {
-            switch (upperLeg)
-            {
-                case "Left":
-                    _animator.SetBool(_isLeftFoot, true);
-                    break;
-                case "Right":
-                    _animator.SetBool(_isLeftFoot, false);
-                    break;
-                default:
-                    return;
-            }
+            
         }
 
         #region Debug

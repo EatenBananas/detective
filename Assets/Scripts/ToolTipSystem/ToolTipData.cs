@@ -7,7 +7,7 @@ namespace ToolTipSystem
     [Serializable]
     public struct ToolTipData
     {
-        [FormerlySerializedAs("ToolTipType")] public ToolTipType Type;
+        public ToolTipType Type;
         public string Title;
         public string Description;
         public Sprite Icon;
