@@ -26,6 +26,11 @@ namespace Menu
         [SerializeField] private Button _closeSettingsButton;
         [SerializeField] private Button _closeAboutButton;
 
+        [Header("Settings")] 
+        [SerializeField] private Slider _musicVolumeSlider;
+        [SerializeField] private Slider _sfxVolumeSlider;
+        [SerializeField] private Toggle _subtitlesToggle;
+        
         private static LoadingManager loadingManager => LoadingManager.I;
         private static bool isSaveExists => Directory.GetFiles(SaveManager.SaveFolderPath).Length > 0;
 
@@ -85,6 +90,7 @@ namespace Menu
         
         private void OnSettingsButtonClicked()
         {
+            LoadSettings();
             _settingsPanel.SetActive(true);
         }
         
@@ -100,6 +106,10 @@ namespace Menu
         
         private void OnApplySettingsButtonClicked()
         {
+            PlayerPrefs.SetFloat("music", _musicVolumeSlider.value);
+            PlayerPrefs.SetFloat("sfx", _sfxVolumeSlider.value);
+            PlayerPrefs.SetInt("subtitles", _subtitlesToggle.isOn ? 1 : 0);
+            
             Debug.Log("Settings changed");
         }
         
@@ -111,6 +121,13 @@ namespace Menu
         private void OnCloseAboutButtonClicked()
         {
             _aboutPanel.SetActive(false);
+        }
+
+        private void LoadSettings()
+        {
+            _musicVolumeSlider.value = PlayerPrefs.GetFloat("music", 1f);
+            _sfxVolumeSlider.value = PlayerPrefs.GetFloat("sfx", 1f);
+            _subtitlesToggle.isOn = PlayerPrefs.GetInt("subtitles", 1) == 1;
         }
     }
 }

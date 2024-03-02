@@ -96,6 +96,12 @@ namespace SceneObjects
             
             var clip = _cutscenes[cutscene];
             clip.gameObject.SetActive(true);
+
+            foreach (Transform child in clip.gameObject.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+
             clip.Play();
 
             if (clip.extrapolationMode == DirectorWrapMode.Loop)

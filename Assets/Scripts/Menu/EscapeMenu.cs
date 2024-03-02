@@ -30,6 +30,12 @@ namespace Menu
         [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _quitButton;
     
+        [Header("Settings")] 
+        [SerializeField] private Slider _musicVolumeSlider;
+        [SerializeField] private Slider _sfxVolumeSlider;
+        [SerializeField] private Toggle _subtitlesToggle;
+        [SerializeField] private Button _applySettingsButton;
+        
         private static LoadingManager loadingManager => LoadingManager.I;
         
         private GameObject _activePanel;
@@ -42,10 +48,14 @@ namespace Menu
             _notesButton.onClick.AddListener(() => ShowPanel(_notesPanel));
             _mapButton.onClick.AddListener(() => ShowPanel(_mapPanel));
             _settingsButton.onClick.AddListener(() => ShowPanel(_settingsPanel));
+            _settingsButton.onClick.AddListener(LoadSettings);
             _continueButton.onClick.AddListener(() => gameObject.SetActive(false));
             _saveButton.onClick.AddListener(OnSaveButtonClicked);
             _loadButton.onClick.AddListener(OnLoadButtonClicked);
             _quitButton.onClick.AddListener((() => SceneManager.LoadScene(0)));
+            _applySettingsButton.onClick.AddListener(OnApplySettingsButtonClicked);
+            
+            _activePanel = _gamePanel;
         }
 
         private void OnDisable()
@@ -60,7 +70,18 @@ namespace Menu
             _saveButton.onClick.RemoveAllListeners();
             _loadButton.onClick.RemoveAllListeners();
             _quitButton.onClick.RemoveAllListeners();
+            _applySettingsButton.onClick.RemoveAllListeners();
         }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ShowPanel(_gamePanel);
+                gameObject.SetActive(false);
+            }
+        }
+
 
         private void ShowPanel(GameObject panel)
         {
@@ -91,7 +112,24 @@ namespace Menu
             
             loadingManager.LoadScene(sceneName);
         }
-    
-    
+
+        private void LoadSettings()
+        {
+            _musicVolumeSlider.value = PlayerPrefs.GetFloat("music", 1f);
+            _sfxVolumeSlider.value = PlayerPrefs.GetFloat("sfx", 1f);
+            _subtitlesToggle.isOn = PlayerPrefs.GetInt("subtitles", 1) == 1;
+        }
+
+        private void OnApplySettingsButtonClicked()
+        {
+            PlayerPrefs.SetFloat("music", _musicVolumeSlider.value);
+            PlayerPrefs.SetFloat("sfx", _sfxVolumeSlider.value);
+            PlayerPrefs.SetInt("subtitles", _subtitlesToggle.isOn ? 1 : 0);
+
+            ShowPanel(_gamePanel);
+            
+            Volume.Instance.UpdateVolumes();
+            Debug.Log("Settings changed");
+        }
     }
 }

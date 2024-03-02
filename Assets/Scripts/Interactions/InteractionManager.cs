@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using Interactions.Elements;
 using PlayerSystem;
 using TMPro;
@@ -26,7 +27,7 @@ namespace Interactions
         private bool _listenForOptions = false;
 
         [SerializeField] private StartInteraction _startInteraction;
-        [SerializeField] private float _startDelay = 1f;
+        [SerializeField] private float _startDelay = 0.1f;
         
         private void Start()
         {
