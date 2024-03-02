@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Interactions;
 using UnityEngine;
 
 namespace EnemySystem
@@ -59,6 +60,7 @@ namespace EnemySystem
                 OnVictimDetected?.Invoke(victim.gameObject);
 
                 Debug.Log($"Victim detected: {victim.name}");
+                InteractionManager.Instance.GameOver();
             }
         }
     }

@@ -5,11 +5,12 @@ using UnityEngine;
 public class DisableGameobjects : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _gameObjects;
+    [SerializeField] private bool _invert = false;
     
     private void OnEnable(){
         foreach (var go in _gameObjects)
         {
-            go.SetActive(false);
+            go.SetActive(_invert);
         }
     }
 
@@ -17,7 +18,7 @@ public class DisableGameobjects : MonoBehaviour
     {
         foreach (var go in _gameObjects)
         {
-            go.SetActive(true);
+            go.SetActive(!_invert);
         }
     }
 }

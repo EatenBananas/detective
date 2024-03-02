@@ -27,6 +27,7 @@ namespace Interactions
         private bool _listenForOptions = false;
 
         [SerializeField] private StartInteraction _startInteraction;
+        [SerializeField] private StartInteraction _gameOverInteraction;
         [SerializeField] private float _startDelay = 0.1f;
         
         private void Start()
@@ -122,6 +123,11 @@ namespace Interactions
             StartElement();
         }
 
+        public void GameOver()
+        {
+            StartInteraction(_gameOverInteraction);
+        }
+        
         private void StartElement()
         {
             var element = _interaction;
