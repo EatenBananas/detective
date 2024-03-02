@@ -33,23 +33,6 @@ namespace Interactions
         {
             Instance = this;
             StartCoroutine(LateStart());
-
-            FMODUnity.RuntimeManager.StudioSystem.getBankList(out var banks);
-            foreach (var bank in banks)
-            {
-                bank.getPath(out var path);
-                Debug.Log(path);
-                bank.getBusList(out var buses);
-
-                foreach (var bus in buses)
-                {
-                    bus.getPath(out var path2);
-                    Debug.Log(path2);
-                }
-
-                Debug.Log("---");
-                
-            }
         }
 
         private IEnumerator LateStart()
