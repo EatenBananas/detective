@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
-using InteractionSystem;
 using PlayerSystem;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Serialization;
+using Zenject;
 using static UnityEngine.Vector3;
 
 namespace EnemySystem
@@ -20,7 +20,10 @@ namespace EnemySystem
         PlayAnimation,
         SetAnimationTrigger,
         ResetAnimationTrigger,
-        SetAnimationBool
+        SetAnimationBool,
+        SetMovement,
+        RotateToTarget,
+        Teleport
     }
     
     [Serializable]
@@ -42,6 +45,23 @@ namespace EnemySystem
 
         [ShowIf("ActionType", WaypointActionType.SetAnimationBool)]
         public bool AnimationBool;
+        
+        [ShowIf("ActionType", WaypointActionType.SetMovement)]
+        public HumanoidMovement Movement;
+        [ShowIf("ActionType", WaypointActionType.SetMovement)]
+        public bool IsWalking;
+        [ShowIf("ActionType", WaypointActionType.SetMovement)]
+        public bool IsCrouching;
+        [ShowIf("ActionType", WaypointActionType.SetMovement)]
+        public bool IsRunning;
+        
+        [ShowIf("ActionType", WaypointActionType.RotateToTarget)]
+        public NavMeshAgent Agent;
+        [ShowIf("ActionType", WaypointActionType.RotateToTarget)]
+        public Transform Target;
+        
+        [FormerlySerializedAs("TeleportPosition")] [ShowIf("ActionType", WaypointActionType.Teleport)]
+        public Transform TeleportPoint;
 
         private bool canShowAnimationName => ActionType is WaypointActionType.PlayAnimation
             or WaypointActionType.SetAnimationTrigger
@@ -69,8 +89,10 @@ namespace EnemySystem
         [SerializeField] private float _distanceToSwitchWaypoint;
         [SerializeField] private bool _looping;
         [SerializeField] private List<Waypoint> _waypoints;
-
+        
         private bool _isActionPending;
+        private bool _canceled;
+        [Indent] private Player _player;
 
         #region Unity Lifecycle
 
@@ -95,15 +117,29 @@ namespace EnemySystem
 
         #endregion
 
+        private void OnEnable()
+        {
+            _canceled = false;
+            
+            _player.Movement.Animator.Play("animName");
+        }
+
         private void Start()
         {
             InitWalking();
+        }
+        
+        private void OnDisable()
+        {
+            _canceled = true;
         }
 
         #endregion
 
         private async void InitWalking()
         {
+            if (_canceled) return;
+            
             await WalkingLoop();
             
             if (_looping) InitWalking();
@@ -111,6 +147,8 @@ namespace EnemySystem
         
         private async Task WalkingLoop()
         {
+            if (_canceled) return;
+            
             foreach (var waypoint in _waypoints)
             {
                 await WalkTo(waypoint.Point.position);
@@ -122,10 +160,14 @@ namespace EnemySystem
         
         private async Task WalkTo(Vector3 destination)
         {
+            if (_canceled) return;
+            
             _movement.SetMovementDestination(destination);
 
             while (true)
             {
+                if (_canceled) break;
+                
                 var isOnDestination = Distance(_movement.Agent.transform.position, destination) <=
                                       _distanceToSwitchWaypoint;
 
@@ -137,9 +179,16 @@ namespace EnemySystem
 
         private async Task DoWaypointAction(Waypoint waypoint, WaypointAction action)
         {
+            if (_canceled)
+            {
+                _isActionPending = false;
+                return;
+            }
+            
             _isActionPending = true;
             
-            switch (action.ActionType)
+            if (!_canceled)
+                switch (action.ActionType)
             {
                 case WaypointActionType.InstantlyGoToNextWaypoint:
                     break;
@@ -166,6 +215,23 @@ namespace EnemySystem
                 
                 case WaypointActionType.SetAnimationBool:
                     action.Animator.SetBool(action.AnimationName, action.AnimationBool);
+                    break;
+                
+                case WaypointActionType.SetMovement:
+                    action.Movement.IsWalking = action.IsWalking;
+                    action.Movement.IsCrouching = action.IsCrouching;
+                    action.Movement.IsRunning = action.IsRunning;
+                    break;
+                
+                case WaypointActionType.RotateToTarget:
+                    action.Agent.enabled = false;
+                    action.Agent.ResetPath();
+                    action.Agent.transform.LookAt(action.Target.position);
+                    action.Agent.enabled = true;
+                    break;
+                
+                case WaypointActionType.Teleport:
+                    transform.position = action.TeleportPoint.position;
                     break;
                 
                 default:

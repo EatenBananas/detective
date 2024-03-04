@@ -15,7 +15,9 @@ namespace PlayerSystem
         
         public void LookAt(Vector3 position)
         {
+            Movement.Agent.enabled = false;
             transform.LookAt(position);
+            Movement.Agent.enabled = true;
         }
         
         [Button]
