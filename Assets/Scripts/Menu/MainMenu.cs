@@ -115,6 +115,7 @@ namespace Menu
             PlayerPrefs.SetInt("subtitles", _subtitlesToggle.isOn ? 1 : 0);
             
             Debug.Log("Settings changed");
+            _settingsPanel.SetActive(false);
         }
         
         private void OnCloseSettingsButtonClicked()
