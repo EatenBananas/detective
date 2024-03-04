@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 2153.7415, g: 2257.7502, b: 3280.1763, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7758,6 +7758,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8818416342922032594, guid: f7190cfd3a7e5af41b8b0af530a0e6d9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 810614059}
+    - targetCorrespondingSourceObject: {fileID: 8818416342922032594, guid: f7190cfd3a7e5af41b8b0af530a0e6d9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 810614060}
   m_SourcePrefab: {fileID: 100100000, guid: f7190cfd3a7e5af41b8b0af530a0e6d9, type: 3}
 --- !u!1 &773835020
 GameObject:
@@ -8400,6 +8403,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &810614060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810614049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae4db08c028e9dc4a8ec0d987be4cfe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 673a6714-af7c-4662-9d6c-dd0f67321a86
 --- !u!4 &811361852 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8c925c7bb1fb6da47810b8f302711329, type: 3}
@@ -9519,7 +9535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372975484689, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.40192538
+      value: 0.40192536
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372975484689, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalRotation.y
@@ -9527,7 +9543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7191268372975484689, guid: b2532cbf2a9346b4f849ad99aefe2fab, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000046759837
+      value: 0.000046774738
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

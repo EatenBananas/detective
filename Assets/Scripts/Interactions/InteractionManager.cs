@@ -33,9 +33,14 @@ namespace Interactions
         private void Start()
         {
             Instance = this;
-            StartCoroutine(LateStart());
-        }
 
+            if (PlayerPrefs.GetInt("new", 1) == 1)
+            {
+                StartCoroutine(LateStart());
+            }
+        }
+        
+        
         private IEnumerator LateStart()
         {
             yield return new WaitForSeconds(_startDelay);
