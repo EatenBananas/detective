@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Interactions;
 using PlayerSystem;
+using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 // using Player.Movement;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace SceneObjects
         private Dictionary<SceneReference, PlayableDirector> _cutscenes = new();
         
         [field: SerializeField] private Player _playerMovement;
-
+        
         private PlayableDirector _activeCutscene;
         
         private void Awake()
@@ -114,6 +115,12 @@ namespace SceneObjects
                 clip.stopped += director => clip.gameObject.SetActive(false);
                 clip.stopped += director => InteractionManager.Instance.CompleteElement();
             }
+        }
+
+        public void PlayAnim(string animName)
+        {
+            Debug.Log(animName);
+            _playerMovement.Movement.Animator.Play(animName);
         }
     }
 }
