@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2185.5452, g: 2338.6272, b: 3535.1099, a: 1}
+  m_IndirectSpecularColor: {r: 2183.5276, g: 2351.057, b: 3597.02, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -733,6 +733,7 @@ MonoBehaviour:
   - {fileID: 1680721691}
   - {fileID: 395403944}
   - {fileID: 302133887}
+  - {fileID: 194898559}
   _invert: 0
 --- !u!1 &93242915
 GameObject:
@@ -2102,6 +2103,42 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7652052199837167754, guid: 6e1b44c007e43b748b43f8cd449358a7, type: 3}
   m_PrefabInstance: {fileID: 1467174755}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &194898559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 194898560}
+  m_Layer: 5
+  m_Name: HtpScreen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &194898560
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194898559}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1377148900}
+  m_Father: {fileID: 2053544741}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &206397376
 GameObject:
   m_ObjectHideFlags: 0
@@ -16925,6 +16962,7 @@ GameObject:
   - component: {fileID: 1377148900}
   - component: {fileID: 1377148902}
   - component: {fileID: 1377148901}
+  - component: {fileID: 1377148903}
   m_Layer: 5
   m_Name: HTPScreen
   m_TagString: Untagged
@@ -16939,7 +16977,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1377148899}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16955,12 +16993,12 @@ RectTransform:
   - {fileID: 1972651477}
   - {fileID: 1233657252}
   - {fileID: 1063831709}
-  m_Father: {fileID: 2053544741}
+  m_Father: {fileID: 194898560}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1820, y: 980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1377148901
 MonoBehaviour:
@@ -17000,6 +17038,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1377148899}
   m_CullTransparentMesh: 1
+--- !u!114 &1377148903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377148899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71125c999cc0e47418e05f09f700c9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 166032010}
 --- !u!1001 &1379312622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19060,7 +19111,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press RMB to move
+  m_text: Press LMB to move
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -25896,7 +25947,7 @@ RectTransform:
   - {fileID: 313177174}
   - {fileID: 1564025694}
   - {fileID: 511052352}
-  - {fileID: 1377148900}
+  - {fileID: 194898560}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

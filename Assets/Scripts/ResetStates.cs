@@ -6,7 +6,7 @@ public class ResetStates : MonoBehaviour
 {
     void Start()
     {
-        Debug.Log(PlayerPrefs.GetInt("new", 1));
+       // Debug.Log(PlayerPrefs.GetInt("new", 1));
 
         if (PlayerPrefs.GetInt("new", 1) == 1)
         {
