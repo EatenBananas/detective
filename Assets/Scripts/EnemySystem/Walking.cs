@@ -90,9 +90,10 @@ namespace EnemySystem
         [SerializeField] private bool _looping;
         [SerializeField] private List<Waypoint> _waypoints;
         
-        private bool _isActionPending;
-        private bool _canceled;
         [Indent] private Player _player;
+        
+        private bool _canceled;
+        private int _currentWaypointIndex;
 
         #region Unity Lifecycle
 
@@ -120,8 +121,6 @@ namespace EnemySystem
         private void OnEnable()
         {
             _canceled = false;
-            
-            _player.Movement.Animator.Play("animName");
         }
 
         private void Start()
@@ -134,30 +133,48 @@ namespace EnemySystem
             _canceled = true;
         }
 
+        private void OnApplicationQuit()
+        {
+            _canceled = true;
+        }
+
         #endregion
 
         private async void InitWalking()
         {
-            if (_canceled) return;
+            _canceled = false;
+            
+            _currentWaypointIndex = GetClosestWaypointIndex();
             
             await WalkingLoop();
-            
-            if (_looping) InitWalking();
         }
-        
+
         private async Task WalkingLoop()
         {
-            if (_canceled) return;
-            
-            foreach (var waypoint in _waypoints)
+            while (true)
             {
-                await WalkTo(waypoint.Point.position);
+                if (_canceled) return;
 
-                foreach (var action in waypoint.WaypointActions) 
-                    await DoWaypointAction(waypoint, action);
+                for (; _currentWaypointIndex < _waypoints.Count; _currentWaypointIndex++)
+                {
+                    var waypoint = _waypoints[_currentWaypointIndex];
+                    
+                    await WalkTo(waypoint.Point.position);
+
+                    foreach (var action in waypoint.WaypointActions) 
+                        await DoWaypointAction(waypoint, action);
+                }
+
+                if (_looping)
+                {
+                    _currentWaypointIndex = 0;
+                    continue;
+                }
+
+                break;
             }
         }
-        
+
         private async Task WalkTo(Vector3 destination)
         {
             if (_canceled) return;
@@ -179,24 +196,17 @@ namespace EnemySystem
 
         private async Task DoWaypointAction(Waypoint waypoint, WaypointAction action)
         {
-            if (_canceled)
-            {
-                _isActionPending = false;
-                return;
-            }
-            
-            _isActionPending = true;
-            
-            if (!_canceled)
-                switch (action.ActionType)
+            if (_canceled) return;
+
+            switch (action.ActionType)
             {
                 case WaypointActionType.InstantlyGoToNextWaypoint:
                     break;
-                
+
                 case WaypointActionType.WalkTo:
                     await WalkTo(action.Destination.position);
                     break;
-                
+
                 case WaypointActionType.Wait:
                     await Task.Delay(TimeSpan.FromSeconds(action.WaitTime));
                     break;
@@ -204,44 +214,43 @@ namespace EnemySystem
                 case WaypointActionType.PlayAnimation:
                     action.Animator.Play(action.AnimationName);
                     break;
-                
+
                 case WaypointActionType.SetAnimationTrigger:
                     action.Animator.SetTrigger(action.AnimationName);
                     break;
-                
+
                 case WaypointActionType.ResetAnimationTrigger:
                     action.Animator.ResetTrigger(action.AnimationName);
                     break;
-                
+
                 case WaypointActionType.SetAnimationBool:
                     action.Animator.SetBool(action.AnimationName, action.AnimationBool);
                     break;
-                
+
                 case WaypointActionType.SetMovement:
                     action.Movement.IsWalking = action.IsWalking;
                     action.Movement.IsCrouching = action.IsCrouching;
                     action.Movement.IsRunning = action.IsRunning;
                     break;
-                
+
                 case WaypointActionType.RotateToTarget:
-                    action.Agent.enabled = false;
                     action.Agent.ResetPath();
+                    action.Agent.enabled = false;
                     action.Agent.transform.LookAt(action.Target.position);
                     action.Agent.enabled = true;
                     break;
-                
+
                 case WaypointActionType.Teleport:
                     transform.position = action.TeleportPoint.position;
                     break;
-                
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
-            _isActionPending = false;
         }
         
-        private int GetNextWaypointIndex(int currentWaypointIndex) => (currentWaypointIndex + 1) % _waypoints.Count;
+        private int GetNextWaypointIndex(int currentWaypointIndex) => 
+            (currentWaypointIndex + 1) % _waypoints.Count;
         
         private int GetClosestWaypointIndex()
         {
@@ -261,7 +270,7 @@ namespace EnemySystem
             return closestIndex;
         }
 
-#region Debug
+        #region Debug
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
@@ -289,6 +298,6 @@ namespace EnemySystem
             }
         }
 #endif
-#endregion
+        #endregion
     }
 }
