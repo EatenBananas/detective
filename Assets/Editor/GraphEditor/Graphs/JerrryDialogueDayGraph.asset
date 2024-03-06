@@ -14,16 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FileName>k__BackingField: JerrryDialogueDay
   <Nodes>k__BackingField:
-  - rid: 6431891699824066563
-  - rid: 6431891699824066564
-  - rid: 6431891699824066565
+  - rid: 6273196667582284589
+  - rid: 6273196667582284590
+  - rid: 6273196667582284591
+  - rid: 6273196667582284592
+  - rid: 6273196667582284593
   <Groups>k__BackingField: []
   <OldNodeNames>k__BackingField: []
   <OldGroupNames>k__BackingField: []
   references:
     version: 2
     RefIds:
-    - rid: 6431891699824066563
+    - rid: 6273196667582284589
       type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Dialogue_1
@@ -34,7 +36,8 @@ MonoBehaviour:
         <Description>k__BackingField: Description
         <DialogueText>k__BackingField: What?
         <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 58831ea17c6e9ef46a51818fb22a60c1, type: 2}
-    - rid: 6431891699824066564
+        <DialoguePath>k__BackingField: Jerry/JERRY_What
+    - rid: 6273196667582284590
       type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Start_1
@@ -44,7 +47,7 @@ MonoBehaviour:
         <Position>k__BackingField: {x: -170, y: 230}
         <Description>k__BackingField: Description
         <Title>k__BackingField: Start_1
-    - rid: 6431891699824066565
+    - rid: 6273196667582284591
       type: {class: ChoiceNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Choice_1
@@ -55,6 +58,30 @@ MonoBehaviour:
         <Description>k__BackingField: Description
         <Options>k__BackingField:
         - <Text>k__BackingField: Do you remember me Jerry?
-          <NodeID>k__BackingField: 
+          <NodeID>k__BackingField: b216f669-bdce-4cf9-8c84-cef32b6dc788
         - <Text>k__BackingField: Sorry wrong room
-          <NodeID>k__BackingField: 
+          <NodeID>k__BackingField: 18241615-021f-481a-879f-99987d597c63
+    - rid: 6273196667582284592
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_3
+        <ID>k__BackingField: 18241615-021f-481a-879f-99987d597c63
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 1502, y: 424}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: Sorry wrong room
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
+        <DialoguePath>k__BackingField: Martin/SorryWrongRoom
+    - rid: 6273196667582284593
+      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Dialogue_2
+        <ID>k__BackingField: b216f669-bdce-4cf9-8c84-cef32b6dc788
+        <NextNodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 1502, y: 102}
+        <Description>k__BackingField: Description
+        <DialogueText>k__BackingField: Do you remember me Jerry?
+        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
+        <DialoguePath>k__BackingField: Martin/HelloJerry
