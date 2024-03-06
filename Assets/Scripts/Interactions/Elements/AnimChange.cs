@@ -9,7 +9,7 @@ namespace Interactions.Elements
         public override void Execute()
         {
             SceneObjectManager.Instance.PlayAnim(AnimName);
-            InteractionManager.Instance.CompleteElement();
+            //InteractionManager.Instance.CompleteElement();
         }
         
         

@@ -16,7 +16,7 @@ namespace SceneObjects
     public class SceneObjectManager : MonoBehaviour
     {
         public static SceneObjectManager Instance { get; private set; }
-        private Dictionary<SceneReference, Vector3> _sceneLocations = new();
+        private Dictionary<SceneReference, Transform> _sceneLocations = new();
         private Dictionary<SceneReference, GameObject> _photos = new();
         private Dictionary<SceneReference, PlayableDirector> _cutscenes = new();
         
@@ -40,7 +40,7 @@ namespace SceneObjects
                 }
                 case SceneReferenceType.LOCATION:
                 {
-                    _sceneLocations.Add(key, sceneObject.transform.position);
+                    _sceneLocations.Add(key, sceneObject.transform);
                     break;
                 }
                 case SceneReferenceType.PHOTO:
@@ -72,7 +72,8 @@ namespace SceneObjects
                 return;
             }
 
-            _playerMovement.Teleport(_sceneLocations[location], true);
+            _playerMovement.Teleport(_sceneLocations[location].position, true);
+            _playerMovement.SetRotation(_sceneLocations[location].rotation);
         }
 
         public void UpdatePhoto(SceneReference photo, bool visible)
@@ -121,6 +122,21 @@ namespace SceneObjects
         {
             Debug.Log(animName);
             _playerMovement.Movement.Animator.Play(animName);
+            StartCoroutine(AnimLoop(_playerMovement.Movement.Animator, animName));
+            
         }
+
+        private IEnumerator AnimLoop(Animator animator, string animName)
+        {
+            Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+            while (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == (animName))
+            {
+                yield return null;
+            }
+            Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+            
+            //InteractionManager.Instance.CompleteElement();
+        }
+        
     }
 }

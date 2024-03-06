@@ -14,26 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FileName>k__BackingField: FlowerWatering
   <Nodes>k__BackingField:
-  - rid: 3446154480851091469
-  - rid: 3446154480851091470
-  - rid: 3446154480851091471
-  - rid: 3446154480851091472
-  - rid: 3446154480851091473
-  - rid: 3446154480851091474
-  - rid: 3446154480851091475
-  - rid: 3446154480851091476
-  - rid: 3446154480851091477
-  - rid: 3446154480851091478
-  - rid: 3446154480851091479
-  - rid: 3446154480851091480
-  - rid: 3446154480851091481
+  - rid: 2681857438448353371
+  - rid: 2681857438448353372
+  - rid: 2681857438448353373
+  - rid: 2681857438448353374
+  - rid: 2681857438448353375
+  - rid: 2681857438448353376
+  - rid: 2681857438448353377
+  - rid: 2681857438448353378
+  - rid: 2681857438448353379
+  - rid: 2681857438448353380
+  - rid: 2681857438448353381
+  - rid: 2681857438448353382
+  - rid: 2681857438448353383
   <Groups>k__BackingField: []
   <OldNodeNames>k__BackingField: []
   <OldGroupNames>k__BackingField: []
   references:
     version: 2
     RefIds:
-    - rid: 3446154480851091469
+    - rid: 2681857438448353371
       type: {class: ConditionNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Condition_2
@@ -50,7 +50,7 @@ MonoBehaviour:
           <NodeID>k__BackingField: e24dc06b-b058-47ae-b750-28452a538ad5
         - <Value>k__BackingField: 3
           <NodeID>k__BackingField: 181838bf-2ba1-4e45-966c-70e7ef259a8b
-    - rid: 3446154480851091470
+    - rid: 2681857438448353372
       type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Dialogue_1
@@ -62,7 +62,7 @@ MonoBehaviour:
         <DialogueText>k__BackingField: This flower needs to be watered.
         <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
         <DialoguePath>k__BackingField: 
-    - rid: 3446154480851091471
+    - rid: 2681857438448353373
       type: {class: ConditionNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Condition_1
@@ -74,20 +74,10 @@ MonoBehaviour:
         <State>k__BackingField: {fileID: 11400000, guid: bc9db2bf0a3d4054b95e112b24efa775, type: 2}
         <Outcomes>k__BackingField:
         - <Value>k__BackingField: 1
-          <NodeID>k__BackingField: e4948a8d-31de-4ddf-b319-d02c426de508
+          <NodeID>k__BackingField: d98e2ffc-4f06-420a-a9ab-21dc9adc2751
         - <Value>k__BackingField: 0
-          <NodeID>k__BackingField: ea37d98e-8625-40df-93c0-dba3abbc5874
-    - rid: 3446154480851091472
-      type: {class: CameraChangeNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
-      data:
-        <NodeName>k__BackingField: CameraChange_2
-        <ID>k__BackingField: ea37d98e-8625-40df-93c0-dba3abbc5874
-        <NextNodeID>k__BackingField: 181838bf-2ba1-4e45-966c-70e7ef259a8b
-        <GroupID>k__BackingField: 
-        <Position>k__BackingField: {x: 5869.6, y: 164.8}
-        <Description>k__BackingField: Description
-        <Camera>k__BackingField: {fileID: 11400000, guid: 0f48aac7198bd174387eb54ea4c11ffe, type: 2}
-    - rid: 3446154480851091473
+          <NodeID>k__BackingField: 181838bf-2ba1-4e45-966c-70e7ef259a8b
+    - rid: 2681857438448353374
       type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Dialogue_3
@@ -99,27 +89,7 @@ MonoBehaviour:
         <DialogueText>k__BackingField: What a nicely watered plant.
         <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
         <DialoguePath>k__BackingField: 
-    - rid: 3446154480851091474
-      type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
-      data:
-        <NodeName>k__BackingField: FlowerStart
-        <ID>k__BackingField: 59e7feb7-bc61-4712-adf3-81d06559389e
-        <NextNodeID>k__BackingField: 35ca65d1-63bb-4360-8a18-1e001c021eaf
-        <GroupID>k__BackingField: 
-        <Position>k__BackingField: {x: 4898.4004, y: -88.8}
-        <Description>k__BackingField: Description
-        <Title>k__BackingField: FlowerStart
-    - rid: 3446154480851091475
-      type: {class: CameraChangeNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
-      data:
-        <NodeName>k__BackingField: CameraChange_1
-        <ID>k__BackingField: e4948a8d-31de-4ddf-b319-d02c426de508
-        <NextNodeID>k__BackingField: d98e2ffc-4f06-420a-a9ab-21dc9adc2751
-        <GroupID>k__BackingField: 
-        <Position>k__BackingField: {x: 5869.6, y: -159.2}
-        <Description>k__BackingField: Description
-        <Camera>k__BackingField: {fileID: 11400000, guid: 0f48aac7198bd174387eb54ea4c11ffe, type: 2}
-    - rid: 3446154480851091476
+    - rid: 2681857438448353375
       type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Dialogue_2
@@ -131,7 +101,7 @@ MonoBehaviour:
         <DialogueText>k__BackingField: Okay, let's water you buddy.
         <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
         <DialoguePath>k__BackingField: 
-    - rid: 3446154480851091477
+    - rid: 2681857438448353376
       type: {class: SetStateNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: SetState_1
@@ -142,7 +112,7 @@ MonoBehaviour:
         <Description>k__BackingField: Description
         <State>k__BackingField: {fileID: 11400000, guid: bc9db2bf0a3d4054b95e112b24efa775, type: 2}
         <SetTo>k__BackingField: 0
-    - rid: 3446154480851091478
+    - rid: 2681857438448353377
       type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: FlowerWatering
@@ -152,7 +122,7 @@ MonoBehaviour:
         <Position>k__BackingField: {x: 5216.8003, y: -744.8}
         <Description>k__BackingField: Description
         <Title>k__BackingField: FlowerWatering
-    - rid: 3446154480851091479
+    - rid: 2681857438448353378
       type: {class: CameraChangeNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: CameraChange_3
@@ -162,7 +132,7 @@ MonoBehaviour:
         <Position>k__BackingField: {x: 5695.2, y: -744.8}
         <Description>k__BackingField: Description
         <Camera>k__BackingField: {fileID: 11400000, guid: 0f48aac7198bd174387eb54ea4c11ffe, type: 2}
-    - rid: 3446154480851091480
+    - rid: 2681857438448353379
       type: {class: ConditionNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Condition_3
@@ -175,7 +145,7 @@ MonoBehaviour:
         <Outcomes>k__BackingField:
         - <Value>k__BackingField: 1
           <NodeID>k__BackingField: 06e52489-67b9-4ad1-b50d-206189589539
-    - rid: 3446154480851091481
+    - rid: 2681857438448353380
       type: {class: SetStateNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: SetState_2
@@ -186,3 +156,33 @@ MonoBehaviour:
         <Description>k__BackingField: Description
         <State>k__BackingField: {fileID: 11400000, guid: dbd343f0885de2a49bb1e8115d88b2c7, type: 2}
         <SetTo>k__BackingField: 3
+    - rid: 2681857438448353381
+      type: {class: CameraChangeNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: CameraChange_2
+        <ID>k__BackingField: ea37d98e-8625-40df-93c0-dba3abbc5874
+        <NextNodeID>k__BackingField: 35ca65d1-63bb-4360-8a18-1e001c021eaf
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 4988.8003, y: -112.8}
+        <Description>k__BackingField: Description
+        <Camera>k__BackingField: {fileID: 11400000, guid: 0f48aac7198bd174387eb54ea4c11ffe, type: 2}
+    - rid: 2681857438448353382
+      type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: FlowerStart
+        <ID>k__BackingField: 59e7feb7-bc61-4712-adf3-81d06559389e
+        <NextNodeID>k__BackingField: 6b243131-9d1f-4f00-83f3-12b140009ddc
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 4155.2, y: -130.4}
+        <Description>k__BackingField: Description
+        <Title>k__BackingField: FlowerStart
+    - rid: 2681857438448353383
+      type: {class: TeleportNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Teleport_1
+        <ID>k__BackingField: 6b243131-9d1f-4f00-83f3-12b140009ddc
+        <NextNodeID>k__BackingField: ea37d98e-8625-40df-93c0-dba3abbc5874
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 4580.8003, y: -116}
+        <Description>k__BackingField: Description
+        <Location>k__BackingField: {fileID: 11400000, guid: 394064f9c52b0ee4ab098cd432153565, type: 2}

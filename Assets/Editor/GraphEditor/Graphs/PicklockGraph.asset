@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FileName>k__BackingField: Picklock
   <Nodes>k__BackingField:
-  - rid: 2681857357831733252
-  - rid: 2681857357831733253
-  - rid: 2681857357831733254
-  - rid: 2681857357831733255
+  - rid: 2681857426205442156
+  - rid: 2681857426205442157
+  - rid: 2681857426205442158
+  - rid: 2681857426205442159
   <Groups>k__BackingField: []
   <OldNodeNames>k__BackingField: []
   <OldGroupNames>k__BackingField: []
   references:
     version: 2
     RefIds:
-    - rid: 2681857357831733252
+    - rid: 2681857426205442156
       type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: PicklockStart
@@ -34,7 +34,7 @@ MonoBehaviour:
         <Position>k__BackingField: {x: -87.200005, y: 64.8}
         <Description>k__BackingField: Description
         <Title>k__BackingField: PicklockStart
-    - rid: 2681857357831733253
+    - rid: 2681857426205442157
       type: {class: ConditionNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Condition_1
@@ -46,26 +46,24 @@ MonoBehaviour:
         <State>k__BackingField: {fileID: 11400000, guid: e4ed3699e8c90d14994b53d881a57b04, type: 2}
         <Outcomes>k__BackingField:
         - <Value>k__BackingField: 1
-          <NodeID>k__BackingField: f8732466-2266-4a7c-bc5b-4e7bd804bcc2
-    - rid: 2681857357831733254
-      type: {class: DialogueNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+          <NodeID>k__BackingField: 2fb0205b-f645-4514-bad1-2fb8cbf7474c
+    - rid: 2681857426205442158
+      type: {class: AnimChangeNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
-        <NodeName>k__BackingField: Dialogue_1
-        <ID>k__BackingField: f8732466-2266-4a7c-bc5b-4e7bd804bcc2
+        <NodeName>k__BackingField: AnimChange_1
+        <ID>k__BackingField: 2fb0205b-f645-4514-bad1-2fb8cbf7474c
         <NextNodeID>k__BackingField: 121d7605-1908-44f5-bcbc-00a3901cfa96
         <GroupID>k__BackingField: 
-        <Position>k__BackingField: {x: 733.60004, y: 277.59998}
+        <Position>k__BackingField: {x: 827.2, y: 281.59998}
         <Description>k__BackingField: Description
-        <DialogueText>k__BackingField: '*picklock*'
-        <DialogueNpc>k__BackingField: {fileID: 11400000, guid: 871e99e03b519bb4c87d64cea6e42077, type: 2}
-        <DialoguePath>k__BackingField: 
-    - rid: 2681857357831733255
+        <AnimName>k__BackingField: UseLockPick
+    - rid: 2681857426205442159
       type: {class: TeleportNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Teleport_1
         <ID>k__BackingField: 121d7605-1908-44f5-bcbc-00a3901cfa96
         <NextNodeID>k__BackingField: 
         <GroupID>k__BackingField: 
-        <Position>k__BackingField: {x: 1156, y: 277.59998}
+        <Position>k__BackingField: {x: 1113.6, y: 281.59998}
         <Description>k__BackingField: Description
         <Location>k__BackingField: {fileID: 11400000, guid: aaa6777e3ce0cf340be9eeea9ae08647, type: 2}
