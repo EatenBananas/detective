@@ -14,16 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FileName>k__BackingField: Mailbox
   <Nodes>k__BackingField:
-  - rid: 7332137923203301473
-  - rid: 7332137923203301474
-  - rid: 7332137923203301475
+  - rid: 2681857438448353620
+  - rid: 2681857438448353621
+  - rid: 2681857438448353622
+  - rid: 2681857438448353623
   <Groups>k__BackingField: []
   <OldNodeNames>k__BackingField: []
   <OldGroupNames>k__BackingField: []
   references:
     version: 2
     RefIds:
-    - rid: 7332137923203301473
+    - rid: 2681857438448353620
       type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: MailboxInspect
@@ -33,23 +34,33 @@ MonoBehaviour:
         <Position>k__BackingField: {x: -321.59998, y: -357.6}
         <Description>k__BackingField: Description
         <Title>k__BackingField: MailboxInspect
-    - rid: 7332137923203301474
+    - rid: 2681857438448353621
       type: {class: CameraChangeNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: CameraChange_1
         <ID>k__BackingField: 8bc9badc-baf9-4d19-9e5c-a5e30ed91d73
-        <NextNodeID>k__BackingField: 7acdca14-d934-414e-99ff-18e8f08489e0
+        <NextNodeID>k__BackingField: 89e7f3ce-0c76-43a6-97e2-5adcf1f50ade
         <GroupID>k__BackingField: 
         <Position>k__BackingField: {x: 56, y: -357.6}
         <Description>k__BackingField: Description
         <Camera>k__BackingField: {fileID: 11400000, guid: af895624db1068c488cff8f9455adef8, type: 2}
-    - rid: 7332137923203301475
+    - rid: 2681857438448353622
       type: {class: GetKeyNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: GetKey_1
         <ID>k__BackingField: 7acdca14-d934-414e-99ff-18e8f08489e0
         <NextNodeID>k__BackingField: 
         <GroupID>k__BackingField: 
-        <Position>k__BackingField: {x: 555.2, y: -356}
+        <Position>k__BackingField: {x: 1002.4, y: -357.6}
         <Description>k__BackingField: Description
         <KeyCode>k__BackingField: 27
+    - rid: 2681857438448353623
+      type: {class: TeleportNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
+      data:
+        <NodeName>k__BackingField: Teleport_1
+        <ID>k__BackingField: 89e7f3ce-0c76-43a6-97e2-5adcf1f50ade
+        <NextNodeID>k__BackingField: 7acdca14-d934-414e-99ff-18e8f08489e0
+        <GroupID>k__BackingField: 
+        <Position>k__BackingField: {x: 542.4, y: -357.6}
+        <Description>k__BackingField: Description
+        <Location>k__BackingField: {fileID: 11400000, guid: a3f913f26343b6c43ae43470160189b6, type: 2}
