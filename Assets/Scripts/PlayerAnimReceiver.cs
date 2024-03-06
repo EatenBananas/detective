@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerAnimReceiver : MonoBehaviour
 {
     [field: SerializeField] private GameObject _door;
+    [field: SerializeField] private GameObject _waterCan;
     public void CompleteAnim()
     {
         InteractionManager.Instance.CompleteElement();
@@ -19,5 +20,10 @@ public class PlayerAnimReceiver : MonoBehaviour
     public void Dumb()
     {
         
+    }
+
+    public void WaterCan(int active)
+    {
+        _waterCan.SetActive(active == 1);
     }
 }
