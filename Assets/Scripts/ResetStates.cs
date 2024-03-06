@@ -6,9 +6,15 @@ public class ResetStates : MonoBehaviour
 {
     void Start()
     {
-        foreach (var state in Resources.LoadAll<State>("GameStates"))
+        Debug.Log(PlayerPrefs.GetInt("new", 1));
+
+        if (PlayerPrefs.GetInt("new", 1) == 1)
         {
-            state.ResetState();
+            Debug.Log("Resetting Scriptable Objects...");
+            foreach (var state in Resources.LoadAll<State>("GameStates"))
+            {
+                state.ResetState();
+            }
         }
     }
     

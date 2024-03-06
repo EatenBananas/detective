@@ -93,6 +93,7 @@ namespace Menu
         private void OnSaveButtonClicked()
         {
             Debug.Log($"Saving game...");
+            PlayerPrefs.SetInt("new", 0);
             
             var sceneName = gameObject.scene.name;
             
@@ -105,6 +106,7 @@ namespace Menu
         private void OnLoadButtonClicked()
         {
             Debug.Log($"Loading game...");
+            PlayerPrefs.SetInt("new", 0);
             
             var sceneName = gameObject.scene.name;
             

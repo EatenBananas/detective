@@ -36,6 +36,11 @@ namespace PlayerSystem
             _cameraController.LookAtTarget = player;
         }
 
+        public void SetRotation(Quaternion rotation)
+        {
+            transform.rotation = rotation;
+        }
+
         [Button]
         public void LockPlayer(bool resetPlayerDestination = true)
         {

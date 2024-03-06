@@ -70,6 +70,8 @@ namespace Menu
 
         private void OnStartButtonClicked()
         {
+            PlayerPrefs.SetInt("new", 1);
+            
             loadingManager.DoBefore += () =>
             {
                 if (isSaveExists)
@@ -83,9 +85,11 @@ namespace Menu
 
         private void OnLoadButtonClicked()
         {
+            PlayerPrefs.SetInt("new", 0);
+            
             loadingManager.DoAfter += SaveManager.LoadGame;
             
-            loadingManager.LoadScene(SceneManager.GetSceneByBuildIndex(1).name);
+            loadingManager.LoadScene("_Main");
         }
         
         private void OnSettingsButtonClicked()
@@ -111,6 +115,7 @@ namespace Menu
             PlayerPrefs.SetInt("subtitles", _subtitlesToggle.isOn ? 1 : 0);
             
             Debug.Log("Settings changed");
+            _settingsPanel.SetActive(false);
         }
         
         private void OnCloseSettingsButtonClicked()

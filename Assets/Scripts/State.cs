@@ -10,11 +10,12 @@ public class State : ScriptableObject
     [field:SerializeField] 
     public List<string> States { get; private set; } = new() {"No", "Yes"};
     
-    // todo: nice list
     [field:SerializeField]
     [field:HideInInspector]
     public int InitialState { get; set; } = 0;
 
+    [field:SerializeField]
+    [field:HideInInspector]
     public int CurrentState { get; set; }
 
     public void ResetState()
