@@ -14,19 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FileName>k__BackingField: Picklock
   <Nodes>k__BackingField:
-  - rid: 2681857438448353547
-  - rid: 2681857438448353548
-  - rid: 2681857438448353549
-  - rid: 2681857438448353550
-  - rid: 2681857438448353551
-  - rid: 2681857438448353552
+  - rid: 2681857438448353553
+  - rid: 2681857438448353554
+  - rid: 2681857438448353555
+  - rid: 2681857438448353556
   <Groups>k__BackingField: []
   <OldNodeNames>k__BackingField: []
   <OldGroupNames>k__BackingField: []
   references:
     version: 2
     RefIds:
-    - rid: 2681857438448353547
+    - rid: 2681857438448353553
       type: {class: StartNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: PicklockStart
@@ -36,7 +34,7 @@ MonoBehaviour:
         <Position>k__BackingField: {x: -87.200005, y: 64.8}
         <Description>k__BackingField: Description
         <Title>k__BackingField: PicklockStart
-    - rid: 2681857438448353548
+    - rid: 2681857438448353554
       type: {class: ConditionNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Condition_1
@@ -49,17 +47,17 @@ MonoBehaviour:
         <Outcomes>k__BackingField:
         - <Value>k__BackingField: 1
           <NodeID>k__BackingField: e7b85cae-71cf-4a5d-8646-e5b84c1e22dd
-    - rid: 2681857438448353549
+    - rid: 2681857438448353555
       type: {class: AnimChangeNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: AnimChange_1
         <ID>k__BackingField: 2fb0205b-f645-4514-bad1-2fb8cbf7474c
-        <NextNodeID>k__BackingField: 121d7605-1908-44f5-bcbc-00a3901cfa96
+        <NextNodeID>k__BackingField: 
         <GroupID>k__BackingField: 
         <Position>k__BackingField: {x: 1298.3999, y: 280.8}
         <Description>k__BackingField: Description
         <AnimName>k__BackingField: UseLockPick
-    - rid: 2681857438448353550
+    - rid: 2681857438448353556
       type: {class: TeleportNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
       data:
         <NodeName>k__BackingField: Teleport_2
@@ -69,23 +67,3 @@ MonoBehaviour:
         <Position>k__BackingField: {x: 770.4, y: 280.8}
         <Description>k__BackingField: Description
         <Location>k__BackingField: {fileID: 11400000, guid: f3c923f1e66dade4cb383c62c6c6b6a7, type: 2}
-    - rid: 2681857438448353551
-      type: {class: TeleportNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
-      data:
-        <NodeName>k__BackingField: Teleport_1
-        <ID>k__BackingField: 121d7605-1908-44f5-bcbc-00a3901cfa96
-        <NextNodeID>k__BackingField: 15a60804-7e98-4b4e-8d2e-9a6d12e983f4
-        <GroupID>k__BackingField: 
-        <Position>k__BackingField: {x: 1584.7999, y: 280.8}
-        <Description>k__BackingField: Description
-        <Location>k__BackingField: {fileID: 11400000, guid: aaa6777e3ce0cf340be9eeea9ae08647, type: 2}
-    - rid: 2681857438448353552
-      type: {class: TeleportNodeSave, ns: GraphEditor.Saves, asm: Assembly-CSharp}
-      data:
-        <NodeName>k__BackingField: Teleport_3
-        <ID>k__BackingField: 15a60804-7e98-4b4e-8d2e-9a6d12e983f4
-        <NextNodeID>k__BackingField: 
-        <GroupID>k__BackingField: 
-        <Position>k__BackingField: {x: 2115.2, y: 278.4}
-        <Description>k__BackingField: Description
-        <Location>k__BackingField: {fileID: 11400000, guid: 879b428bd1f262549b161e7f0888a983, type: 2}
