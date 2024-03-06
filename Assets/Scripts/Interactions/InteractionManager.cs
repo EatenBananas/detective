@@ -52,8 +52,11 @@ namespace Interactions
         
         public void Enter(Interactable interactable)
         {
-            _interactable = interactable;
-            UIManager.Instance.ShowInteractableText(_interactable.Text);
+            if (_interaction == null)
+            {
+                _interactable = interactable;
+                UIManager.Instance.ShowInteractableText(_interactable.Text);
+            }
         }
 
         public void Exit()

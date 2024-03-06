@@ -120,22 +120,7 @@ namespace SceneObjects
 
         public void PlayAnim(string animName)
         {
-            Debug.Log(animName);
             _playerMovement.Movement.Animator.Play(animName);
-            StartCoroutine(AnimLoop(_playerMovement.Movement.Animator, animName));
-            
-        }
-
-        private IEnumerator AnimLoop(Animator animator, string animName)
-        {
-            Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
-            while (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == (animName))
-            {
-                yield return null;
-            }
-            Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
-            
-            //InteractionManager.Instance.CompleteElement();
         }
         
     }
